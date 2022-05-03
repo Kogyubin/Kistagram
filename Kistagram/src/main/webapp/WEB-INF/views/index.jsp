@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 
 <head>
   <meta charset="utf-8">
-  <title>MyPortfolio</title>
+  <title>Kistagram</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -71,31 +73,44 @@
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">MyPortfolio.</a>
+      <a class="navbar-brand" href="index.html">Kistagram.</a>
 
-      <a href="#" class="burger" data-toggle="collapse" data-target="#main-navbar">
-        <span></span>
-      </a>
+
 
     </div>
   </nav>
 
   <main id="main">
-
+	
     <div class="site-section site-portfolio">
+    	          
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Hey, I'm Johan Stanworth</h2>
+
+
+		<div class="box">
+		    <img class="profile" src="resources/img/profile.jpg" alt="Image">
+		</div>
+
+			<div class="state">
+            <h2>Yumvely</h2>
             <p class="mb-0">Freelance Creative &amp; Professional Graphics Designer</p>
+            <div class="follower">
+            <p class="mb-0">팔로워   6514</p> 
+            </div>
+            <div class="follow">
+            <p class="mb-0">팔로우   0</p>
+            </div>
+            </div>
           </div>
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
             <div id="filters" class="filters">
               <a href="#" data-filter="*" class="active">All</a>
-              <a href="#" data-filter=".web">Web</a>
-              <a href="#" data-filter=".design">Design</a>
-              <a href="#" data-filter=".branding">Branding</a>
-              <a href="#" data-filter=".photography">Photography</a>
+              <a href="#" data-filter=".web">Profile</a>
+              <a href="#" data-filter=".design">Write</a>
+              <a href="#" data-filter=".branding">Follow</a>
+              <a href="#" data-filter=".photography"></a>
             </div>
           </div>
         </div>
@@ -253,37 +268,8 @@
       </div>
     </div>
 
-    <div class="site-section pt-0">
-      <div class="container">
-
-        <div class="owl-carousel testimonial-carousel">
-
-          <div class="testimonial-wrap">
-            <div class="testimonial">
-              <img src="resources/img/person_1.jpg" alt="Image" class="img-fluid">
-              <blockquote>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
-                  explicabo inventore.</p>
-              </blockquote>
-              <p>&mdash; Jean Hicks</p>
-            </div>
-          </div>
-
-          <div class="testimonial-wrap">
-            <div class="testimonial">
-              <img src="resources/img/person_2.jpg" alt="Image" class="img-fluid">
-              <blockquote>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
-                  explicabo inventore.</p>
-              </blockquote>
-              <p>&mdash; Chris Stanworth</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
+    
+ 
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">
