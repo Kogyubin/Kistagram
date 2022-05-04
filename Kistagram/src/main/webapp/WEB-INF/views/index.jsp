@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="./include/header.jsp" %>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -36,6 +37,7 @@
     Author: BootstrapMade.com
     Author URL: https://bootstrapmade.com/
   ======================================================= -->
+  
 </head>
 
 <body>
@@ -108,12 +110,16 @@
             <div id="filters" class="filters">
               <a href="#" data-filter="*" class="active">All</a>
               <a href="#" data-filter=".web">Profile</a>
-              <a href="#" data-filter=".design">Write</a>
+<%--               <a href="${path }/write">Write</a> --%>
               <a href="#" data-filter=".branding">Follow</a>
               <a href="#" data-filter=".photography"></a>
             </div>
           </div>
+          <div>
+           <a href="${path }/write">Write</a>
+          </div>
         </div>
+        
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
             <a href="resources/work-single.html" class="item-wrap fancybox">
