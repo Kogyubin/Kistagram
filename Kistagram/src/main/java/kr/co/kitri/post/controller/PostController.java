@@ -9,13 +9,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class PostController {
-	
+
 	@RequestMapping("write-action")
 	public String writeAction(MultipartHttpServletRequest multiPart,
 			HttpSession session, Model model) {
-		
-		
+
+
 		return "index";
 	}
-	
+
 }

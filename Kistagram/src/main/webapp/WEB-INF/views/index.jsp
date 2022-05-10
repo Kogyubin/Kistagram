@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="./include/header.jsp" %>
+<%@include file="./include/modal.jsp" %>
 <!DOCTYPE html>
-<html lang="kr">
 
 <head>
   <meta charset="utf-8">
@@ -10,6 +10,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
+<!--   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+  <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  
 
   <!-- Favicons -->
   <link href="resources/img/favicon.png" rel="icon">
@@ -37,7 +41,160 @@
     Author: BootstrapMade.com
     Author URL: https://bootstrapmade.com/
   ======================================================= -->
-  
+ 
+ <script>
+ 
+ 	var action = '';
+	var url = '';
+	var type = '';
+	
+
+	
+$(document).ready(function() {
+ 
+	//write 버튼 클릭	
+	$("#writeBtn").click(function() {
+		
+		action = 'create';
+		type = 'post',
+		
+		$("#modal-title").text("Write");
+		$("#id").val("");
+		$("#id").attr("readonly",false);
+		$("#content").val("");
+		
+		$("#myLargeModal").modal();
+
+	});
+	
+	
+	//이미지 미리보기
+	 $('#image').on('change', function() {
+        
+        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+        
+        //배열에 추출한 확장자가 존재하는지 체크
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+            resetFormElement($(this)); //폼 초기화
+            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        } else {
+            file = $('#image').prop("files")[0];
+            blobURL = window.URL.createObjectURL(file);
+            $('#image_preview img').attr('src', blobURL);
+            $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+            $(this).slideUp(); //파일 양식 감춤
+        }
+    });
+
+    /**
+    onclick event handler for the delete button.
+    It removes the image, clears and unhides the file input field.
+    */
+    $('#image_preview a').bind('click', function() {
+        resetFormElement($('#image')); //전달한 양식 초기화
+        $('#image').slideDown(); //파일 양식 보여줌
+        $(this).parent().slideUp(); //미리 보기 영역 감춤
+        return false; //기본 이벤트 막음
+    });
+        
+
+    /** 
+    * 폼요소 초기화 
+    * Reset form element
+    * 
+    * @param e jQuery object
+    */
+    function resetFormElement(e) {
+        e.wrap('<form>').closest('form').get(0).reset(); 
+        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
+        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+        //DOM에서 제공하는 초기화 메서드 reset()을 호출
+        e.unwrap(); //감싼 <form> 태그를 제거
+    }
+
+	//Modal의 submit 버튼 클릭
+// 	$("#modalSubmit").click(function() {
+		
+// 		if (action == 'create') {
+// 			url = '${path}/write-action';
+// 		} else if (action == 'modify') {
+// 			url = '${path}/write-update';
+// 		}
+
+// 		var data = {
+// 			id : $("#id").val(),
+// 			content : $("#content").val()
+			
+// 		};
+
+// 		console.log(data);
+
+// 		$.ajax({
+// 			url : url,
+// 			type : type,
+// 			processData : false,
+// 			contentType : false,
+// 			data : data
+// 		}).done(function(result) {
+
+
+
+	$("#modalSubmit").click(function() {
+		
+		var form = $('#write-form')[0];
+		var formData = new FormData();
+		
+		var inputFile = $("input[name='uploadfile']");
+		var files = inputFile[0].files;
+		
+		
+		console.log(files);
+		
+		//파일 formData에 추가
+	
+		for(var i=0; i< files.length; i++){
+			formData.append('uploadfiles', files[i]);
+			
+			}
+		
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',
+			url: '${path}/write-action',
+			processData: false,
+			contentType: false,
+			data: formData,
+			
+			success: function(result){
+				if (action == 'create') {
+					if (result) {
+						alert("등록에 성공하였습니다.");
+					} else {
+						alert("오류가 발생하였습니다. 다시 등록해주세요");
+					}
+				} else if (action == 'modify') {
+					if (result) {
+						alert("수정에 성공하였습니다.");
+					} else {
+						alert("수정에 실패하였습니다.");
+					}
+				}
+				
+				
+				$("#myLargeModal").modal('toggle');
+			}
+			
+		});
+		
+	});
+		
+	});
+	
+	
+ 	
+	
+ 
+ </script>
 </head>
 
 <body>
@@ -116,7 +273,8 @@
             </div>
           </div>
           <div>
-           <a href="${path }/write">Write</a>
+           <button id="writeBtn" type="button" class="btn btn-info btn-sm"
+			data-toggle="modal">Write</button>
           </div>
         </div>
         
@@ -129,6 +287,7 @@
               </div>
               <img class="img-fluid" src="resources/img/img_1.jpg">
             </a>
+           
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
             <a href="resources/work-single.html" class="item-wrap fancybox">
@@ -172,13 +331,14 @@
                 <h3>Amazon</h3>
                 <span>brandingn</span>
               </div>
+              
               <img class="img-fluid" src="resources/img/img_6.jpg">
             </a>
           </div>
         </div>
       </div>
     </div>
-
+	
     <div class="site-section">
       <div class="container">
         <div class="row justify-content-center text-center mb-4">
@@ -273,9 +433,50 @@
         </div>
       </div>
     </div>
-
+<!-- 게시글 작성 -->
     
- 
+ 	<!-- Modal -->
+	<div class="modal fade" id="myLargeModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+		 <div class="modal-dialog modal-lg" role="document">
+
+			<!-- Modal content-->
+			
+			<div class="modal-content">
+			
+				<div class="modal-header">
+				<h5 class="modal-title" id="historyModalLabel">새 게시물 만들기</h5>
+					<button type="button" id="closeX" class="close"
+						data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body" id="myModalBody">
+						<form action="write-action" id="write-form" method="post" enctype="multipart/form-data">
+						      <div style="float:right;">
+						      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+							  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+							  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+								</svg> <input type="text" id="id" name="id" value="${session_id.id }">
+						      <div>
+						      <textarea rows="6" cols="50" name="content" placeholder="문구입력"></textarea>
+						      </div>
+						      </div>
+						      <div>
+					        <input type="file" name="uploadfile" id="image" multiple="multiple"/>
+						    <div id="image_preview" style="flot:left;">
+						        <img src="#" />
+						        <br />
+					        <a href="#">Remove</a>
+					    	</div>
+						 </div>
+						</form>
+				</div>
+				<div class="modal-footer">
+					<button id="modalSubmit" type="button" class="btn btn-success">공유하기</button>
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">
