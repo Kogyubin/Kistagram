@@ -234,7 +234,21 @@ $(document).ready(function() {
     <div class="container">
       <a class="navbar-brand" href="index.html">Kistagram.</a>
 
-
+	<span class='green_window'>
+<input id=text type="text" class='input_text' name="search" onkeydown="enterSearch()"/></span>
+<input type="button" class='sch_smit' value="검색" onclick="myFunction()"/>
+<!-- JAVASCRIPT -->
+<script type="text/javascript">
+function enterSearch() {
+    if(event.keyCode == 13){
+        myFunction();  // 실행할 이벤트
+    }
+}
+function myFunction() {
+    var x = document.getElementById("text").value;
+    window.location.href = "http://cybertramp.net/search/"+x;
+}
+</script>
 
     </div>
   </nav>
@@ -265,16 +279,14 @@ $(document).ready(function() {
           </div>
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
             <div id="filters" class="filters">
-              <a href="#" data-filter="*" class="active">All</a>
-              <a href="#" data-filter=".web">Profile</a>
-<%--               <a href="${path }/write">Write</a> --%>
+              <a href="${path }/main" data-filter="*" class="active">All</a>
+              <a href="${path }/profile" >Profile</a>
+               <a id="writeBtn" data-toggle="modal" class="write">Write</a>
               <a href="#" data-filter=".branding">Follow</a>
-              <a href="#" data-filter=".photography"></a>
             </div>
           </div>
           <div>
-           <button id="writeBtn" type="button" class="btn btn-info btn-sm"
-			data-toggle="modal">Write</button>
+           
           </div>
         </div>
         
@@ -339,37 +351,7 @@ $(document).ready(function() {
       </div>
     </div>
 	
-    <div class="site-section">
-      <div class="container">
-        <div class="row justify-content-center text-center mb-4">
-          <div class="col-5">
-            <h3 class="h3 heading">My Clients</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit explicabo inventore.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-4 col-sm-4 col-md-2">
-            <a href="#" class="client-logo"><img src="resources/img/logo-adobe.png" alt="Image" class="img-fluid"></a>
-          </div>
-          <div class="col-4 col-sm-4 col-md-2">
-            <a href="#" class="client-logo"><img src="resources/img/logo-uber.png" alt="Image" class="img-fluid"></a>
-          </div>
-          <div class="col-4 col-sm-4 col-md-2">
-            <a href="#" class="client-logo"><img src="resources/img/logo-apple.png" alt="Image" class="img-fluid"></a>
-          </div>
-          <div class="col-4 col-sm-4 col-md-2">
-            <a href="#" class="client-logo"><img src="resources/img/logo-netflix.png" alt="Image" class="img-fluid"></a>
-          </div>
-          <div class="col-4 col-sm-4 col-md-2">
-            <a href="#" class="client-logo"><img src="resources/img/logo-nike.png" alt="Image" class="img-fluid"></a>
-          </div>
-          <div class="col-4 col-sm-4 col-md-2">
-            <a href="#" class="client-logo"><img src="resources/img/logo-google.png" alt="Image" class="img-fluid"></a>
-          </div>
-
-        </div>
-      </div>
-    </div>
+    
 
 
     <div class="site-section">
