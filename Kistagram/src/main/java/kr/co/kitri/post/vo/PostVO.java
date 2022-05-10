@@ -10,7 +10,7 @@ public class PostVO {
 	private String img_no;
 	private int likes;
 	private String del_flag;
-	
+
 	public int getPost_no() {
 		return post_no;
 	}

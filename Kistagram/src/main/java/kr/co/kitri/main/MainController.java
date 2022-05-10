@@ -1,7 +1,5 @@
 package kr.co.kitri.main;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -16,23 +14,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class MainController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(Locale locale, Model model) {
 
-		
+
 		return "index";
 	}
-	
+
 	@RequestMapping("/write")
 	public String write() {
 		return "post/write";
 	}
-	
-	
+
+
 }
