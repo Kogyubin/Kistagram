@@ -1,3 +1,4 @@
+
 /*
 * Template Name: MyPortfolio
 * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
@@ -7,6 +8,7 @@
 (function ($) {
   "use strict";
 
+  
   var burgerMenu = function() {
 	  $('.burger').click(function(e) {
 	  	$(window).scrollTop(0);
@@ -32,13 +34,7 @@
 	  
 	  $container.isotope({ filter: '*' });
 
-	  $('#filters').on( 'click', 'a', function(e) {
-	  	e.preventDefault();
-	    var filterValue = $(this).attr('data-filter');
-	    $container.isotope({ filter: filterValue });
-	    $('#filters a').removeClass('active');
-	    $(this).addClass('active');
-	  });
+	 
   }
   $(window).on('load', function () {
     siteIstotope();

@@ -73,7 +73,7 @@ public class PostServiceImpl implements PostService {
 	@Transactional(rollbackFor=Exception.class)
 	public boolean writePostImg(PostVO pvo, List<MultipartFile> fileList) {
 		
-		String upLoadPath = "C:\\사용자\\kitri\\git\\Kistagram\\src\\main\\webapp\\resources\\uploadfolder";
+		String upLoadPath = "C:\\Users\\kitri\\git\\Kistagram\\Kistagram\\src\\main\\webapp\\resources\\uploadfolder";
 		
 		//upload경로
 		File folder = new File(upLoadPath+File.separator+pvo.getId());

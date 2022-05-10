@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 		INSERT INTO post
 		(post_no, regdate, id, content, likes, del_flag)
-		VALUES (post_post_no_seq.nextval, sysdate, #{id}, #{content}, 0, N)
+		VALUES (post_post_no_seq.nextval, sysdate, #{id}, #{content}, 0, 'N')
 	</insert>
 	
 	<select id="selectPostJoinImgs" resultType="postimg">
