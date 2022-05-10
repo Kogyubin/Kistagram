@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<insert id="insertPost" parameterType="post">
+	
+		INSERT INTO post
+		(post_no, regdate, id, content, likes, del_flag)
+		VALUES (post_post_no_seq.nextval, sysdate, #{id}, #{content}, 0, N)
+	</insert>
+	
+	<select id="selectPostJoinImgs" resultType="postimg">
+		SELECT * 
+		FROM post p, img i
+		WHERE p.post_no = i.post_no
+		AND i.img_no IN 
+				       (SELECT MIN(img_no) FROM img
+				       GROUP BY post_no) 
+		ORDER BY p.post_no DESC
+	</select>
+	
+	
+
+</mapper>
+	
