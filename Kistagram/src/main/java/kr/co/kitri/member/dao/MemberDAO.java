@@ -8,4 +8,5 @@ public interface MemberDAO {
 	public int selectIdofMember(String id); //id 조회
 	public int insertMember(MemberVO mvo); //등록
 
+
 }

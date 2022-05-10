@@ -41,7 +41,7 @@
     Author: BootstrapMade.com
     Author URL: https://bootstrapmade.com/
   ======================================================= -->
-
+ 
  <script>
  
  	var action = '';
@@ -195,7 +195,7 @@ $(document).ready(function() {
 	
  
  </script>
-
+</head>
 
 <body>
 

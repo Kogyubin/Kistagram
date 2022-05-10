@@ -8,8 +8,8 @@
 		INSERT INTO member 
 		VALUES(#{id}, #{name}, #{pw}, #{phone}, null)
 	
-	
 	</insert>
+
 	<select id="selectIdofMember" parameterType="string" resultType="int">
 		SELECT COUNT(*) 
 		FROM member 

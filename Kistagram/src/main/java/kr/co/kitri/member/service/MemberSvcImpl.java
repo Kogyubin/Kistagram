@@ -29,34 +29,34 @@ public class MemberSvcImpl implements MemberSvc {
 		return flag;
 	}
 
-	@Override
-	public boolean idCheck(String id) {
-		mdao.selectIdofMember(id);
-		int result = mdao.selectIdofMember(id);
-		if(result==0) {
-			return true;
-		}else {
-			return false;
-		}
-		
-		
-		
-	}
-	
-	@Override
-	public boolean signUp(MemberVO mvo) {
-		
-		int result = mdao.insertMember(mvo);
-		boolean flag = false;
-		
-		if(result==0) {
-			flag= false;
-		}else {
-			flag= true;
-		}
-		
-		return flag;
-	}
+//	@Override
+//	public boolean idCheck(String id) {
+//		mdao.selectIdofMember(id);
+//		int result = mdao.selectIdofMember(id);
+//		if(result==0) {
+//			return true;
+//		}else {
+//			return false;
+//		}
+//		
+//		
+//		
+//	}
+//	
+//	@Override
+//	public boolean signUp(MemberVO mvo) {
+//		
+//		int result = mdao.insertMember(mvo);
+//		boolean flag = false;
+//		
+//		if(result==0) {
+//			flag= false;
+//		}else {
+//			flag= true;
+//		}
+//		
+//		return flag;
+//	}
 	
 
 }

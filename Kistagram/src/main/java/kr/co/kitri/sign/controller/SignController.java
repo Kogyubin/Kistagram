@@ -70,52 +70,43 @@ public class SignController {
 		return "redirect:/";
 	}
 	
-	/**
-	 * 회원가입.
-	 */
-	@RequestMapping("/sign-up") 
-	public String signUp() {
-
-		return "member/sign-up";
-	}
-	
-	
-	
-	
-	
-	@RequestMapping("/sign-up-ok") 
-	public String signUpok(MemberVO mvo, Model model) {
-		boolean flag = msvc.signUp(mvo);
-		
-		if(flag) {
-			model.addAttribute("msg","가입에 성공하였습니다.");
-		} else {
-			model.addAttribute("msg","가입에 실패하였습니다.");
-		}
-		
-		return "member/sign-up-ok";
-	}
-	
-	
-	/**
-	 * 중복체크.
-	 */
-	
-	
-	@RequestMapping("/id-check")
-	public void idCheck(String id, HttpServletResponse res) {
-
-		boolean flag = msvc.idCheck(id);
-		System.out.println("아이디 존재여부 : "+flag);
-		
-		try {
-			PrintWriter out = res.getWriter();
-			out.print(flag);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-	}
+//	/**
+//	 * 회원가입.
+//	 */
+//	
+//	@RequestMapping("/sign-up") 
+//	public String signUp(MemberVO mvo, Model model) {
+//		boolean flag = msvc.signUp(mvo);
+//		
+//		if(flag) {
+//			model.addAttribute("msg","가입에 성공하였습니다.");
+//		} else {
+//			model.addAttribute("msg","가입에 실패하였습니다.");
+//		}
+//		
+//		return "member/sign-up-ok";
+//	}
+//	
+//	
+//	/**
+//	 * 중복체크.
+//	 */
+//	
+//	
+//	@RequestMapping("/id-check")
+//	public void idCheck(String id, HttpServletResponse res) {
+//
+//		boolean flag = msvc.idCheck(id);
+//		System.out.println("아이디 존재여부 : "+flag);
+//		
+//		try {
+//			PrintWriter out = res.getWriter();
+//			out.print(flag);
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	
+//	}
 }
