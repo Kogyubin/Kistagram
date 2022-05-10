@@ -263,6 +263,7 @@ function myFunction() {
 
 
 		<div class="box">
+		    
 		    <img class="profile" src="resources/img/profile.jpg" alt="Image">
 		</div>
 
