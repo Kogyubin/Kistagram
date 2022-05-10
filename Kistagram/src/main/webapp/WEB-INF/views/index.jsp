@@ -41,14 +41,13 @@
     Author: BootstrapMade.com
     Author URL: https://bootstrapmade.com/
   ======================================================= -->
- 
+
  <script>
  
  	var action = '';
 	var url = '';
 	var type = '';
 	
-
 	
 $(document).ready(function() {
  
@@ -59,9 +58,10 @@ $(document).ready(function() {
 		type = 'post',
 		
 		$("#modal-title").text("Write");
-		$("#id").val("");
-		$("#id").attr("readonly",false);
+		$("#id").val("${session_id}");
+		$("#id").attr("readonly",true);
 		$("#content").val("");
+		
 		
 		$("#myLargeModal").modal();
 
@@ -195,7 +195,7 @@ $(document).ready(function() {
 	
  
  </script>
-</head>
+
 
 <body>
 
