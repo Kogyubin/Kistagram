@@ -34,5 +34,6 @@ public class ProfileController {
 		return "profile/profile";
 	}
 
+	
 
 }
