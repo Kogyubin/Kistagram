@@ -27,12 +27,12 @@ public class MemberDAOImpl implements MemberDAO {
 //		
 //	}
 //	
-//	@Override
-//	public int selectIdofMember(String id) {
-//		
-//		return sqlSession.selectOne("member.selectIdofMember", id);
-//		
-//	}
+	@Override
+	public int selectIdofMember(String id) {
+		
+		return sqlSession.selectOne("member.selectIdofMember", id);
+		
+	}
 
 
 }
