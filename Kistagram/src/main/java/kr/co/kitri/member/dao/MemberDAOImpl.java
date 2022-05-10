@@ -20,19 +20,19 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("member.selectSigninMember", mvo);
 	}
 
-//	@Override
-//	public int insertMember(MemberVO mvo) {
-//
-//		return sqlSession.insert("member.insertMember", mvo);
-//		
-//	}
-//	
-//	@Override
-//	public int selectIdofMember(String id) {
-//		
-//		return sqlSession.selectOne("member.selectIdofMember", id);
-//		
-//	}
+	@Override
+	public int insertMember(MemberVO mvo) {
+
+		return sqlSession.insert("member.insertMember", mvo);
+		
+	}
+	
+	@Override
+	public int selectIdofMember(String id) {
+		
+		return sqlSession.selectOne("member.selectIdofMember", id);
+		
+	}
 
 
 }
