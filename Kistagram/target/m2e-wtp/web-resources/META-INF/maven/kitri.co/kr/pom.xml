@@ -15,7 +15,7 @@
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-	
+
 <!--lang3 -->	
     <dependency>
         <groupId>org.apache.commons</groupId>
