@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,17 @@ public class MainController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Locale locale, Model model) {
+	public String main(Locale locale, HttpSession session, Model model) {
 
-		
+		String session_id = (String)session.getAttribute("session_id");
+		if (session_id == null) {
+			return "member/sign-in";
+		}
 		List<PostImgVO> pilist = pservice.getPostImgs();
+		
+		System.out.println(session_id);
+		
+		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
 		
 
