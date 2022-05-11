@@ -17,7 +17,7 @@ body {
   padding: 10px;
 }
 
-.main-content {
+.main-content-pro {
   width: 450px;
 /*   height: 40%; */
   margin: 10px auto;
@@ -113,7 +113,7 @@ input:focus {
 
 
 
-.center {
+.center-pro {
 	position: relative;
 	top: 70px;
 
