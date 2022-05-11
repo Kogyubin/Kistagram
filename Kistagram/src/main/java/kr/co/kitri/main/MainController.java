@@ -60,7 +60,14 @@ public class MainController {
 		return "index";
 	}
 
-
+	@RequestMapping("/detail")
+	@ResponseBody
+	public PostVO detail(int post_no) {
+		
+		PostVO pvo = pservice.getPost(post_no);
+	
+		return pvo;
+	}
 
 	
 	@RequestMapping("/write-action")

@@ -8,10 +8,11 @@ import kr.co.kitri.post.vo.PostVO;
 
 public interface PostDAO {
 	
+	public List<PostVO> selectPosts();
 	public int insertPost(PostVO pvo);
 	public int updatePost(PostVO pvo);
 	public int deletePost(int post_no);
-	public List<PostImgVO> selectPostJoinImg();
-	public PostVO selectImgBoard(int post_no);
+	public List<PostImgVO> selectPostJoinImgs();
+	public PostVO selectPost(int post_no);
 
 }

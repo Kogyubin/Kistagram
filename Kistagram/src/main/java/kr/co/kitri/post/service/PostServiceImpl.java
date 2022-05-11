@@ -65,8 +65,8 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<PostImgVO> getPostImgs() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return pdao.selectPostJoinImgs();
 	}
 	
 	@Override
