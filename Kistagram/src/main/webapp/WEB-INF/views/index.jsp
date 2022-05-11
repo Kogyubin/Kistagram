@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
 <%@include file="./include/header.jsp" %>
 <%@include file="./include/modal.jsp" %>
 <!DOCTYPE html>
@@ -11,9 +13,8 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 <!--   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
-  <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
-  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
   <!-- Favicons -->
   <link href="resources/img/favicon.png" rel="icon">
@@ -33,7 +34,7 @@
   <link href="resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="resources/css/style.css" rel="stylesheet">
+  
 
   <!-- =======================================================
     Template Name: MyPortfolio
