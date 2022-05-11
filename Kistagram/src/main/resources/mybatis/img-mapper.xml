@@ -4,20 +4,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="img">
-<!-- 	<resultMap type="img" id="resultMapimg"> -->
-<!-- 		<result property="img_no" column="img_no" /> -->
-<!-- 		<result property="post_no" column="post_no" /> -->
-<!-- 		<result property="img_path" column="img_path" /> -->
-<!-- 		<result property="img_name" column="img_name" /> -->
-<!-- 		<result property="ori_img_name" column="ori_img_name" /> -->
-<!-- 		<result property="del_flag" column="del_flag" /> -->
-<!-- 	</resultMap>	 -->
+	<resultMap type="img" id="resultMapimg">
+		<result property="img_no" column="img_no" />
+		<result property="post_no" column="post_no" />
+		<result property="img_path" column="img_path" />
+		<result property="img_name" column="img_name" />
+		<result property="ori_img_name" column="ori_img_name" />
+		<result property="del_flag" column="del_flag" />
+	</resultMap>	
 	<insert id="insertImg" parameterType="img">
 	
 		INSERT INTO img
-		(img_no, img_path, img_name, ori_img_name, del_flag)
-		VALUES (img_img_no_seq.nextval, (SELECT MAX(no) FROM img_board), #{filepath}, #{filename}, #{orifilename}))
+		(img_no, post_no, img_path, img_name, ori_img_name, del_flag)
+		VALUES (img_img_no_seq.nextval, (SELECT MAX(post_no) FROM post), #{img_path}, #{img_name}, #{ori_img_name}, 'N')
 	</insert>
-
+	
+	<select id="selectImgs" resultMap="resultMapimg" >
+		SELECT * FROM img
+		WHERE img_no IN ( SELECT MIN(img_no) 
+					    FROM img
+					    GROUP BY post_no) 
+		ORDER BY img_no
+	</select>
 </mapper>
 	

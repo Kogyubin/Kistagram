@@ -14,6 +14,11 @@ public class PostDAOImpl implements PostDAO {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Override
+	public List<PostVO> selectPosts() {
+		return sqlSession.selectList("post.selectPosts");
+	}
 
 	@Override
 	public int insertPost(PostVO pvo) {
@@ -33,15 +38,14 @@ public class PostDAOImpl implements PostDAO {
 	}
 
 	@Override
-	public List<PostImgVO> selectPostJoinImg() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PostImgVO> selectPostJoinImgs() {
+		return sqlSession.selectList("post.selectPostJoinImgs");
 	}
 
 	@Override
-	public PostVO selectImgBoard(int post_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public PostVO selectPost(int post_no) {
+		return sqlSession.selectOne("post.selectPost", post_no);
 	}
+
 
 }

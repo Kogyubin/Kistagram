@@ -29,7 +29,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<PostVO> getPosts() {
 		// TODO Auto-generated method stub
-		return null;
+		return pdao.selectPosts();
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<PostImgVO> getPostImgs() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return pdao.selectPostJoinImgs();
 	}
 	
 	@Override
@@ -92,6 +92,7 @@ public class PostServiceImpl implements PostService {
 		for(MultipartFile mf : fileList) {
 			
 			String oriFileName = mf.getOriginalFilename();//업로드 할때 진짜 파일 이름
+			long fileSize = mf.getSize();
 			//a_20220222.txt
 			
 			if(oriFileName.equals("")) {
@@ -102,7 +103,13 @@ public class PostServiceImpl implements PostService {
 			String end = oriFileName.substring(oriFileName.lastIndexOf("."), oriFileName.length());
 			
 			String safeFileName = fileName +"_" + millisDate + end;
-			System.out.println("변경된 파일 명 : "+safeFileName);
+			
+			System.out.println("uploadPath : " + upLoadPath);
+            
+            System.out.println("originFilename : " + oriFileName);
+            System.out.println("size : " + fileSize);
+            System.out.println("saveFileName : " + fileName);
+			
 			
 			File upLoadFile = null;
 			try {

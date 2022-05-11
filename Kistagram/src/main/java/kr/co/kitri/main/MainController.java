@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.kitri.img.service.ImgService;
+import kr.co.kitri.img.vo.ImgVO;
 import kr.co.kitri.post.service.PostService;
 import kr.co.kitri.post.vo.PostImgVO;
 import kr.co.kitri.post.vo.PostVO;
@@ -49,9 +49,8 @@ public class MainController {
 		if (session_id == null) {
 			return "member/sign-in";
 		}
-		List<PostImgVO> pilist = pservice.getPostImgs();
 		
-		System.out.println(session_id);
+		List<PostImgVO> pilist = pservice.getPostImgs();
 		
 		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
@@ -59,8 +58,15 @@ public class MainController {
 
 		return "index";
 	}
-
-
+	
+	@RequestMapping("/detail")
+	@ResponseBody
+	public PostVO detail(int post_no) {
+		
+		PostVO pvo = pservice.getPost(post_no);
+	
+		return pvo;
+	}
 
 	
 	@RequestMapping("/write-action")
