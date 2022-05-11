@@ -2,6 +2,7 @@ package kr.co.kitri.sign.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.kitri.member.service.MemberSvc;
@@ -29,15 +31,29 @@ public class SignController {
      * 로그인화면.
      */
 	@RequestMapping("/")
-	public String singIn() {
-
-		return "member/sign-in";
+	public String redirectSignIn(HttpSession session) {
+		String session_id = (String)session.getAttribute("session_id");
+		if (session_id == null) {
+			return "redirect:/sign-in";
+		} else {
+			return "redirect:/main";
+		}
+	}
+	
+	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+	public String signInPage(HttpSession session) {
+		String session_id = (String)session.getAttribute("session_id");
+		if (session_id == null) {
+			return "member/sign-in";
+		} else {
+			return "redirect:/main";
+		}
 	}
 
 	 /**
      * 로그인처리.
      */
-	@RequestMapping("/sign-in")
+	@RequestMapping(value = "/sign-in", method = RequestMethod.POST)
 	public String signIn(@RequestParam("username") String id, @RequestParam("password") String pw, Model model, HttpSession session) {
 
 		MemberVO mvo = new MemberVO();
@@ -67,7 +83,7 @@ public class SignController {
 			session.removeAttribute("session_id");
 		}
 		
-		return "redirect:/";
+		return "redirect:/sign-in";
 	}
 	
 	/**
