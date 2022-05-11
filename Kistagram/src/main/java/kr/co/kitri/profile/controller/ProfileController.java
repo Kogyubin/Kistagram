@@ -16,9 +16,6 @@ import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
 
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class ProfileController {
 

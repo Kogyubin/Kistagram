@@ -616,6 +616,15 @@ h6,
 
 }
 
+
+
+.navimenu {
+	position: relative;
+	left: 650px;
+	top: 220px;
+	
+}
+
 .img-list {
 list-style: none;
 padding: 0;
@@ -633,3 +642,4 @@ cursor: pointer;
 max-width: 100%;
 vertical-align: middle;
 }
+

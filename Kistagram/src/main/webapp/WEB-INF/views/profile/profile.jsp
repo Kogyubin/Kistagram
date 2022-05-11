@@ -1,47 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@include file="../include/header.jsp" %>  
+     <%@include file="../include/modal.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Overpass+Mono" rel="stylesheet">
-<link href="resources/css/sign-up.css" rel="stylesheet">
+<link href="resources/css/profile.css" rel="stylesheet">
+
+<script> function setThumbnail(event) { 
+	var reader = new FileReader(); 
+	
+	reader.onload = function(event) { 
+		var img = document.createElement("img"); 
+		img.setAttribute("src", event.target.result); 
+		document.querySelector("div#image_container").appendChild(img); 
+	}; 
+		reader.readAsDataURL(event.target.files[0]); 
+	} 
+</script>
+
 
 
 </head>
 <body>
-
+<%@include file="../include/navigation.jsp"%>
 <div class="center">
 <div id="wrapper1">
   <div class="main-content">
     <div class="header">
-      <img src="resources/img/kistagram.PNG" />
+
     </div>
     <div class="l-part">
-    	<form class="form-signup" action="" method="post" name="form-signup">
-    	<input type="hidden" name="idcheck" id="idcheck">
-	      <input type="text" id="id" name="id" placeholder="Username" class="input-1" /> 
-	       <button class="btn-idcheck">Check</button>	      
+    	
+    	<div class="profile0">
+	    	<div class="profile1">
+		    	<button class="btn-profile" onclick="onclick=document.all.file.click()" title="프로필 사진 추가">
+		    		<img alt="프로필 사진 추가" class= "profile2" 
+		    		src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+		    	</button>
+			</div>	 
+		</div>
+				<button type="button" class="btn-photo" onclick="onclick=document.all.file.click()" >프로필 사진 바꾸기</button>
+					<form action="upload" id="uploadForm" method="post" enctype="multipart/form-data">
+						<input type="file" name="file" id="file" />
+					</form>
+		<form class="form-profile" action="" method="post" name="form-profile">
+	      	<input type="text" id="id" name="id" placeholder="Username" class="input-1" />       
 	      <div class="overlap-text">	    
-	      <span id="idcheck-text" class="idcheck"></span>	      
-	        <input type="password"  id="pw" name="pw" placeholder="Password" class="input-2" />
+	    
+	      	<input type="text" id="name" name="name" placeholder="Name" class="input-1" />
 	      </div>
-	      <input type="text" id="name" name="name" placeholder="Name" class="input-1" />
 	      <div class="overlap-text">
 	        <input type="text" id="phone" name="phone" placeholder="Phone" class="input-2" />
 	      </div>
-	      <button type="button" class="btn-signup">Sign up</button>
-	     </form>
+	      <div class="intr">
+	      	<div class="introduce0">소개</div>
+		      	 <textarea type="text" id="introduce" name="introduce"  class="input-2" >
+		      	 </textarea>
+	      	<button type="button" class="btn-signup">제출</button>
+	      </div>
+	    </form>
     </div>
   </div>
-  <div class="sub-content1">
-    
-    
-    <div class="s-part">
-
-    </div>
-  </div>
+  
 </div>
 </div>
 </body>

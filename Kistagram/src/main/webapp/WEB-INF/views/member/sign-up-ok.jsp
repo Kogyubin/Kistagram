@@ -11,10 +11,9 @@
 	<script type="text/javascript">
 		alert("${msg}");
 	
-		window.location.href="${path}/sign-up"
+		window.location.href="${path}/"
 	</script>
 	
 	
-
 </body>
 </html>

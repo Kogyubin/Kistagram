@@ -40,7 +40,6 @@
 		계정이 있으신가요? <a href="/kr">  로그인</a>
     </div>
   </div>
-
 </div>
 </div>
 </body>
