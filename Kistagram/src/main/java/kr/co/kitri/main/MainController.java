@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class MainController {
 
 		String session_id = (String)session.getAttribute("session_id");
 		if (session_id == null) {
-			return "member/sign-in";
+			return "redirect:/sign-in";
 		}
 		List<PostImgVO> pilist = pservice.getPostImgs();
 		
