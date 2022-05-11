@@ -197,6 +197,20 @@ $(document).ready(function() {
  </script>
 
 
+		<script type="text/javascript">
+		function enterSearch() {
+		    if(event.keyCode == 13){
+		        myFunction();  // 실행할 이벤트
+		    }
+		}
+		function myFunction() {
+		    var x = document.getElementById("text").value;
+		    window.location.href = "http://cybertramp.net/search/"+x;
+		}
+	</script>
+
+
+
 <body>
 
   <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
@@ -232,23 +246,11 @@ $(document).ready(function() {
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">Kistagram.</a>
+      <a class="navbar-brand" href="${path }/main">Kistagram.</a>
 
 	<span class='green_window'>
-<input id=text type="text" class='input_text' name="search" onkeydown="enterSearch()"/></span>
-<input type="button" class='sch_smit' value="검색" onclick="myFunction()"/>
-<!-- JAVASCRIPT -->
-<script type="text/javascript">
-function enterSearch() {
-    if(event.keyCode == 13){
-        myFunction();  // 실행할 이벤트
-    }
-}
-function myFunction() {
-    var x = document.getElementById("text").value;
-    window.location.href = "http://cybertramp.net/search/"+x;
-}
-</script>
+		<input id=text type="text" class='input_text' name="search" onkeydown="enterSearch()"/></span>
+		<input type="button" class='sch_smit' value="검색" onclick="myFunction()"/>
 
     </div>
   </nav>
@@ -281,7 +283,7 @@ function myFunction() {
           </div>
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
             <div id="filters" class="filters">
-              <a href="${path }/main" data-filter="*" class="active">All</a>
+              <a href="${path }/main" data-filter="*" class="active">Home</a>
               <a href="${path }/profile" >Profile</a>
                <a id="writeBtn" data-toggle="modal" class="write">Write</a>
               <a href="#" data-filter=".branding">Follow</a>
