@@ -24,6 +24,12 @@ public class ImgDAOImpl implements ImgDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<ImgVO> selectImgs() {
+		
+		return sqlSession.selectList("img.selectImgs");
+	}
 
 	@Override
 	public ImgVO selectImg(int img_no) {
@@ -37,10 +43,6 @@ public class ImgDAOImpl implements ImgDAO {
 		return 0;
 	}
 
-	@Override
-	public List<ImgVO> selectImgs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

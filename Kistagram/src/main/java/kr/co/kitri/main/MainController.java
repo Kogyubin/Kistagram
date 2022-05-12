@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kr.co.kitri.comment.service.CommentService;
+import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.img.service.ImgService;
 import kr.co.kitri.post.service.PostService;
 import kr.co.kitri.post.vo.PostImgVO;
@@ -34,6 +36,8 @@ public class MainController {
 	private PostService pservice;
 	@Autowired 
 	private ImgService iservice;
+	@Autowired
+	private CommentService cservice;
 	
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -66,6 +70,21 @@ public class MainController {
 		PostVO pvo = pservice.getPost(post_no);
 	
 		return pvo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
+	public String addComment(Locale locale, HttpSession session, Model model, CommentVO cvo) {
+		
+		int result=0;
+		 try {
+		    	result = cservice.writeComment(cvo);
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		        result = -1;
+		    }
+		
+		return result;
 	}
 
 	

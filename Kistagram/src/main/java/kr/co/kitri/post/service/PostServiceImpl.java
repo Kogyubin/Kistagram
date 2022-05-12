@@ -28,14 +28,14 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<PostVO> getPosts() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return pdao.selectPosts();
 	}
 
 	@Override
 	public PostVO getPost(int post_no) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return pdao.selectPost(post_no);
 	}
 
 	@Override
@@ -68,6 +68,7 @@ public class PostServiceImpl implements PostService {
 		
 		return pdao.selectPostJoinImgs();
 	}
+	
 	
 	@Override
 	@Transactional(rollbackFor=Exception.class)
