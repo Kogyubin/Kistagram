@@ -625,10 +625,22 @@ h6,
 	
 }
 
+.write_comment_btn {
+  width: 10%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 5px 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+
 .img-list {
 list-style: none;
 padding: 0;
-margin: 0;
+margin:0;
 }
 .img-list li {
 border: 5px solid transparent;
@@ -642,4 +654,5 @@ cursor: pointer;
 max-width: 100%;
 vertical-align: middle;
 }
+
 
