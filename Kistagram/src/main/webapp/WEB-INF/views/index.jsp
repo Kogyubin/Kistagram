@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
 <%@include file="./include/header.jsp" %>
 
 <!DOCTYPE html>
+
 <html>
 	<head>
 	  <title>Kistagram</title>
@@ -40,6 +43,45 @@
 	    Author: BootstrapMade.com
 	    Author URL: https://bootstrapmade.com/
 	  ======================================================= -->
+
+
+<head>
+  <meta charset="utf-8">
+  <title>Kistagram</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+<!--   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<link href="resources/css/style.css" rel="stylesheet">
+  <!-- Favicons -->
+  <link href="resources/img/favicon.png" rel="icon">
+  <link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="resources/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="resources/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+  <link href="resources/vendor/aos/aos.css" rel="stylesheet">
+  <link href="resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  
+
+  <!-- =======================================================
+    Template Name: MyPortfolio
+    Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com/
+  ======================================================= -->
+
 
  <script>
  
@@ -255,43 +297,45 @@ function fn_Detail(post_no) {
 	
 	  <main id="main">
 		
-	    <div class="site-section site-portfolio">
+
+	   <div class="site-section site-portfolio">
 	    	          
 	      <div class="container">
 	        <div class="row mb-5 align-items-center">
 	          <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
 	
-	
 			<div class="box">
 			    <img class="profile" src="resources/img/profile.jpg" alt="Image">
 			</div>
-	
+	  		
 				<div class="state">
 		            <h2>Yumvely</h2>
 		            <p class="mb-0">Freelance Creative &amp; Professional Graphics Designer</p>
 		            <div class="follower">
+		            
 		            <p class="mb-0">팔로워   6514</p> 
-		         </div>
+		            </div>
 		            <div class="follow">
 		            <p class="mb-0">팔로우   0</p>
-	            	</div>
-	            </div>
-	          </div>
-	          <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
-	            <div id="filters" class="filters">
-	              <a href="${path }/main" data-filter="*" class="active">Home</a>
-	              <a href="${path }/profile" >Profile</a>
-	               <a id="writeBtn" data-toggle="modal" class="write">Write</a>
-	              <a href="#" data-filter=".branding">Follow</a>
-	            </div>
-	          </div>
-	          <div>
-	           
-	          </div>
-	        </div>
-	      </div>  
-	     </div>
-		<!--         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200"> -->
+		            </div>
+            	</div>
+          </div>
+          <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
+            <div id="filters" class="filters">
+              <a href="${path }/profile" >Profile</a>
+               <a id="writeBtn" data-toggle="modal" class="write">Write</a>
+              <a href="#" data-filter=".branding">Follow</a>
+              <a href="${path }/sign-out" class="logout">Logout</a>
+           	</div>
+         	</div>
+         <div>
+           
+         </div>
+       </div>
+   
+       
+<!--         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200"> -->
+
 <!--           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4"> -->
 				<ul class="img-list">
           		<c:forEach items="${pilist }" var="pivo">
@@ -306,7 +350,7 @@ function fn_Detail(post_no) {
 						
 				</c:forEach>
 				</ul>
-<!-- 		</div> -->
+		</div>
 	<!-- 게시글 상세 -->
 				<%@include file="./include/detail-modal.jsp" %>
 	<!-- 게시글 작성 -->

@@ -20,6 +20,7 @@ import kr.co.kitri.post.vo.PostVO;
 @Service
 
 public class PostServiceImpl implements PostService {
+	
 	@Autowired
 	private PostDAO pdao;
 	

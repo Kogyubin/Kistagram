@@ -11,7 +11,6 @@ import kr.co.kitri.post.vo.PostVO;
 
 @Repository
 public class PostDAOImpl implements PostDAO {
-	
 	@Autowired
 	SqlSession sqlSession;
 	

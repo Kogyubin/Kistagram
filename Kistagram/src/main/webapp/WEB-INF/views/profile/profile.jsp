@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Overpass+Mono" rel="stylesheet">
-<link href="resources/css/profile.css" rel="stylesheet">
+
 
 <script> function setThumbnail(event) { 
 	var reader = new FileReader(); 
@@ -26,9 +26,9 @@
 </head>
 <body>
 <%@include file="../include/navigation.jsp"%>
-<div class="center">
+<div class="center-pro">
 <div id="wrapper1">
-  <div class="main-content">
+  <div class="main-content-pro">
     <div class="header">
 
     </div>

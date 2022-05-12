@@ -43,6 +43,5 @@ public class ImgDAOImpl implements ImgDAO {
 		return 0;
 	}
 
-	
 
 }

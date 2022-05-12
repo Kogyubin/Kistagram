@@ -14,11 +14,11 @@ body {
   color: #0d1e2d;
 }
 
-a {
+.a-index {
   color: #777;
 }
 
-a:hover {
+.a-index:hover {
   color: #000;
 }
 
