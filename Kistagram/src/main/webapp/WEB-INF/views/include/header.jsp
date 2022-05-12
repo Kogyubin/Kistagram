@@ -5,7 +5,7 @@
                          <!-- http://localhost:8989/kitri/ -->
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="resources/css/common.css" rel="stylesheet">
 
 

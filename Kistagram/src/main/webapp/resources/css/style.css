@@ -637,10 +637,16 @@ h6,
 }
 
 
+/* .img-list { */
+/* list-style: none; */
+/* padding: 0px 2px 0px 2px; */
+/* margin:0px 240px 0px 300px; */
+/* } */
+
 .img-list {
 list-style: none;
-padding: 0px 2px 0px 2px;
-margin:0px 240px 0px 300px;
+padding: 0;
+margin:0;
 }
 .img-list li {
 border: 5px solid transparent;

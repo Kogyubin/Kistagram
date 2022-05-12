@@ -42,8 +42,13 @@ public class PostDAOImpl implements PostDAO {
 	}
 
 	@Override
-	public PostVO selectPost(int post_no) {
+	public PostImgVO selectPost(int post_no) {
 		return sqlSession.selectOne("post.selectPost", post_no);
+	}
+
+	@Override
+	public PostVO selectOnePostImgs(int post_no) {
+		return sqlSession.selectOne("post.selectOnePostImgs", post_no);
 	}
 
 

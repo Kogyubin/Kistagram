@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.img.service.ImgService;
+import kr.co.kitri.img.vo.ImgVO;
 import kr.co.kitri.post.service.PostService;
 import kr.co.kitri.post.vo.PostImgVO;
 import kr.co.kitri.post.vo.PostVO;
@@ -65,16 +66,20 @@ public class MainController {
 
 	@RequestMapping("/detail")
 	@ResponseBody
-	public PostVO detail(int post_no) {
+	public PostImgVO detail(int post_no, Model model) {
 		
-		PostVO pvo = pservice.getPost(post_no);
+		PostImgVO pivo = pservice.getPost(post_no);
+		
+		model.addAttribute("pivo", pivo);
 	
-		return pvo;
+		
+		return pivo;
 	}
 	
+//댓글 등록	
 	@ResponseBody
 	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
-	public String addComment(Locale locale, HttpSession session, Model model, CommentVO cvo) {
+	public int addComment(CommentVO cvo) {
 		
 		int result=0;
 		 try {
