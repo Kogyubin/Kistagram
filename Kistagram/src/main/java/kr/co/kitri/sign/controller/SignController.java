@@ -77,6 +77,7 @@ public class SignController {
      */
 	@RequestMapping("/sign-out")
 	public String signOut(HttpSession session, Model model) {
+		
 		System.out.println("/signout");
 		
 		if(session.getAttribute("session_id")!=null) {

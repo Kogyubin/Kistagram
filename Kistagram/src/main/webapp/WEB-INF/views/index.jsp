@@ -15,7 +15,7 @@
 <!--   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
+	<link href="resources/css/style.css" rel="stylesheet">
   <!-- Favicons -->
   <link href="resources/img/favicon.png" rel="icon">
   <link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -280,10 +280,10 @@ function fn_Detail() {
           </div>
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
             <div id="filters" class="filters">
-              <a href="${path }/main" data-filter="*" class="active">Home</a>
               <a href="${path }/profile" >Profile</a>
                <a id="writeBtn" data-toggle="modal" class="write">Write</a>
               <a href="#" data-filter=".branding">Follow</a>
+              <a href="${path }/sign-out" class="logout">Logout</a>
             </div>
           </div>
           <div>

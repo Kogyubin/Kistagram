@@ -55,10 +55,10 @@
 		<div class="navimenu">
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
             <div id="filters" class="filters">
-              <a href="${path }/main" data-filter="*" class="active">Home</a>
               <a href="${path }/profile" >Profile</a>
                <a id="writeBtn" data-toggle="modal" class="write">Write</a>
               <a href="#" data-filter=".branding">Follow</a>
+              <a href="${path }/sign-out" class="logout">Logout</a>
             </div>
           </div>
 
