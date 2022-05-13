@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.kitri.comment.dao.CommentDAO;
 import kr.co.kitri.comment.vo.CommentVO;
@@ -14,11 +13,16 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentDAO cdao;
 	
-	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int writeComment(CommentVO cvo) {
+	public boolean writeComment(CommentVO cvo) {
+		int result = cdao.insertComment(cvo);
+		boolean flag = false;
 		
-		return cdao.insertComment(cvo);
+		if(result==1) {
+			flag=true;
+		}
+		
+		return flag;
 	}
 
 	@Override

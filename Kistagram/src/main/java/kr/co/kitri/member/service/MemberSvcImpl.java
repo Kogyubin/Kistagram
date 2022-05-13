@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.kitri.member.dao.MemberDAO;
+import kr.co.kitri.member.dao.MemberDAOImpl;
 import kr.co.kitri.member.vo.MemberVO;
 
 @Service
@@ -12,7 +13,12 @@ public class MemberSvcImpl implements MemberSvc {
 
 	@Autowired
 	private MemberDAO mdao;
-
+	
+	@Autowired
+	private MemberSvc msvc;
+	
+	@Autowired
+	private MemberDAOImpl mdpl;
 
 	@Override
 	public boolean signIn(MemberVO mvo) {
@@ -58,6 +64,33 @@ public class MemberSvcImpl implements MemberSvc {
 		return flag;
 	}
 	
+	@Override
+	public MemberVO selectUser(MemberVO mvo) {
+		
+		MemberVO result = mdao.selectUser(mvo);
+		
+		return result;
+
+	}
+	
+	@Override
+	public boolean updateUser(MemberVO mvo) {
+		
+		int result = mdao.updateUser(mvo);
+		
+		boolean flag = false;
+		
+		if(result==0) {
+			flag= false;
+		}else {
+			flag= true;
+		}
+		
+		return flag;
+		
+
+
+	}
 
 }
 

@@ -10,8 +10,7 @@ import kr.co.kitri.post.vo.PostVO;
 public interface PostService {
 	
 	public List<PostVO> getPosts();
-	public PostImgVO getPost(int post_no);
-	public PostVO getOnePostImgs(int post_no);
+	public PostVO getPost(int post_no);
 	public boolean writePost(PostVO pvo);
 	public boolean updatePost(PostVO pvo);
 	public boolean deletePost(int post_no);

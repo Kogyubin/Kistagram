@@ -11,7 +11,6 @@ public class PostImgVO {
 	private String img_name;
 	private String ori_img_name;
 	private int post_no;
-	private String content;
 	
 	
 }

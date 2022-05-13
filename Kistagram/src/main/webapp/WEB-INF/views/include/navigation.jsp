@@ -34,6 +34,173 @@
   <!-- Template Main CSS File -->
   <link href="resources/css/style.css" rel="stylesheet">
 
+ <script>
+ 
+ 
+ 	var action = '';
+	var url = '';
+	var type = '';
+
+	
+$(document).ready(function() {
+	
+ 
+	//write 버튼 클릭	
+	$("#writeBtn").click(function() {
+		
+		action = 'create';
+		type = 'post',
+		
+		$("#modal-title").text("Write");
+		$("#id").val("${session_id}");
+		$("#id").attr("readonly",true);
+		$("#content").val("");
+		
+		
+		$("#myLargeModal").modal();
+
+	});
+	
+	
+	//이미지 미리보기
+	 $('#image').on('change', function() {
+        
+        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+        
+        //배열에 추출한 확장자가 존재하는지 체크
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+            resetFormElement($(this)); //폼 초기화
+            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        } else {
+            file = $('#image').prop("files")[0];
+            blobURL = window.URL.createObjectURL(file);
+            $('#image_preview img').attr('src', blobURL);
+            $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+            $(this).slideUp(); //파일 양식 감춤
+        }
+    });
+
+    /**
+    onclick event handler for the delete button.
+    It removes the image, clears and unhides the file input field.
+    */
+    $('#image_preview a').bind('click', function() {
+        resetFormElement($('#image')); //전달한 양식 초기화
+        $('#image').slideDown(); //파일 양식 보여줌
+        $(this).parent().slideUp(); //미리 보기 영역 감춤
+        return false; //기본 이벤트 막음
+    });
+        
+
+    /** 
+    * 폼요소 초기화 
+    * Reset form element
+    * 
+    * @param e jQuery object
+    */
+    function resetFormElement(e) {
+        e.wrap('<form>').closest('form').get(0).reset(); 
+        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
+        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+        //DOM에서 제공하는 초기화 메서드 reset()을 호출
+        e.unwrap(); //감싼 <form> 태그를 제거
+    }
+
+	//Modal의 submit 버튼 클릭
+
+	$("#modalSubmit").click(function() {
+		
+		var form = $('#write-form')[0];
+		var formData = new FormData(form);
+		
+		var inputFile = $("input[name='uploadfile']");
+		var files = inputFile[0].files;
+		
+		
+		console.log(files);
+		
+		//파일 formData에 추가
+	
+		for(var i=0; i< files.length; i++){
+			formData.append('uploadfiles', files[i]);
+			
+			}
+		
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',
+			url: '${path}/write-action',
+			processData: false,
+			contentType: false,
+			data: formData,
+			
+			success: function(result){
+				if (action == 'create') {
+					if (result) {
+						alert("등록에 성공하였습니다.");
+					} else {
+						alert("오류가 발생하였습니다. 다시 등록해주세요");
+					}
+				} else if (action == 'modify') {
+					if (result) {
+						alert("수정에 성공하였습니다.");
+					} else {
+						alert("수정에 실패하였습니다.");
+					}
+				}
+				
+				
+				$("#myLargeModal").modal('toggle');
+			}
+			
+		});
+		
+	});
+		
+});
+	
+//게시글 상세 보기
+
+function fn_Detail(post_no) {
+	
+	console.log(post_no);
+	$.ajax({
+		url : "${path}/detail",
+		type : "post",
+		data : {
+			post_no : post_no
+		},
+		success : function(result) {
+			console.log(result);
+			$("#post_no").val(result.post_no);
+			$("#id").val(result.id);
+			$("#id").attr("readonly", true);
+			$("#content").text(result.content);
+			$("#content").attr("readonly", true);
+			
+
+			$("#myLargeModal2").modal();
+// 			action = "modify";
+		}
+	});
+}
+
+ 
+ </script>
+
+	<script type="text/javascript">
+		function enterSearch() {
+		    if(event.keyCode == 13){
+		        myFunction();  // 실행할 이벤트
+		    }
+		}
+		function myFunction() {
+		    var x = document.getElementById("text").value;
+		    window.location.href = "http://cybertramp.net/search/"+x;
+		}
+	</script>
+
+
 </head>
 <body>
  <nav class="navbar navbar-light custom-navbar">

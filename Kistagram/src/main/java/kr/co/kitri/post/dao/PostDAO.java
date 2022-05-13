@@ -13,7 +13,6 @@ public interface PostDAO {
 	public int updatePost(PostVO pvo);
 	public int deletePost(int post_no);
 	public List<PostImgVO> selectPostJoinImgs();
-	public PostImgVO selectPost(int post_no);
-	public PostVO selectOnePostImgs(int post_no);
+	public PostVO selectPost(int post_no);
 
 }

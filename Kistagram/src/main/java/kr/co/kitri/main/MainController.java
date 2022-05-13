@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.img.service.ImgService;
-import kr.co.kitri.img.vo.ImgVO;
+import kr.co.kitri.member.dao.MemberDAO;
+import kr.co.kitri.member.service.MemberSvc;
+import kr.co.kitri.member.vo.MemberVO;
 import kr.co.kitri.post.service.PostService;
 import kr.co.kitri.post.vo.PostImgVO;
 import kr.co.kitri.post.vo.PostVO;
@@ -37,8 +39,11 @@ public class MainController {
 	private PostService pservice;
 	@Autowired 
 	private ImgService iservice;
+	
 	@Autowired
-	private CommentService cservice;
+	private MemberSvc msvc;
+	@Autowired
+	private MemberDAO mdao;
 	
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -48,15 +53,23 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(Locale locale, HttpSession session, Model model) {
-
+		MemberVO mvo = new MemberVO();
+		
 		String session_id = (String)session.getAttribute("session_id");
 		if (session_id == null) {
 			return "redirect:/sign-in";
 		}
 		List<PostImgVO> pilist = pservice.getPostImgs();
 		
+		mvo.setId(session_id);
+		mvo = mdao.selectUser(mvo);
+		String member_md = mvo.getId();
+		String member_itd = mvo.getIntroduce();
+		
 		System.out.println(session_id);
 		
+		model.addAttribute("id", member_md);
+		model.addAttribute("introduce", member_itd);
 		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
 		
@@ -66,20 +79,16 @@ public class MainController {
 
 	@RequestMapping("/detail")
 	@ResponseBody
-	public PostImgVO detail(int post_no, Model model) {
+	public PostVO detail(int post_no) {
 		
-		PostImgVO pivo = pservice.getPost(post_no);
-		
-		model.addAttribute("pivo", pivo);
+		PostVO pvo = pservice.getPost(post_no);
 	
-		
-		return pivo;
+		return pvo;
 	}
 	
-//댓글 등록	
 	@ResponseBody
 	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
-	public int addComment(CommentVO cvo) {
+	public String addComment(Locale locale, HttpSession session, Model model, CommentVO cvo) {
 		
 		int result=0;
 		 try {

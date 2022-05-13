@@ -8,6 +8,7 @@ public class MemberVO {
 	private String name;
 	private String pw;
 	private String phone;
+	private String introduce;
 	private int profile_no;
 
 }

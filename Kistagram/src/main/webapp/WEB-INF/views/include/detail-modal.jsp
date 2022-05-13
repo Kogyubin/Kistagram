@@ -7,65 +7,65 @@
 
 <html>
 	<head>
-<!-- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-<!-- 		<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script> -->
-		<link rel="stylesheet" href="resources/css/bootstrap.min.css">
-		<script src="resources/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
+		<script src="resources/assets/js/bootstrap.min.js"></script>
 		
-		
-		<link rel="stylesheet" href="resources/css/jquery.bxslider.css">
-<!-- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-		<script>
-		    
-			
-		    //댓글 등록
-		    $("#commentBtn").on("click", function(){
-		        	var id = "${session_id}" // 사용자 아이디
-		            var post_no = "${clist.post_no}"; // 글번호
-		            var comment_content = $("#comment_content").val(); // 댓글내용
-		            
-		            console.log(id);
-		                
-		                $.ajax({
-		                	url : "addComment",
-		                    type : "POST",
-		                    data : {
-		                    	id : id,
-		                   		comment_content : comment_content,
-		                   		post_no : post_no,
-		                       
-		                     },
-		                    success : function(result){
-		                    	var msg;
-		                        
-		                        switch(result) {
-		                        case 1 :  //성공
-		                        	msg = "댓글 등록 성공";
-		                            // 내용을 작성한 textarea를 다 지워줌
-		                            $("#comment_content").val("");
-		                            selectRlist(); // selectRlist()함수 호출
-		                            break;
-		                            
-		                        case 0 :  //등록실패
-		                        	msg = "댓글 등록 실패";
-		                            break;
-		                        case -1 :
-		                        	msg = "댓글 등록 오류 발생";
-		                            break;
-		                        }
-		                        
-		                        alert(msg);
-		                    },
-		                    error : function(){
-		                    	console.log("ajax 통신 실패");
-		                    }
-		                });
-		           
-		        });
-		    
-		</script>
+
+
+	<script>
+	    $(document).ready(function(){
+	      $('.slider').bxSlider();
+	    });
+	    
+	    //댓글 등록
+	    $("#commentBtn").on("click", function(){
+	        	var id = "${session_id}" // 사용자 아이디
+	            var post_no = "${clist.post_no}"; // 글번호
+	            var comment_content = $("#comment_content").val(); // 댓글내용
+	            
+	        
+	                
+	                $.ajax({
+	                	url : "insertReply",
+	                    type : "POST",
+	                    data : {"comment_content" : comment_content,
+	                    		"post_no" : post_no,
+	                            "memberNo" : memberNo},
+	                    success : function(result){
+	                    	var msg;
+	                        
+	                        switch(result) {
+	                        case 1 :  //성공
+	                        	msg = "댓글 등록 성공";
+	                            // 내용을 작성한 textarea를 다 지워줌
+	                            $("#comment_content").val("");
+	                            selectRlist(); // selectRlist()함수 호출
+	                            break;
+	                            
+	                        case 0 :  //등록실패
+	                        	msg = "댓글 등록 실패";
+	                            break;
+	                        case -1 :
+	                        	msg = "댓글 등록 오류 발생";
+	                            break;
+	                        }
+	                        
+	                        alert(msg);
+	                    },
+	                    error : function(){
+	                    	console.log("ajax 통신 실패");
+	                    }
+	                });
+	            }
+	        });
+	    
+  </script>
   
 	</head>
 	<body>
@@ -93,12 +93,11 @@
 							      <div id="content" name="content">
 							      </div>
 						      </div>
-						      
 						      <div style="float:left;">
 						      	<ul class="slider">
-									<c:forEach items="${pivo }" var="pivo">
+									<c:forEach items="${pilist }" var="pivo">
 									<li>
-									<span class="detail_img">
+									<span class="image main">
 										<img src="${path += '/resources/uploadfolder/' += pivo.id += '/' += pivo.img_name}">
 									</span>
 									</li>
@@ -127,7 +126,7 @@
 					</c:forEach>
 						     <input class="w-100 form-control" id="comment_content" type="text" placeholder="댓글입력"><br>
 						     <button class="write_comment_btn" type="button" id="commentBtn">전송</button>
-							
+						
 <!-- 						</form> -->
 				
 					<div class="modal-footer">
@@ -137,12 +136,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-	$(function(){
-	      $('.slider').bxSlider();
-	    });
-	
-	</script>
 	</body>
 </html>
  
