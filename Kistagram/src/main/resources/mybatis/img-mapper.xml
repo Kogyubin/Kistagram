@@ -20,10 +20,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (img_img_no_seq.nextval, (SELECT MAX(post_no) FROM post), #{img_path}, #{img_name}, #{ori_img_name}, 'N')
 	</insert>
 	
-	<select id="selectImgFilesBypostno" parameterType="map" resultType="img">
-		SELECT * FROM img WHERE post_no=#{key}
-	</select>
-	
 	<select id="selectImgs" resultMap="resultMapimg" >
 		SELECT * FROM img
 		WHERE img_no IN ( SELECT MIN(img_no) 
@@ -31,5 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					    GROUP BY post_no) 
 		ORDER BY img_no
 	</select>
+
 </mapper>
 	
