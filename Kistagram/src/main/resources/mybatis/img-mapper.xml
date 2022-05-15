@@ -29,7 +29,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE img_no IN ( SELECT MIN(img_no) 
 					    FROM img
 					    GROUP BY post_no) 
-		AND post_no = #{post_no}
 		ORDER BY img_no
 	</select>
 </mapper>

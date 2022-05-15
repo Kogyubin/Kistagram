@@ -6,7 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="comment">
 	<select id="selectComments" resultType="arraylist">
         SELECT * 
-        FROM comments WHERE post_no = #{post_no} 
+        FROM comments 
+        WHERE post_no = #{post_no} 
         AND parent_comment = 0 
 		ORDER BY comment_no ASC
     </select>
@@ -23,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 <insert id="insertComment" parameterType="comment">
         INSERT INTO comments
         (comment_no, post_no, id, comment_content, comment_regdate, parent_comment)
-        VALUES (comments_comment_no_seq.nextval, #{post_no}, #{id}, #{comment_content}, sysdate, #{parent_comment})
+        VALUES (comments_comment_no_seq.nextval, #{post_no}, #{id}, #{comment_content}, sysdate, 0})
     </insert>
     
 

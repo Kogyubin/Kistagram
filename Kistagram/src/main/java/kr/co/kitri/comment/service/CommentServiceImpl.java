@@ -14,17 +14,29 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentDAO cdao;
 	
+	@Autowired
+	private CommentService cservice;
+	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int writeComment(CommentVO cvo) {
+		
+		int result=0;
+		 try {
+		    	result = cservice.writeComment(cvo);
+		    	
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		        result = -1;
+		    }
 		
 		return cdao.insertComment(cvo);
 	}
 
 	@Override
-	public List<CommentVO> getCommenst(int post_no) {
+	public List<CommentVO> getComments(int post_no) {
 		
-		return cdao.selectCommenst(post_no);
+		return cdao.selectComments(post_no);
 	}
 
 	@Override

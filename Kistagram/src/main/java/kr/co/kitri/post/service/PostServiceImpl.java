@@ -39,11 +39,6 @@ public class PostServiceImpl implements PostService {
 		return pdao.selectPost(post_no);
 	}
 	
-	@Override
-	public PostVO getOnePostImgs(int post_no) {
-		
-		return pdao.selectOnePostImgs(post_no);
-	}
 
 	@Override
 	public boolean writePost(PostVO pvo) {

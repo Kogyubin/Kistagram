@@ -220,6 +220,7 @@ function fn_Detail(post_no) {
 		},
 		success : function(result) {
 			console.log(result);
+			$("#post_no").val(result.post_no);
 			$("#id").val(result.id);
 			$("#id").attr("readonly", true);
 			$("#content").text(result.content);

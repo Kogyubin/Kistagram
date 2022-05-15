@@ -26,22 +26,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectPost" parameterType="int" resultType="postimg">
-		SELECT * 
+		SELECT *
 		FROM post p, img i
 		WHERE p.post_no=#{post_no}
 		AND p.post_no = i.post_no
 	</select>
 	
-	<select id="selectOnePostImgs"  resultType="postimg">
-		SELECT * 
-		FROM post p, img i
-		WHERE p.post_no = i.post_no
-		AND i.img_no IN 
-				       (SELECT MIN(img_no) FROM img
-				       GROUP BY post_no) 
-		AND p.post_no=#{post_no}
-		ORDER BY p.post_no DESC
-	</select>
 	
 </mapper>
 	

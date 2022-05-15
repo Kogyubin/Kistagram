@@ -2,6 +2,7 @@ package kr.co.kitri.main;
 
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -69,29 +71,31 @@ public class MainController {
 	public PostImgVO detail(int post_no, Model model) {
 		
 		PostImgVO pivo = pservice.getPost(post_no);
-		
 		model.addAttribute("pivo", pivo);
-	
 		
 		return pivo;
 	}
 	
+	
+
 //댓글 등록	
 	@ResponseBody
-	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
-	public int addComment(CommentVO cvo) {
+	@RequestMapping(value = "/write-comment-action", method = RequestMethod.GET)
+	public String writeComment(MultipartHttpServletRequest multiPart,
+			HttpSession session, Model model) {
 		
-		int result=0;
-		 try {
-		    	result = cservice.writeComment(cvo);
-		    } catch (Exception e) {
-		    	e.printStackTrace();
-		        result = -1;
-		    }
+		String id = (String)session.getAttribute("session_id");
+		String comment_content = multiPart.getParameter("comment_content");
 		
-		return result;
+		CommentVO cvo = new CommentVO();
+		cvo.setId(id);
+		cvo.setComment_content(comment_content);
+		
+		int result = cservice.writeComment(cvo);
+		
+		
+		return "success";
 	}
-
 	
 	@RequestMapping("/write-action")
 	@ResponseBody
