@@ -9,6 +9,7 @@
  	<typeAlias alias="post" type="kr.co.kitri.post.vo.PostVO" />
  	<typeAlias alias="postimg" type="kr.co.kitri.post.vo.PostImgVO" />
  	<typeAlias alias="img" type="kr.co.kitri.img.vo.ImgVO" />
+ 	<typeAlias alias="comment" type="kr.co.kitri.comment.vo.CommentVO" />
  	</typeAliases>	 
 </configuration>
  
