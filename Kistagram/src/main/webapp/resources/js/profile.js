@@ -7,11 +7,12 @@ $(function() {
 
 
 $(function() {
-	$(".btn-profile").click(function(e) {
+	$(".btn-profile1").click(function(e) {
 	 e.preventDefault();
 	 id = $("#id").val();
 	 name = $("input[name='name']").val();
 	 Phone = $("input[name='Phone']").val();
+	 introduce = $("textarea[name='introduce']").val();
 
 	 $(".form-profile").attr("action","profile-up").submit();
 		

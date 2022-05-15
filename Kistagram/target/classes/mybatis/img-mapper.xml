@@ -27,6 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					    GROUP BY post_no) 
 		ORDER BY img_no
 	</select>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Kogyubin/Kistagram.git
 </mapper>
 	

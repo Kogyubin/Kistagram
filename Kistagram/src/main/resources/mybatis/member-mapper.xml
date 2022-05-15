@@ -24,6 +24,21 @@
 		AND pw=#{pw}
 	</select>
 	
-
+	<select id="selectUser" parameterType="member" resultType="member">
+		SELECT id, name, phone, introduce
+		FROM member
+	 	WHERE id=#{id}
+	</select>
+	
+	
+	<update id="updateUser" parameterType="member">
+	 	UPDATE member
+	 	SET name=#{name},
+	 		phone=#{phone},
+	 		introduce=#{introduce}
+	 	WHERE id=#{id}
+	</update>
+	
+	
 	 
 </mapper>

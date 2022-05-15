@@ -13,7 +13,8 @@
 	  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 	  <meta content="" name="keywords">
 	  <meta content="" name="description">
-<!-- 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+	  <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+	  
 	  
 	
 	  <!-- Favicons -->
@@ -34,7 +35,7 @@
 	  <link href="resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 	
 	  <!-- Template Main CSS File -->
-	  <!-- <link href="resources/css/style.css" rel="stylesheet"> -->
+	  <link href="resources/css/style.css" rel="stylesheet">
 	
 	  <!-- =======================================================
 	    Template Name: MyPortfolio
@@ -226,8 +227,6 @@ function fn_Detail(post_no) {
 			$("#content").text(result.content);
 			$("#content").attr("readonly", true);
 			
-			
-// 			$(".detail_img").html("<img src='"+ + "'>")
 
 			$("#myLargeModal2").modal();
 // 			action = "modify";
@@ -310,8 +309,11 @@ function fn_Detail(post_no) {
 			</div>
 	  		
 				<div class="state">
-		            <h2>Yumvely</h2>
-		            <p class="mb-0">Freelance Creative &amp; Professional Graphics Designer</p>
+					<div id="mainid">
+		            <input type="text" id="id" name="id" placeholder="Username" style="border:0px solid black;
+					font-family: Raleway, sans-serif; font-size: 45px; background-color:#fff;" value="${id }" readonly/>
+		            </div>
+						<input type="text" id="mainintro" name="introduce" class="input-2" readonly value="${introduce }"/>
 		            <div class="follower">
 		            
 		            <p class="mb-0">팔로워   6514</p> 
@@ -339,9 +341,9 @@ function fn_Detail(post_no) {
 
 <!--           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4"> -->
 				<ul class="img-list">
-          		<c:forEach items="${pilist }" var="pilist">
+          		<c:forEach items="${pilist }" var="pivo">
 <!-- 						<span class="image"> -->
-							<li onclick="fn_Detail(${pilist.post_no}); return false;" ><img src="${path += '/resources/uploadfolder/' += pilist.id += '/' += pilist.img_name}"  alt=""  /></li>
+							<li onclick="fn_Detail(${pivo.post_no}); return false;" ><img src="${path += '/resources/uploadfolder/' += pivo.id += '/' += pivo.img_name}"  alt=""  /></li>
 <!-- 						</span> -->
 						
 		<!--               <div class="work-info"> -->
@@ -355,7 +357,6 @@ function fn_Detail(post_no) {
 	<!-- 게시글 상세 -->
 				<%@include file="./include/detail-modal.jsp" %>
 	<!-- 게시글 작성 -->
-<%-- 	<jsp:include page="./include/detail-modal.jsp"></jsp:include> --%>
 	    		<%@include file="./include/write-modal.jsp" %>
 	
 	  </main>
@@ -389,6 +390,6 @@ function fn_Detail(post_no) {
 	  <script src="resources/vendor/owlcarousel/owl.carousel.min.js"></script>
 	  <!-- Template Main JS File -->
 	  <script src="resources/js/main.js"></script>
-	
+
 	</body>
 </html>

@@ -35,5 +35,15 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
-
+	@Override
+	public int updateUser(MemberVO mvo) {
+		
+		return sqlSession.update("member.updateUser", mvo);
+	}
+	
+	@Override
+	public MemberVO selectUser(MemberVO mvo) {
+		
+		return sqlSession.selectOne("member.selectUser", mvo);
+	}
 }

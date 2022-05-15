@@ -554,6 +554,7 @@ h6,
 	position: relative;
     bottom: 180px;
     left: 270px;
+    border:0px solid black;
 }
 
 .follower {
@@ -637,12 +638,6 @@ h6,
 }
 
 
-/* .img-list { */
-/* list-style: none; */
-/* padding: 0px 2px 0px 2px; */
-/* margin:0px 240px 0px 300px; */
-/* } */
-
 .img-list {
 list-style: none;
 padding: 0;
@@ -659,6 +654,18 @@ cursor: pointer;
 .img-list img {
 max-width: 100%;
 vertical-align: middle;
+}
+
+#mainid {
+	border:0px solid black;
+	font-family: "Raleway", sans-serif;
+}
+
+#mainintro{
+	border: none;
+	font-family: "Inconsolata", monosapce;
+    color: #0d1e2d;
+    background-color:#fff;
 }
 
 
