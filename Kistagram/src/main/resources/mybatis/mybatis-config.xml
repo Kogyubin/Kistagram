@@ -11,6 +11,7 @@
  	<typeAlias alias="img" type="kr.co.kitri.img.vo.ImgVO" />
  	<typeAlias alias="comment" type="kr.co.kitri.comment.vo.CommentVO" />
  	<typeAlias alias="profile" type="kr.co.kitri.profileimg.vo.ProfileImgVO" />
+ 	<typeAlias alias="likes" type="kr.co.kitri.likes.vo.LikesVO" />
  	</typeAliases>	 
 </configuration>
  

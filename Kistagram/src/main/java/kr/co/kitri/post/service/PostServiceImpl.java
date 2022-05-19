@@ -34,7 +34,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostImgVO getPost(int post_no) {
+	public List<PostImgVO> getPost(int post_no) {
 		
 		return pdao.selectPost(post_no);
 	}
@@ -66,9 +66,9 @@ public class PostServiceImpl implements PostService {
 
 
 	@Override
-	public List<PostImgVO> getPostImgs() {
+	public List<PostImgVO> getPostImgs(String id) {
 		
-		return pdao.selectPostJoinImgs();
+		return pdao.selectPostJoinImgs(id);
 	}
 	
 	

@@ -12,7 +12,7 @@ public interface PostDAO {
 	public int insertPost(PostVO pvo);
 	public int updatePost(PostVO pvo);
 	public int deletePost(int post_no);
-	public List<PostImgVO> selectPostJoinImgs();
-	public PostImgVO selectPost(int post_no);
+	public List<PostImgVO> selectPostJoinImgs(String id);
+	public List<PostImgVO> selectPost(int post_no);
 	
 }

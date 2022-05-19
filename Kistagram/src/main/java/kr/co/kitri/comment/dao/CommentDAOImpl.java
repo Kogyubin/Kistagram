@@ -21,12 +21,12 @@ public class CommentDAOImpl implements CommentDAO {
 
 	@Override
 	public List<CommentVO> selectComments(int post_no) {
-		return sqlSession.selectList("comment.selectComments");
+		return sqlSession.selectList("comment.selectComments", post_no);
 	}
 
 	@Override
 	public List<CommentVO> selectChildComment(int post_no) {
-		return sqlSession.selectList("comment.selectChildComment");
+		return sqlSession.selectList("comment.selectChildComment", post_no);
 	}
 
 }

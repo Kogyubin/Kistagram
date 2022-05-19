@@ -4,6 +4,7 @@ package kr.co.kitri.main;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,9 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.img.service.ImgService;
+import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
@@ -63,7 +67,8 @@ public class MainController {
 		if (session_id == null) {
 			return "redirect:/sign-in";
 		}
-		List<PostImgVO> pilist = pservice.getPostImgs();
+		
+		List<PostImgVO> pilist = pservice.getPostImgs(session_id);
 		
 		mvo.setId(session_id);
 		mvo = mdao.selectUser(mvo);
@@ -72,10 +77,13 @@ public class MainController {
 		
 		System.out.println(session_id);
 		
+		
+		
 		model.addAttribute("id", member_md);
 		model.addAttribute("introduce", member_itd);
 		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
+		
 		
 
 		return "index";
@@ -83,33 +91,77 @@ public class MainController {
 
 	@RequestMapping("/detail")
 	@ResponseBody
-	public PostImgVO detail(int post_no, Model model) {
+	public List<PostImgVO> detail(int post_no, Model model) {
 		
-		PostImgVO pivo = pservice.getPost(post_no);
+		List<PostImgVO> pivo = pservice.getPost(post_no);
 		model.addAttribute("pivo", pivo);
 		
 		return pivo;
 	}
 	
-	
+//좋아요
+//	@ResponseBody
+//	  @RequestMapping(value="/like-action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
+//	  public String likeAction(int post_no, HttpSession session){
+//	    //System.out.println("--> like() created");
+//		String session_id = (String)session.getAttribute("session_id");
+//	    JSONPObject obj = new JSONPObject();
+//	    
+//	    ArrayList<String> msgs = new ArrayList<String>();
+//	    HashMap <String, Object> hashMap = new HashMap<String, Object>();
+//	    hashMap.put("post_no", post_no);
+//	    hashMap.put("session_id", session_id);
+//	    LikesVO likesvo = likesProc.read(hashMap);
+//	    
+//	    PostVO pvo = postProc.read(post_no);
+//	    int like_cnt = pvo.getLike_cnt();     //게시판의 좋아요 카운트
+//	    int like_check = 0;
+//	    like_check = likesvo.getLike_check();   //좋아요 체크 값
+//	    
+//	    if(likesProc.countbyLike(hashMap)==0){
+//	      likesProc.create(hashMap);
+//	    }
+//	      
+//	    if(like_check == 0) {
+//	      msgs.add("좋아요!");
+//	      likesProc.like_check(hashMap);
+//	      like_check++;
+//	      like_cnt++;
+//	      postProc.like_cnt_up(post_no);   //좋아요 갯수 증가
+//	    } else {
+//	      msgs.add("좋아요 취소");
+//	      likesProc.like_check_cancel(hashMap);
+//	      like_check--;
+//	      like_cnt--;
+//	      postProc.like_cnt_down(post_no);   //좋아요 갯수 감소
+//	    }
+//	    obj.put("post_no", likesvo.getPost_no());
+//	    obj.put("like_check", like_check);
+//	    obj.put("like_cnt", like_cnt);
+//	    obj.put("msg", msgs);
+//	    
+//	    return obj.toJSONString();
+//	  }
 
-//댓글 등록	
+	
+	@RequestMapping(value ="/commentList", method = RequestMethod.GET)
 	@ResponseBody
-	@RequestMapping(value = "/write-comment-action", method = RequestMethod.GET)
-	public String writeComment(MultipartHttpServletRequest multiPart,
-			HttpSession session, Model model) {
+	public List<CommentVO> commentList(int post_no, Model model) {
 		
-		String id = (String)session.getAttribute("session_id");
-		String comment_content = multiPart.getParameter("comment_content");
+		List<CommentVO> clist = cservice.getComments(post_no);
+				
+		model.addAttribute("clist", clist);
 		
-		CommentVO cvo = new CommentVO();
-		cvo.setId(id);
-		cvo.setComment_content(comment_content);
+		return clist;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/write-comment-action")
+	public boolean writeCommentAction(Locale locale, HttpSession session, Model model, CommentVO cvo) {
 		
-		int result = cservice.writeComment(cvo);
+		boolean result = cservice.writeComment(cvo);
 		
-		
-		return "success";
+		return result;
 	}
 	
 	@RequestMapping("/write-action")

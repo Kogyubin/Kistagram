@@ -37,13 +37,13 @@ public class PostDAOImpl implements PostDAO {
 	}
 
 	@Override
-	public List<PostImgVO> selectPostJoinImgs() {
-		return sqlSession.selectList("post.selectPostJoinImgs");
+	public List<PostImgVO> selectPostJoinImgs(String id) {
+		return sqlSession.selectList("post.selectPostJoinImgs", id);
 	}
 
 	@Override
-	public PostImgVO selectPost(int post_no) {
-		return sqlSession.selectOne("post.selectPost", post_no);
+	public List<PostImgVO> selectPost(int post_no) {
+		return sqlSession.selectList("post.selectPost", post_no);
 	}
 
 	

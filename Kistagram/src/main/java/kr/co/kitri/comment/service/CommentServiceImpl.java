@@ -4,34 +4,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.kitri.comment.dao.CommentDAO;
 import kr.co.kitri.comment.vo.CommentVO;
+import kr.co.kitri.post.vo.PostVO;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentDAO cdao;
 	
-	@Autowired
-	private CommentService cservice;
-	
-	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int writeComment(CommentVO cvo) {
+	public boolean writeComment(CommentVO cvo) {
 		
-		int result=0;
-		 try {
-		    	result = cservice.writeComment(cvo);
-		    	
-		    } catch (Exception e) {
-		    	e.printStackTrace();
-		        result = -1;
-		    }
-		
-		return cdao.insertComment(cvo);
-	}
+			int result = cdao.insertComment(cvo);
+			boolean flag = false;
+			
+			if(result==1) {
+				flag=true;
+			}
+			
+			return flag;
+		}
+	
 
 	@Override
 	public List<CommentVO> getComments(int post_no) {

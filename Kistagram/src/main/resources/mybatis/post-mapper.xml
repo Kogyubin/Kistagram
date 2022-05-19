@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertPost" parameterType="post">
 	
 		INSERT INTO post
-		(post_no, regdate, id, content, likes, del_flag)
+		(post_no, regdate, id, content, like_cnt, del_flag)
 		VALUES (post_post_no_seq.nextval, sysdate, #{id}, #{content}, 0, 'N')
 	</insert>
 	
@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM post p, img i
 		WHERE p.post_no = i.post_no
+		AND p.id = #{id}
 		AND i.img_no IN 
 				       (SELECT MIN(img_no) FROM img
 				       GROUP BY post_no) 
@@ -32,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND p.post_no = i.post_no
 	</select>
 	
+
 	
 </mapper>
 	
