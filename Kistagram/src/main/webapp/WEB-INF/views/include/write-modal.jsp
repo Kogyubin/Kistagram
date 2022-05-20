@@ -27,7 +27,7 @@
 				<div class="modal-body" id="myModalBody">
 						<form action="write-action" id="write-form" method="post" enctype="multipart/form-data">
 						      <div style="float:right;">
-									<img src='${path}/resources/img/profile.png' id='post_profile_img'>&nbsp;${session_id }</a>
+									<img src='${path}/resources/img/profile.png' id='post_profile_img'>&nbsp;${session_id }
 						      <div>
 						      <textarea rows="8" cols="40" name="content" placeholder="문구입력"></textarea>
 						      </div>

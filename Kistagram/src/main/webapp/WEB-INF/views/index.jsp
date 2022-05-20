@@ -90,6 +90,17 @@
 
 
 <script>
+
+//파일 업로드
+$(document).ready(function(){ 
+	
+	  var fileTarget = $('#file'); 
+	  fileTarget.on('change', function(){ // 값이 변경되면
+	      var cur=$(".filebox input[type='file']").val();
+	    $(".upload-name").val(cur);
+	  }); 
+}); 
+
  
  
  	var action = '';
@@ -99,6 +110,7 @@
 	
 $(document).ready(function() {
 	slider = $('.slider').bxSlider(); 
+	write-slider = $('.write-slider').bxSlider(); 
  
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
@@ -113,18 +125,10 @@ $(document).ready(function() {
 		
 		
 		$("#myLargeModal").modal();
+		
+		slider.reloadSlider();
 
 	});
-	
-	//파일 업로드
-	$(document).ready(function(){ 
-	  var fileTarget = $('#file'); 
-	  fileTarget.on('change', function(){ // 값이 변경되면
-	      var cur=$(".filebox input[type='file']").val();
-	    $(".upload-name").val(cur);
-	  }); 
-	}); 
-	
 	
 	
 	//이미지 미리보기
