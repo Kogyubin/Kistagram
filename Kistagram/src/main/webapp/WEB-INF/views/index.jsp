@@ -187,6 +187,9 @@ $(document).ready(function() {
 	
 	
 function postDetail(post_no){
+	
+	
+	
 	$.ajax({
 		url : "${path}/detail",
 		type : "post",
@@ -194,13 +197,20 @@ function postDetail(post_no){
 			post_no : post_no
 		},
 		success : function(result) {
+			
 			console.log(result);
+			
 			$(".slider").html();
 			$("#post_no").val(result[0].post_no);
-			$("#id").val(result[0].id);
-			$("#id").attr("readonly", true);
+			
+			if(result[0].profile_name != null) {
+				$("#post_profile_img").attr("src","${path}/resources/profileimg-uploadfolder\\"
+						+ result[0].id + "\\" + result[0].profile_name);
+			}
+			$("#detail_id span").text(result[0].id);
 			$("#content").text(result[0].content);
 			$("#content").attr("readonly", true);
+			
 			
 			let imgHTML="";
 			for(let i=0; i < result.length ; i++ ){
@@ -234,11 +244,10 @@ function commentList(post_no){
 			
 			//댓글 목록을 html로 담기
 			let listHtml = "";
-			
 		 	for(let j=0; j<data.length; j++){
 		 		
-		 		listHtml += "<div class='comment-list-array'>"
-// 		 		listHTML += "<img src='${path}/resources/img/profile.png'>";
+		 		listHtml += "<div class='comment-list-array'>";
+		 		listHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[j].id + "\\" + data[j].profile_name+"' id='post_profile_img'>";
 		 		listHtml += "<span class='comment-id-array'> "+ data[j].id + "</span>";
 		 		listHtml += "<span> "+data[j].comment_content+" </span><br>";
 		 		listHtml += "<span class='comment-regdate-array'> "+data[j].comment_regdate+"</span>";
@@ -344,7 +353,7 @@ function fn_Detail(post_no) {
 				<ul class="img-list">
 					<c:forEach items="${pilist }" var="pilist">
 						<!-- 						<span class="image"> -->
-						<li onclick="fn_Detail(${pilist.post_no}); return false;">
+						<li onclick="fn_Detail(${pilist.post_no});">
 							<img src="${path += '/resources/uploadfolder/' += pilist.id += '/' += pilist.img_name}"	width="360" height="360" />
 						</li>
 						<!-- 						</span> -->

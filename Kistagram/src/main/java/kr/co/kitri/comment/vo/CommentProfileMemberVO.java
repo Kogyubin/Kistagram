@@ -1,17 +1,14 @@
 package kr.co.kitri.comment.vo;
 
-
-
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
-public class CommentVO {
-	private int comment_no;
-	private int post_no;
+public class CommentProfileMemberVO {
+	
 	private String id;
 	private String comment_content;
 	private String comment_regdate;
-	private int profile_no;
+	private int parent_comment;
+	private String profile_name;
+	
 }

@@ -4,12 +4,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="comment">
-	<select id="selectComments" resultType="comment">
-        SELECT * 
-        FROM comments 
-        WHERE post_no = #{post_no} 
-        AND parent_comment = 0 
-		ORDER BY comment_no ASC
+	<select id="selectComments" resultType="commentprofilemember">
+<!--         SELECT *  -->
+<!--         FROM comments  -->
+<!--         WHERE post_no = #{post_no}  -->
+<!--         AND parent_comment = 0  -->
+<!-- 		ORDER BY comment_no ASC -->
+
+			SELECT c.id, c.post_no, c.comment_content, c.comment_regdate, c.parent_comment, p.profile_name
+			FROM comments c, member m, profile p
+			WHERE c.id = m.id
+			AND m.profile_no = p.profile_no
+			AND post_no = #{post_no}
+			AND parent_comment = 0 
+			ORDER BY comment_no ASC 
     </select>
     
     <select id="selectChildComment" resultType="comment">
