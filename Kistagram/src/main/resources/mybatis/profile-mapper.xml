@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="profile">
+
+	<resultMap type="profile" id="resultMapimgfile">
+		<result property="profile_no" column="profileno" />
+		<result property="profile_name" column="profilename" />
+		<result property="profile_size" column="profilesize" />
+		<result property="id" column="id" />
+		<result property="ori_profile_name" column="oriprofilename" />
+	
+	</resultMap>
+	
+	
+<!-- 	<insert id="insertProfileFile" parameterType="profile"> -->
+<!-- 		INSERT INTO profile -->
+<!-- 		VALUES (profile_no_seq.nextval, (SELECT MAX(no) FROM profile), #{id}, #{profile_path}, #{profile_name}, #{ori_profile_name}) -->
+	
+<!-- 	</insert> -->
+
+
+
+
+</mapper>	
