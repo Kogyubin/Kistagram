@@ -42,12 +42,8 @@ public class SignController {
 	
 	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
 	public String signInPage(HttpSession session) {
-		String session_id = (String)session.getAttribute("session_id");
-		if (session_id == null) {
-			return "member/sign-in";
-		} else {
-			return "redirect:/main";
-		}
+		return "member/sign-in";
+		
 	}
 
 	 /**
