@@ -32,14 +32,18 @@
 						      <textarea rows="8" cols="40" name="content" placeholder="문구입력"></textarea>
 						      </div>
 						      </div>
-						      <div>
-					        <input type="file" name="uploadfile" id="image" multiple="multiple"/>
-						    <div id="image_preview" style="flot:left;">
-						        <img src="#" />
-						        <br />
-					        <a href="#">Remove</a>
-					    	</div>
-						 </div>
+						      <div class="filebox">
+							       		<label for="file">업로드</label> 
+							        <input type="file" name="uploadfile" id="file" multiple="multiple"/>
+							        	<input class="upload-name" value="파일선택">
+							        	
+							   <div id="image_preview" style="flot:left;">
+							        <img src="#" />
+							        <br />
+						        <a href="#">취소</a>
+						    	</div>
+							 </div>
+
 						</form>
 				</div>
 				<div class="modal-footer">

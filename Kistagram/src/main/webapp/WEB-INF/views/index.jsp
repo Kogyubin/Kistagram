@@ -116,9 +116,19 @@ $(document).ready(function() {
 
 	});
 	
+	//파일 업로드
+	$(document).ready(function(){ 
+	  var fileTarget = $('#file'); 
+	  fileTarget.on('change', function(){ // 값이 변경되면
+	      var cur=$(".filebox input[type='file']").val();
+	    $(".upload-name").val(cur);
+	  }); 
+	}); 
+	
+	
 	
 	//이미지 미리보기
-	 $('#image').on('change', function() {
+	 $('#file').on('change', function() {
         
         ext = $(this).val().split('.').pop().toLowerCase(); //확장자
         
@@ -127,7 +137,7 @@ $(document).ready(function() {
             resetFormElement($(this)); //폼 초기화
             window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
         } else {
-            file = $('#image').prop("files")[0];
+            file = $('#file').prop("files")[0];
             blobURL = window.URL.createObjectURL(file);
             $('#image_preview img').attr('src', blobURL);
             $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
@@ -140,8 +150,8 @@ $(document).ready(function() {
     It removes the image, clears and unhides the file input field.
     */
     $('#image_preview a').bind('click', function() {
-        resetFormElement($('#image')); //전달한 양식 초기화
-        $('#image').slideDown(); //파일 양식 보여줌
+        resetFormElement($('#file')); //전달한 양식 초기화
+        $('#file').slideDown(); //파일 양식 보여줌
         $(this).parent().slideUp(); //미리 보기 영역 감춤
         return false; //기본 이벤트 막음
     });
@@ -267,10 +277,11 @@ function commentList(post_no){
 			
 		 	for(let j=0; j<data.length; j++){
 		 		
-		 		listHtml += "<div>"
-		 		listHtml += "<span> "+ data[j].id + "</span>";
+		 		listHtml += "<div class='comment-list-array'>"
+// 		 		listHTML += "<img src='${path}/resources/img/profile.png'>";
+		 		listHtml += "<span class='comment-id-array'> "+ data[j].id + "</span>";
 		 		listHtml += "<span> "+data[j].comment_content+" </span><br>";
-		 		listHtml += "<span> "+data[j].comment_regdate+"</span>";
+		 		listHtml += "<span class='comment-regdate-array'> "+data[j].comment_regdate+"</span>";
 		 		listHtml += "</div>"
 		 		
             }

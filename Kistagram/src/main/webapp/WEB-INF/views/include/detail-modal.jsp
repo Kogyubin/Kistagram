@@ -118,25 +118,27 @@
 						data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body" id="myModalBody">
+				
 					<div>
-							<div id="id">
-							      <img src='${path}/resources/img/profile.png' id='post_profile_img'>&nbsp;${session_id }</a>
-						    </div>
-						    
-							<div id="content">
-							  </div>
+						<div id="detail_id">
+						      <img src='${path}/resources/img/profile.png' id='post_profile_img'>&nbsp;${session_id }</a>
+					    </div>
+						<div id="content">
+						</div>
 					</div>  
-						<div class="detail_img">
-					      	<ul class="slider"></ul>
-					     </div>		
-						  
-						 <div class="post_like_section">
+					
+					<div class="detail_img">
+						<div >
+				      		<ul class="slider"></ul>
+				     	</div>	
+				     	
+				     	<div class="post_like_section">
 						 	 <a href='javascript: fn_like();'><img src='${path}/resources/img/dislike.png' id='like_img'></a>&nbsp;
-							 <img src='${path}/resources/img/comment.png' id='comment_icon'>	
-<%-- 							  <a href='javascript: fn_commentList();'><img src='${path}/resources/img/comment.png' id='comment_icon'></a>&nbsp;	 --%>
+							 <a href='#'><img src='${path}/resources/img/comment.png' id='comment_icon'></a>	
 							
 						</div>	
-						<!-- 댓글 리스트 -->
+			     	</div>
+			     	<!-- 댓글 리스트 -->
 						<div class="container">
 							<form id="comment-list-form" name="comment-list-form" method="post">
 								<div id="commentList">
@@ -144,7 +146,9 @@
 									
 								</div>
 							</form>
-					  </div>
+					    </div>
+				
+						  
 				<!-- modal header 종료 -->
 							<!--댓글 작성  -->
 	<!-- 						<div class="input_comment_div"> -->

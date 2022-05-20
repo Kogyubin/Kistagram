@@ -626,18 +626,52 @@ h6,
 	
 }
 
+
+
 #modalSubmit{
   width: 12%;
-  background-color: #3897f0;
-  border: 1px solid #3897f0;
+  background-color: #fff;
+  border: 1px solid #fff;
   padding: 5px 12px;
-  color: #fff;
+  color: #3897f0;
   font-weight: bold;
   cursor: pointer;
   border-radius: 3px;
 	
 }
 
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.filebox label {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  vertical-align: middle;
+  background-color: #3897f0;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+}
+
+/* named upload */
+.filebox .upload-name {
+  display: inline-block;
+  height: 35px;
+  font-size:18px; 
+  padding: 0 10px;
+  vertical-align: middle;
+  background-color: #f5f5f5;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+
+}
 
 
 .write_comment_btn {
@@ -652,13 +686,13 @@ h6,
 }
 
 #like_img{
-	width: 23px;
-	height:23px;
+	width: 27px;
+	height:27px;
 }
 
 #comment_icon{
-	width: 25px;
-	height:25px;
+	width: 29px;
+	height:29px;
 }
 
 
@@ -698,5 +732,35 @@ vertical-align: middle;
 }
 
 .detail_img{
-	width : 400px;
+	list-style: none;
+	width : 390px;
+	float: left;
+	margin-right: 17px;
+}
+
+.detail_img li{
+	
+	height: 400px;
+}
+
+.comment-list-array{
+	 margin-bottom: 12px;
+}
+
+.comment-id-array {
+	 font-weight: bold;
+}
+
+.comment-regdate-array{
+	 font-size: 14px;
+	 color: gray;
+	
+}
+
+.post_like_section{
+	 margin-bottom: 10px;
+}
+
+#detail_id {
+	 font-weight: bold;
 }
