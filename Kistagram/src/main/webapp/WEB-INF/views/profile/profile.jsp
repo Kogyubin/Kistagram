@@ -11,17 +11,99 @@
 
 <script> 
 
+// const reader = new FileReader();
 
-function setThumbnail(event) { 
-	var reader = new FileReader(); 
+// reader.onload = (readerEvent) => {
+//     document.querySelector("#img_section").setAttribute("src", readerEvent.target.result);
+//     //파일을 읽는 이벤트가 발생하면 img_section의 src 속성을 readerEvent의 결과물로 대체함
+// };
+
+// document.querySelector("#image").addEventListener("change", (changeEvent) => {
+//     //upload_file 에 이벤트리스너를 장착
+
+//     const imgFile = changeEvent.target.files[0];
+//     reader.readAsDataURL(imgFile);
+//     //업로드한 이미지의 URL을 reader에 등록
+// })
+
+
+	$(function() {
+    $("#myFile").on('change', function(){
+    readURL(this);
+    });
+});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+        $('#View').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+
+// function handleFiles() {
+//   const fileList = this.files[0]; 
+  
+//   console.log(fileList);
+
+// }	
+
+// var onFilePicked = function(event) {
+// 	  var input = event.target;
+
+// 	  var file = input.files[0];
+// 	  console.log(file.size);
+	  
+	  
+// 	  var test = document.getElementById("test");
+// 	  console.log(test.value);
+	  
+	  
+	  
+
+// 	};
 	
-	reader.onload = function(event) { 
-		var img = document.createElement("img"); 
-		img.setAttribute("src", event.target.result); 
-		document.querySelector("div#image_container").appendChild(img); 
-	}; 
-		reader.readAsDataURL(event.target.files[0]); 
-	} 
+	
+	$(function() {
+		$(".btn-profileimg").click(function() {
+			
+		
+			var form = $('.form-profileimg')[0];
+			var formData = new FormData(form);
+			
+			
+			$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: '${path}/profileimg-up',
+				processData: false,
+				contentType: false,
+				data: formData,
+				
+				success:function(data){
+			
+					console.log("success")
+					alert("프로필 사진이 변경되었습니다.");
+				}
+// 			success:function(rs){
+// 				if(rs.result==1) {
+// 					alert('프로필 사진이 변경 되었습니다.');
+// 				}else{
+// 					alert('프로필사진을 선택해주세요.');
+// 				}
+// 			},
+// 			error: function(jqXHR, textStatus, errorThrown) {
+// 	            alert("프로필 사진을 선택해주세요.");
+// 	        }
+			});
+		});
+	});	
+
+
+	
 </script>
 
 
@@ -36,19 +118,23 @@ function setThumbnail(event) {
 
     </div>
     <div class="l-part">
-    	<form action="upload" id="uploadForm" method="post" enctype="multipart/form-data">
-			<input type="file" name="file" id="file" />
+    	
+			<form class="form-profileimg" id="uploadForm" method="post" enctype="multipart/form-data">
 	    	<div class="profile0">
 		    	<div class="profile1">
-			    	<button class="btn-profile" onclick="document.all.file.click()" title="프로필 사진 추가">
-			    		<img alt="프로필 사진 추가" class= "profile2" 
+			    		<img alt="프로필 사진 추가" id="View"  class= "profile2" 
 			    		src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
-			    	</button>
+			    	
 				</div>	 
-			</div>
-					<button type="button" class="btn-photo" onclick="ocument.all.file.click()" >프로필 사진 바꾸기</button>
-					
-		</form>
+			</div> 
+					<input type="file" id="myFile" name="imgup" >
+					<div id="label-filebtn">
+					<label id="label-btn" for="myFile">프로필 사진 바꾸기</label>
+					</div>
+<!-- 					<button type="button" id="profile-photo" class="btn-photo" onclick="document.all.file.click()" >프로필 사진 바꾸기</button> -->
+			</form>
+					<button class="btn-profileimg">사진 변경</button>
+		
 		<form class="form-profile" action="" method="post" name="form-profile">
 	      	<input type="text" id="id" name="id" placeholder="Username" class="input-1" value="${id }" readonly/>       
 	      <div class="overlap-text">	    

@@ -14,10 +14,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
+import kr.co.kitri.profileimg.dao.ProfileImgDAO;
+import kr.co.kitri.profileimg.service.ProfileImgSvc;
+import kr.co.kitri.profileimg.vo.ProfileImgVO;
+
 
 
 
@@ -29,10 +35,15 @@ public class ProfileController {
 
 	@Autowired
 	private MemberDAO mdao;
+	
+	@Autowired
+	private ProfileImgDAO pfdao;
+	
+	@Autowired
+	private ProfileImgSvc pfsvc;
 	 /**
      * 프로필 수정 화면.
      */
-
 	
 	@RequestMapping(value = "/profile" )
 	public String profile(Locale locale, HttpSession session, Model model) {
@@ -66,6 +77,26 @@ public class ProfileController {
 		
 
 		return "profile/profile-up";
+	}
+
+	
+	@RequestMapping(value = "/profileimg-up")
+	public String profileimgup(MultipartHttpServletRequest multiPart, HttpSession session, Model model) {
+		
+		MemberVO mvo = new MemberVO();
+		String session_id = (String)session.getAttribute("session_id");
+		mvo.setId(session_id);
+		List<MultipartFile> fileList =  multiPart.getFiles("imgup");
+		
+		boolean flag = pfsvc.insertProfileImg(session_id, fileList, model);
+		
+		
+		if(flag) {
+			model.addAttribute("msg","수정완료");
+		} 
+		
+
+		return "profile/profileimg-up";
 	}
 	
 

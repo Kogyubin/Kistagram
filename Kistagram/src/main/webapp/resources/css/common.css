@@ -132,9 +132,12 @@ body {
 
 input:focus {
     background-color: powderblue;
+    
 }
 
+input:focus {outline: 2px solid #d50000;} /* outline 테두리 속성 수정 */
 
+input:focus {outline: none;} /* outline 테두리 없애기 */
 
 
 .center {
@@ -274,11 +277,12 @@ input:focus {
     border-radius: 50%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    height: 100%;
+    height: 110%;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
-    width: 100%;
+    width: 110%;
+    
 }
 
 
@@ -304,5 +308,62 @@ input:focus {
 	position: relative;
 	top: 15px;
 }
+
+
+#myFile {
+	display: none;
+    
+    
+}	
+
+#label-filebtn {
+-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    display: block;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 9px;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: inherit;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: auto;
+    position: relative;
+	
+    right: 60px;
+    bottom: 30px;
+    color: #0095f6;	
+    
+    
+}    
+
+#label-btn {
+	cursor: pointer;
+}
+
+.btn-profileimg {
+	position: relative;
+	left: 243px;
+	bottom: 25px;
+	width: 30%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 2px 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
 
 

@@ -724,6 +724,15 @@ vertical-align: middle;
 	font-family: "Raleway", sans-serif;
 }
 
+
+#mainintro{
+	border: none;
+	font-family: "Inconsolata", monosapce;
+    color: #0d1e2d;
+    background-color:#fff;
+}
+
+
 #mainintro{
 	border: none;
 	font-family: "Inconsolata", monosapce;

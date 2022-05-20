@@ -7,86 +7,42 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-<title>Kistagram</title>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
-<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+	<head>
+	  <title>Kistagram</title>
+	  <meta charset="utf-8">
+	  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	  <meta content="" name="keywords">
+	  <meta content="" name="description">
+	
 
-
-<!-- Favicons -->
-<link href="resources/img/favicon.png" rel="icon">
-<link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap"
-	rel="stylesheet">
-
-<!-- Bootstrap CSS File -->
-<link href="resources/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<!-- Vendor CSS Files -->
-<link href="resources/vendor/icofont/icofont.min.css" rel="stylesheet">
-<link href="resources/vendor/line-awesome/css/line-awesome.min.css"
-	rel="stylesheet">
-<link href="resources/vendor/aos/aos.css" rel="stylesheet">
-<link href="resources/vendor/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-
-<!-- Template Main CSS File -->
-<link href="resources/css/style.css" rel="stylesheet">
-
-<!-- =======================================================
-	    Template Name: MyPortfolio
-	    Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-	    Author: BootstrapMade.com
-	    Author URL: https://bootstrapmade.com/
-	  ======================================================= -->
-<head>
-<meta charset="utf-8">
-<title>Kistagram</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
+	 
+	
+	  <!-- Google Fonts -->
+	  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap"
+	    rel="stylesheet">
+	
+	  <!-- Bootstrap CSS File -->
+	  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	  <!-- Vendor CSS Files -->
+	  <link href="resources/vendor/icofont/icofont.min.css" rel="stylesheet">
+	  <link href="resources/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+	  <link href="resources/vendor/aos/aos.css" rel="stylesheet">
+	  <link href="resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+	
+	  <!-- Template Main CSS File -->
+	  <link href="resources/css/style.css" rel="stylesheet">
+	
 <!--   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<link href="resources/css/style.css" rel="stylesheet">
-<!-- Favicons -->
-<link href="resources/img/favicon.png" rel="icon">
-<link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- <script -->
+<!-- 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+<!-- <link href="resources/css/style.css" rel="stylesheet"> -->
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap"
-	rel="stylesheet">
-
-<!-- Bootstrap CSS File -->
-<link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Vendor CSS Files -->
-<link href="resources/vendor/icofont/icofont.min.css" rel="stylesheet">
-<link href="resources/vendor/line-awesome/css/line-awesome.min.css"	rel="stylesheet">
-<link href="resources/vendor/aos/aos.css" rel="stylesheet">
-<link href="resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-
-
-<!-- Template Main CSS File -->
-
-
-<!-- =======================================================
-    Template Name: MyPortfolio
-    Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-    Author: BootstrapMade.com
-    Author URL: https://bootstrapmade.com/
-  ======================================================= -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+<!-- <link href="resources/css/style.css" rel="stylesheet"> -->
 
 
 <script>
@@ -110,7 +66,7 @@ $(document).ready(function(){
 	
 $(document).ready(function() {
 	slider = $('.slider').bxSlider(); 
-	write-slider = $('.write-slider').bxSlider(); 
+// 	write-slider = $('.write-slider').bxSlider(); 
  
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
@@ -331,17 +287,17 @@ function fn_Detail(post_no) {
 
 <body>
 
-
-
-	<nav class="navbar navbar-light custom-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="${path }/main">Kistagram.</a> <span
-				class='green_window'> <input id=text type="text"
-				class='input_text' name="search" onkeydown="enterSearch()" /></span> <input
-				type="button" class='sch_smit' value="검색" onclick="myFunction()" />
-
-		</div>
-	</nav>
+	
+	  <nav class="navbar navbar-light custom-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="${path }/main">Kistagram.</a>
+	
+		<span class='green_window'>
+			<input id=text type="text" class='input_text' name="search" onkeydown="enterSearch()"/></span>
+			<input type="button" class='sch_smit' value="검색" onclick="myFunction()"/>
+	
+	    </div>
+	  </nav>
 
 	<main id="main">
 
@@ -353,19 +309,17 @@ function fn_Detail(post_no) {
 					<div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
 
 						<div class="box">
-							<img class="profile" src="resources/img/profile.jpg" alt="Image">
+							 <img class="profile" src="${path }\resources\profileimg-uploadfolder/${id }/${profile_name}" alt="Image">
 						</div>
 
 						<div class="state">
 							<div id="mainid">
-								<input type="text" id="id" name="id" placeholder="Username" ]
-									style="border: 0px solid black; font-family: Raleway, sans-serif; font-size: 45px; background-color: #fff;"
-									value="${id }" readonly />
+								<input type="text" id="id" name="id" placeholder="Username" 
+								style="border:0px solid black; font-family: Raleway, sans-serif; font-size: 45px; background-color:#fff;" value="${id }" readonly/>
 							</div>
-							<input type="text" id="mainintro" name="introduce"
-								class="input-2" readonly value="${introduce }" />
+							<input type="text" id="mainintro" name="introduce" class="input-2" readonly value="${introduce }" />
+							
 							<div class="follower">
-
 								<p class="mb-0">팔로워 6514</p>
 							</div>
 							<div class="follow">
@@ -373,8 +327,7 @@ function fn_Detail(post_no) {
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12 col-lg-6 text-left text-lg-right"
-						data-aos="fade-up" data-aos-delay="100">
+					<div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
 						<div id="filters" class="filters">
 							<a href="${path }/profile">Profile</a> 
 							<a id="writeBtn" data-toggle="modal" class="write">Write</a> 
@@ -431,17 +384,17 @@ function fn_Detail(post_no) {
 		</div>
 	</footer>
 
-	<!-- Vendor JS Files -->
-<!-- 	<script src="resources/vendor/jquery/jquery.min.js"></script> -->
-<!-- 	<script src="resources/vendor/jquery/jquery-migrate.min.js"></script> -->
-	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/vendor/easing/easing.min.js"></script>
-<!-- 	<script src="resources/vendor/php-email-form/validate.js"></script> -->
-	<script src="resources/vendor/isotope/isotope.pkgd.min.js"></script>
-	<script src="resources/vendor/aos/aos.js"></script>
-	<script src="resources/vendor/owlcarousel/owl.carousel.min.js"></script>
-	<!-- Template Main JS File -->
-	<script src="resources/js/main.js"></script>
-
-</body>
+		<!-- Vendor JS Files -->
+	<!-- 	<script src="resources/vendor/jquery/jquery.min.js"></script> -->
+	<!-- 	<script src="resources/vendor/jquery/jquery-migrate.min.js"></script> -->
+		<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="resources/vendor/easing/easing.min.js"></script>
+	<!-- 	<script src="resources/vendor/php-email-form/validate.js"></script> -->
+		<script src="resources/vendor/isotope/isotope.pkgd.min.js"></script>
+		<script src="resources/vendor/aos/aos.js"></script>
+		<script src="resources/vendor/owlcarousel/owl.carousel.min.js"></script>
+		<!-- Template Main JS File -->
+		<script src="resources/js/main.js"></script>
+	
+	</body>
 </html>

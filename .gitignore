@@ -3,4 +3,8 @@ target/
 /test-classes/
 .classpath
 .project
+<<<<<<< HEAD
 .settings/
+=======
+.settings/
+>>>>>>> 0f6a510316b057ce06894fd83f462953fa477099

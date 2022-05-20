@@ -34,6 +34,9 @@ import kr.co.kitri.member.vo.MemberVO;
 import kr.co.kitri.post.service.PostService;
 import kr.co.kitri.post.vo.PostImgVO;
 import kr.co.kitri.post.vo.PostVO;
+import kr.co.kitri.profileimg.dao.ProfileImgDAO;
+import kr.co.kitri.profileimg.service.ProfileImgSvc;
+import kr.co.kitri.profileimg.vo.ProfileImgVO;
 
 /**
  * Handles requests for the application home page.
@@ -45,13 +48,20 @@ public class MainController {
 	private PostService pservice;
 	@Autowired 
 	private ImgService iservice;
-	@Autowired
-	private CommentService cservice;
 	
 	@Autowired
 	private MemberSvc msvc;
 	@Autowired
 	private MemberDAO mdao;
+	
+	@Autowired
+	private ProfileImgSvc pfsvc;
+
+	@Autowired
+	private ProfileImgDAO pfdao;
+	
+	@Autowired
+	private CommentService cservice;
 	
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -78,14 +88,20 @@ public class MainController {
 		System.out.println(session_id);
 		
 		
-		
+		ProfileImgVO pfvo = new ProfileImgVO();
+		pfvo.setId(session_id);
+		ProfileImgVO pfvo2 = pfdao.selectProfileImg(pfvo);
+		String profile_name="";
+		if(pfvo2 != null) {
+			profile_name = pfvo2.getProfile_name();
+		}
+		model.addAttribute("profile_name", profile_name);
 		model.addAttribute("id", member_md);
 		model.addAttribute("introduce", member_itd);
 		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
 		
 		
-
 		return "index";
 	}
 
