@@ -1,0 +1,368 @@
+@charset "UTF-8";
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background-color: #eee;
+}
+
+#wrapper {
+  width: 500px;
+/*   height: 50%; */
+  overflow: hidden;
+  border: 0px solid #000;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+#wrapper1 {
+  width: 500px;
+/*   height: 50%; */
+  overflow: hidden;
+  border: 0px solid #000;
+  margin: 50px auto;
+  padding: 10px;
+}
+
+.main-content {
+  width: 250px;
+/*   height: 40%; */
+  margin: 10px auto;
+  background-color: #fff;
+  border: 2px solid #e6e6e6;
+  padding: 40px 50px;
+}
+
+.main-content-pro {
+  width: 450px;
+/*   height: 40%; */
+  margin: 10px auto;
+  background-color: #fff;
+  border: 2px solid #e6e6e6;
+  padding: 40px 50px;
+  
+}
+
+.header {
+  border: 0px solid #000;
+  margin-bottom: 5px;
+}
+
+.header img {
+  height: 50px;
+  width: 175px;
+  margin: auto;
+  position: relative;
+  left: 40px;
+}
+
+.input-1,
+.input-2 {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 8px 12px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.overlap-text {
+  position: relative;
+}
+
+.overlap-text a {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: #003569;
+  font-size: 14px;
+  text-decoration: none;
+  font-family: 'Overpass Mono', monospace;
+  letter-spacing: -1px;
+}
+
+.btn {
+  width: 100%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 5px 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.sub-content {
+  width: 250px;
+/*   height: 40%; */
+  margin: 10px auto;
+  border: 1px solid #e6e6e6;
+  padding: 20px 50px;
+  background-color: #fff;
+}
+
+.sub-content1 {
+  width: 250px;
+/*   height: 40%; */
+  margin: 10px auto;
+  border: 1px solid #e6e6e6;
+  padding: 20px 50px;
+  background-color: #fff;
+}
+
+.s-part {
+  text-align: center;
+  font-family: 'Overpass Mono', monospace;
+  word-spacing: -3px;
+  letter-spacing: -2px;
+  font-weight: normal;
+}
+
+.s-part a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #3897f0;
+  font-family: 'Overpass Mono', monospace;
+  word-spacing: -3px;
+  letter-spacing: -2px;
+  font-weight: normal;
+}
+
+input:focus {
+    background-color: powderblue;
+    
+}
+
+input:focus {outline: 2px solid #d50000;} /* outline 테두리 속성 수정 */
+
+input:focus {outline: none;} /* outline 테두리 없애기 */
+
+
+.center {
+	position: relative;
+	top: 150px;
+
+}
+
+.center-pro {
+	position: relative;
+	top: 70px;
+
+}
+
+.btn-signin {
+	  width: 100%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 5px 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.btn-signup {
+	  width: 100%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 5px 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+
+.btn-idcheck {
+		  width: 30%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 3px 9px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+  	position: relative;
+
+    left: 175px;
+    bottom: 3px;
+}
+
+/* .container{ */
+/* 	display: flex; */
+/* 	text-align: left; */
+/* } */
+
+#introduce {
+	background: 0 0;
+    border: 1px solid #dbdbdb;
+    border: 1px solid rgba(var(--ca6,219,219,219),1);
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #262626;
+    color: rgba(var(--i1d,38,38,38),1);
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 355px;
+    -ms-flex: 0 1 355px;
+    flex: 0 1 355px;
+    font-size: 16px;
+    height: 60px;
+    padding: 6px 10px;
+    resize: vertical;
+
+}
+
+.btn-photo {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 9px;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: inherit;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: auto;
+    position: relative;
+	
+    left: 40px;
+    bottom: 30px;
+    color: #0095f6;
+}
+
+.profile2 {
+	height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.btn-profile {
+	border: 0;
+    cursor: pointer;
+    height: 100%;
+    padding: 0;
+    width: 100%;
+}
+
+.btn-profile1 {
+	width: 100%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 5px 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.profile1 {
+	background-color: #fafafa;
+    background-color: rgba(var(--b3f,250,250,250),1);
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 110%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 110%;
+    
+}
+
+
+.profile0 {
+    height: 38px;
+    width: 38px;
+}
+
+#file {
+	display:none;
+}
+
+.introduce0 {
+	font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    position: relative;
+	left: 10px;
+	bottom: 5px;
+}
+
+.intr {
+	position: relative;
+	top: 15px;
+}
+
+#myFile {
+	display: none;
+    
+    
+    
+}	
+
+#label-filebtn {
+-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    display: block;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 9px;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: inherit;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: auto;
+    position: relative;
+	
+    right: 60px;
+    bottom: 30px;
+    color: #0095f6;	
+    
+    
+}    
+
+#label-btn {
+	cursor: pointer;
+}
+
+.btn-profileimg {
+	position: relative;
+	left: 243px;
+	bottom: 25px;
+	width: 30%;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 2px 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+
