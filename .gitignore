@@ -1,6 +1,4 @@
 target/
 /classes/
 /test-classes/
-.classpath
-.project
 .settings/
