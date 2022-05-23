@@ -33,50 +33,55 @@ h6,
 }
 
 .site-section {
-  padding: 7rem 0;
+	clear:both;
+	padding-top: 30px;
 }
-
+.filters {
+	clear:both;
+	margin: 30px 0 10px 0;
+	float: right;
+}
 .filters a {
   color: #000;
   display: inline-block;
   padding-left: 10px;
   padding-right: 10px;
-  position: relative;
-  position: relative;
-  bottom: 250px;
+  -position: relative;
+  -bottom: 250px;
   cursor: pointer;
 
 }
 
-.filters a:hover,
-.filters a:focus,
-.filters a:active {
+.filters a:hover{
+/* .filters a:focus, */
+/* .filters a:active { */
   text-decoration: none;
+  color: gray;
 }
 
-.filters a:hover:before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 0;
-  height: 1px;
-  background-color: #000;
-}
+/* .filters a:hover:before { */
+/*   content: ""; */
+/*   position: absolute; */
+/*   left: 10px; */
+/*   right: 10px; */
+/*   bottom: 0; */
+/*   height: 1px; */
+/*   background-color: #000; */
+/* } */
 
-.filters a.active {
-  color: #000;
-}
+/* .filters a.active { */
+/*   color: #000; */
+/* } */
 
-.filters a.active:before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 0;
-  height: 1px;
-  background-color: #000;
-}
+/* .filters a.active:before { */
+/*   content: ""; */
+/*   position: absolute; */
+/*   left: 10px; */
+/*   right: 10px; */
+/*   bottom: 0; */
+/*   height: 1px; */
+/*   background-color: #000; */
+/* } */
 
 .item {
   border: none;
@@ -415,7 +420,10 @@ h6,
 
 .custom-navbar {
   padding-top: 50px;
+  padding-bottom: 25px;
   width: 100%;
+  background-color: #f3f3f3;
+  
 }
 
 .custom-navbar .navbar-brand {
@@ -504,7 +512,8 @@ h6,
 }
 
 .footer {
-  padding: 0 0 4rem 0;
+	background-color: #f3f3f3;
+  padding: 1.5rem 0 1.5rem 0;
 }
 
 .footer a {
@@ -532,15 +541,16 @@ h6,
 }
 
 .box {
+	float: left;
     width: 150px;
     height: 150px; 
     border-radius: 70%;
     overflow: hidden;
     background-color:#BDBDBD;
-	position: relative;
-    bottom: 50px;
-    left: 50px;
-	
+	-position: relative;
+    -bottom: 50px;
+    -left: 50px;
+	margin: 0 50;
     
 }
 .profile {
@@ -551,10 +561,11 @@ h6,
 }
 
 .state {
-	position: relative;
-    bottom: 180px;
-    left: 270px;
-    border:0px solid black;
+	-position: relative;
+    -bottom: 180px;
+    -left: 270px;
+    -border:0px solid black;
+    margin-bottom: 50px;
 }
 
 .follower {
@@ -586,9 +597,10 @@ h6,
 
 .green_window {
     display: inline-block;
-    width: 300px; height: 34px;
+    width: 300px; height: 40px;
     border: 3px solid #200400;
     background: white;
+    -margin-left: 15%;
 }
 .input_text {
     width: 280px; height: 21px;
@@ -609,7 +621,7 @@ h6,
     border-radius: 1px;
     cursor: pointer;
     position: relative;
-	right: 280px;
+	-right: 280px;
 }
 .sch_smit:hover {
     background: #56C82C;
@@ -719,9 +731,12 @@ max-width: 100%;
 vertical-align: middle;
 }
 
-#mainid {
-	border:0px solid black;
+.mainid {
+	-border:0px solid black;
 	font-family: "Raleway", sans-serif;
+	font-size: 45px;
+	border: none;
+	font-weight: bold;
 }
 
 
@@ -732,13 +747,6 @@ vertical-align: middle;
     background-color:#fff;
 }
 
-
-#mainintro{
-	border: none;
-	font-family: "Inconsolata", monosapce;
-    color: #0d1e2d;
-    background-color:#fff;
-}
 
 .detail_img{
 	list-style: none;
@@ -779,4 +787,18 @@ vertical-align: middle;
 
 #detail_id {
 	 font-weight: bold;
+}
+.dis-ib{
+	display:inline-block; 
+}
+.mg-20{
+	margin: 20px;
+}
+
+.img-div{
+	
+	margin: 10px;
+}
+.img-div>img{
+	border-radius: 5%;
 }

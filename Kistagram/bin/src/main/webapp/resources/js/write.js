@@ -1,0 +1,1 @@
+back.style.backgroundPosition="center"
