@@ -65,6 +65,7 @@
 		        	console.log(id);
 		            console.log(post_no);
 		            console.log(comment_content);
+		            
 		        	
 		        	
 	                $.ajax({
@@ -121,7 +122,8 @@
 				
 					<div>
 						<div id="detail_id">
-						      <img src='${path}/resources/img/profile.png' id='post_profile_img'>&nbsp;${session_id }</a>
+						      <img id="post_profile_img" src='${path}/resources/img/profile.png'>
+						      <span></span>
 					    </div>
 						<div id="content">
 						</div>

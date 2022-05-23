@@ -32,6 +32,7 @@ import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
 import kr.co.kitri.post.service.PostService;
+import kr.co.kitri.post.vo.PostImgMemberProfileVO;
 import kr.co.kitri.post.vo.PostImgVO;
 import kr.co.kitri.post.vo.PostVO;
 import kr.co.kitri.profileimg.dao.ProfileImgDAO;
@@ -107,9 +108,9 @@ public class MainController {
 
 	@RequestMapping("/detail")
 	@ResponseBody
-	public List<PostImgVO> detail(int post_no, Model model) {
+	public List<PostImgMemberProfileVO> detail(int post_no, Model model) {
 		
-		List<PostImgVO> pivo = pservice.getPost(post_no);
+		List<PostImgMemberProfileVO> pivo = pservice.getPost(post_no);
 		model.addAttribute("pivo", pivo);
 		
 		return pivo;
