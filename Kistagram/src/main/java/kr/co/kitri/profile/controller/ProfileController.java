@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -81,14 +82,14 @@ public class ProfileController {
 
 	
 	@RequestMapping(value = "/profileimg-up")
-	public String profileimgup(MultipartHttpServletRequest multiPart, HttpSession session, Model model) {
+	public String profileimgup(MultipartHttpServletRequest multiPart, HttpSession session, Model model, HttpServletRequest req) {
 		
 		MemberVO mvo = new MemberVO();
 		String session_id = (String)session.getAttribute("session_id");
 		mvo.setId(session_id);
 		List<MultipartFile> fileList =  multiPart.getFiles("imgup");
 		
-		boolean flag = pfsvc.insertProfileImg(session_id, fileList, model);
+		boolean flag = pfsvc.insertProfileImg(session_id, fileList, model, req);
 		
 		
 		if(flag) {

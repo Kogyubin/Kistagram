@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -26,6 +27,8 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
+import kr.co.kitri.follow.service.FollowService;
+import kr.co.kitri.follow.vo.FollowVO;
 import kr.co.kitri.img.service.ImgService;
 import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
@@ -64,6 +67,9 @@ public class MainController {
 	@Autowired
 	private CommentService cservice;
 	
+	@Autowired 
+	private FollowService fservice;
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -71,20 +77,33 @@ public class MainController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Locale locale, HttpSession session, Model model) {
+	public String main(Locale locale, HttpSession session, Model model, String id) {
 		MemberVO mvo = new MemberVO();
 		
 		String session_id = (String)session.getAttribute("session_id");
 		if (session_id == null) {
 			return "redirect:/sign-in";
 		}
-		
+		//메인화면 이미지 리스트
 		List<PostImgVO> pilist = pservice.getPostImgs(session_id);
 		
 		mvo.setId(session_id);
 		mvo = mdao.selectUser(mvo);
 		String member_md = mvo.getId();
 		String member_itd = mvo.getIntroduce();
+		
+		//팔로우 유무
+//		PostVO pvo = new PostVO();
+//		pvo.setId(id);
+//		String followId = pvo.getId();
+		
+//		
+//		HashMap<String, String> folmap = new HashMap<String, String>();
+//		folmap.put("id", "member_md");
+//		folmap.put("id2", "followId");
+		
+		int followerCnt = fservice.getFollowerCount(member_md);
+		int followCnt = fservice.getFollowCount(member_md);
 		
 		System.out.println(session_id);
 		
@@ -101,10 +120,12 @@ public class MainController {
 		model.addAttribute("introduce", member_itd);
 		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
-		
+		model.addAttribute("followerCnt", followerCnt);
+		model.addAttribute("followCnt", followCnt);
 		
 		return "index";
 	}
+	
 
 	@RequestMapping("/detail")
 	@ResponseBody
@@ -184,7 +205,7 @@ public class MainController {
 	@RequestMapping("/write-action")
 	@ResponseBody
 	public String writeAction(MultipartHttpServletRequest multiPart,
-			HttpSession session, Model model) {
+			HttpSession session, Model model, HttpServletRequest req) {
 		
 		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
 		
@@ -196,7 +217,7 @@ public class MainController {
 		pvo.setId(id);
 		pvo.setContent(content);
 		
-		boolean result = pservice.writePostImg(pvo, fileList);
+		boolean result = pservice.writePostImg(pvo, fileList, req);
 		
 		return "redirect:main";
 

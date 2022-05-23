@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,9 +78,11 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	@Transactional(rollbackFor=Exception.class)
-	public boolean writePostImg(PostVO pvo, List<MultipartFile> fileList) {
+	public boolean writePostImg(PostVO pvo, List<MultipartFile> fileList, HttpServletRequest req) {
 		
-		String upLoadPath = "C:\\Users\\kitri\\git\\Kistagram\\Kistagram\\src\\main\\webapp\\resources\\uploadfolder";
+//		String upLoadPath = "C:\\Users\\kitri\\git\\Kistagram\\Kistagram\\src\\main\\webapp\\resources\\uploadfolder";
+		String upLoadPath = req.getSession().getServletContext().getRealPath("resources/uploadfolder");
+
 		
 		//upload경로
 		File folder = new File(upLoadPath+File.separator+pvo.getId());

@@ -7,8 +7,8 @@ public class PostImgMemberProfileVO {
 	
 	private String id;
 	private int post_no;
-	private int post_content;
+	private String content;
 	private String img_name;
 	private String profile_name;
-
+	
 }

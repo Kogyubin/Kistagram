@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,10 @@ import kr.co.kitri.profileimg.vo.ProfileImgVO;
 		
 		@Override
 		@Transactional(rollbackFor=Exception.class)
-		public boolean insertProfileImg(String id, List<MultipartFile> fileList, Model model) {
+		public boolean insertProfileImg(String id, List<MultipartFile> fileList, Model model, HttpServletRequest req) {
+			
+			String upLoadPath = req.getSession().getServletContext().getRealPath("resources/profileimg-uploadfolder");
 						
-			String upLoadPath = "C:\\Users\\kitri\\git\\Kistagram\\Kistagram\\src\\main\\webapp\\resources\\profileimg-uploadfolder";
 			
 			//upload경로
 			File folder = new File(upLoadPath+File.separator+id);

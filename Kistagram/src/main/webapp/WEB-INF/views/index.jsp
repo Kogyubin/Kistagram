@@ -48,25 +48,38 @@
 <script>
 
 //파일 업로드
+
+	var bxSlider;
+	
 $(document).ready(function(){ 
+	
+	 bxSlider = $('.bxSlider').bxSlider(); 
 	
 	  var fileTarget = $('#file'); 
 	  fileTarget.on('change', function(){ // 값이 변경되면
 	      var cur=$(".filebox input[type='file']").val();
-	    $(".upload-name").val(cur);
+		    $(".bxSlider").html();
+		    $(".upload-name").val(cur);
+	   
 	  }); 
+	  
+	  $("#myLargeModal").on('hidden.bs.modal', function (e){
+
+		  $(this).find('form')[0].reset();
+		  $(".bxSlider").html("");
+	  });
 }); 
 
- 
- 
  	var action = '';
 	var url = '';
 	var type = '';
 	var slider;
+
 	
 $(document).ready(function() {
+	
 	slider = $('.slider').bxSlider(); 
-// 	write-slider = $('.write-slider').bxSlider(); 
+// 	bxSlider = $('.bxSlider').bxSlider(); 
  
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
@@ -74,63 +87,54 @@ $(document).ready(function() {
 		action = 'create';
 		type = 'post',
 		
+		
 		$("#modal-title").text("Write");
-		$("#id").val("${session_id}");
-		$("#id").attr("readonly",true);
-		$("#content").val("");
+		
+		if("${profile_name}" != "") {
+			$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder\\"
+						+ "${session_id}" + "\\" + "${profile_name}");
+			}
+		
+		$("#post_id span").text("${session_id}");
+		$("#post-content").val("");
 		
 		
 		$("#myLargeModal").modal();
 		
-		slider.reloadSlider();
+
 
 	});
 	
+//다중파일 이미지 미리보기
+	var sel_files = [];
 	
-	//이미지 미리보기
-	 $('#file').on('change', function() {
-        
-        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-        
-        //배열에 추출한 확장자가 존재하는지 체크
-        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            resetFormElement($(this)); //폼 초기화
-            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-        } else {
-            file = $('#file').prop("files")[0];
-            blobURL = window.URL.createObjectURL(file);
-            $('#image_preview img').attr('src', blobURL);
-            $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
-            $(this).slideUp(); //파일 양식 감춤
-        }
-    });
+	$('#file').on("change", handleImgsFilesSelect);
 
-    /**
-    onclick event handler for the delete button.
-    It removes the image, clears and unhides the file input field.
-    */
-    $('#image_preview a').bind('click', function() {
-        resetFormElement($('#file')); //전달한 양식 초기화
-        $('#file').slideDown(); //파일 양식 보여줌
-        $(this).parent().slideUp(); //미리 보기 영역 감춤
-        return false; //기본 이벤트 막음
-    });
-        
+	function handleImgsFilesSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")) {
+				alert("이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)");
+				return;
+			}
+			sel_files.push(f);
+			
+		var reader = new FileReader();
+		reader.onload = function(e){
+// 				$(".bxSlider").html();
+				var img_html = "<img src=\""+e.target.result +"\" />";
+				$(".bxSlider").append(img_html);
+				bxSlider.reloadSlider();
+			}
+			reader.readAsDataURL(f);
+			
 
-    /** 
-    * 폼요소 초기화 
-    * Reset form element
-    * 
-    * @param e jQuery object
-    */
-    function resetFormElement(e) {
-        e.wrap('<form>').closest('form').get(0).reset(); 
-        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
-        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
-        //DOM에서 제공하는 초기화 메서드 reset()을 호출
-        e.unwrap(); //감싼 <form> 태그를 제거
-    }
-
+		});
+	}
+	
+	
 	//Modal의 submit 버튼 클릭
 
 	$("#modalSubmit").click(function() {
@@ -163,7 +167,7 @@ $(document).ready(function() {
 				if (action == 'create') {
 					if (result) {
 						alert("등록에 성공하였습니다.");
-// 						 $("#wrtie-form").val("");
+
 					} else {
 						alert("오류가 발생하였습니다. 다시 등록해주세요");
 					}
@@ -175,8 +179,8 @@ $(document).ready(function() {
 					}
 				}
 				
-				
 				$("#myLargeModal").modal('toggle');
+				window.location.reload();
 			}
 			
 		});
@@ -184,12 +188,12 @@ $(document).ready(function() {
 	});
 		
 });
+
 	
 	
 function postDetail(post_no){
 	
-	
-	
+	console.log("post_no : "+post_no);
 	$.ajax({
 		url : "${path}/detail",
 		type : "post",
@@ -201,15 +205,16 @@ function postDetail(post_no){
 			console.log(result);
 			
 			$(".slider").html();
-			$("#post_no").val(result[0].post_no);
+			$("#detail_post_no").val(result[0].post_no);
 			
-			if(result[0].profile_name != null) {
-				$("#post_profile_img").attr("src","${path}/resources/profileimg-uploadfolder\\"
+			if(result[0].profile_name != "") {
+				$("#detail_id img").attr("src","${path}/resources/profileimg-uploadfolder\\"
 						+ result[0].id + "\\" + result[0].profile_name);
 			}
+			
 			$("#detail_id span").text(result[0].id);
-			$("#content").text(result[0].content);
-			$("#content").attr("readonly", true);
+			$("#detail_content").text(result[0].content);
+			
 			
 			
 			let imgHTML="";
@@ -274,11 +279,20 @@ function fn_Detail(post_no) {
 	commentList(post_no);
 	
 	
-	
 }
 
+// $(document).ready(function(){
+	
+// 	$('.bxSlider').bxSlider({});
+	
+	
+// });
+
+
+
+</script>
  
- </script>
+ 
 
 <script type="text/javascript">
 		function enterSearch() {
@@ -290,7 +304,15 @@ function fn_Detail(post_no) {
 		    var x = document.getElementById("text").value;
 		    window.location.href = "http://cybertramp.net/search/"+x;
 		}
-	</script>
+		
+
+// 	$(document).ready(function() {
+// 	        $('#test').val('원하는 값');
+// 	    });
+
+</script>
+
+
 
 </head>
 
@@ -326,14 +348,21 @@ function fn_Detail(post_no) {
 								<input type="text" id="id" name="id" placeholder="Username" 
 								style="border:0px solid black; font-family: Raleway, sans-serif; font-size: 45px; background-color:#fff;" value="${id }" readonly/>
 							</div>
+							
 							<input type="text" id="mainintro" name="introduce" class="input-2" readonly value="${introduce }" />
 							
 							<div class="follower">
-								<p class="mb-0">팔로워 6514</p>
+								<p class="mb-0" id="follower">팔로워 ${followerCnt }</p>
 							</div>
 							<div class="follow">
-								<p class="mb-0">팔로우 0</p>
+								<p class="mb-0" id="follow">팔로우 ${followCnt }</p>
+								<span>
+									<input type="button" class="follow-button" value="follow">
+								</span>
 							</div>
+								
+							
+							
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
@@ -404,6 +433,7 @@ function fn_Detail(post_no) {
 		<script src="resources/vendor/owlcarousel/owl.carousel.min.js"></script>
 		<!-- Template Main JS File -->
 		<script src="resources/js/main.js"></script>
-	
+		
+			
 	</body>
 </html>
