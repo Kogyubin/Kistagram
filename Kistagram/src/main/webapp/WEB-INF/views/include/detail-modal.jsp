@@ -144,7 +144,6 @@
 						<div class="container">
 							<form id="comment-list-form" name="comment-list-form" method="post">
 								<div id="commentList">
-								
 									
 								</div>
 							</form>

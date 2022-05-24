@@ -1,5 +1,7 @@
 package kr.co.kitri.follow.dao;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,12 @@ public class FollowDAOImpl implements FollowDAO {
 	public int selectFollowCount(String id) {
 		
 		return  sqlSession.selectOne("follow.selectFollowCount",id);
+	}
+
+	@Override
+	public int selectFollowState(HashMap<String, String> folmap) {
+		
+		return sqlSession.selectOne("follow.selectFollowState",folmap);
 	}
 
 }

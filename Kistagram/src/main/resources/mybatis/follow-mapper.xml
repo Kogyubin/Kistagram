@@ -47,6 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
     </select>
     
+    <!-- 팔로우 유무 -->
     <select id="selectFollowState" resultType="int">
     	SELECT COUNT(*)
     	FROM follow
@@ -54,5 +55,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	AND following=#{id2}
     
     </select>
+    
 </mapper>
 	

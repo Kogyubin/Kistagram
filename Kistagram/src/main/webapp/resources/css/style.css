@@ -831,3 +831,27 @@ vertical-align: middle;
 	border-radius: 5%;
 }
 
+#follow-request-btn{
+	width:80px;
+	height: 35px;
+	background-color: #3897f0;
+    border: 1px solid #3897f0;
+    padding: 5px 12px;
+    color: #fff;
+    border-radius: 3px;
+    margin-left: 15px;
+}
+
+ #already-follow-btn {
+	width: 75px;
+	height: 35px;
+	border: 1px;
+	border-radius: 3px;
+	margin-left: 15px;
+}
+
+#already-follow-icon{
+	width: 20px;
+	height: 20px;
+}
+

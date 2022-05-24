@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,40 +77,46 @@ public class MainController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Locale locale, HttpSession session, Model model, String id) {
+	
+	@RequestMapping(value = "/main/{urlId}", method = RequestMethod.GET)
+	public String main(@PathVariable String urlId, Locale locale, HttpSession session, Model model) {
+		
 		MemberVO mvo = new MemberVO();
 		
 		String session_id = (String)session.getAttribute("session_id");
 		if (session_id == null) {
 			return "redirect:/sign-in";
 		}
-		//메인화면 이미지 리스트
-		List<PostImgVO> pilist = pservice.getPostImgs(session_id);
 		
-		mvo.setId(session_id);
+		System.out.println(session_id);
+		//메인화면 이미지 리스트
+		List<PostImgVO> pilist = pservice.getPostImgs(urlId);
+		
+		mvo.setId(urlId);
 		mvo = mdao.selectUser(mvo);
 		String member_md = mvo.getId();
 		String member_itd = mvo.getIntroduce();
 		
 		//팔로우 유무
-//		PostVO pvo = new PostVO();
-//		pvo.setId(id);
-//		String followId = pvo.getId();
 		
-//		
-//		HashMap<String, String> folmap = new HashMap<String, String>();
-//		folmap.put("id", "member_md");
-//		folmap.put("id2", "followId");
+		HashMap<String, String> folmap = new HashMap<String, String>();
 		
+		folmap.put("id", session_id);
+		folmap.put("id2", member_md);
+		
+		System.out.println(folmap);
+		
+		int followState = fservice.getFollowState(folmap);
+		
+		//팔로우, 팔로워 수
 		int followerCnt = fservice.getFollowerCount(member_md);
 		int followCnt = fservice.getFollowCount(member_md);
 		
-		System.out.println(session_id);
+		
 		
 		
 		ProfileImgVO pfvo = new ProfileImgVO();
-		pfvo.setId(session_id);
+		pfvo.setId(urlId);
 		ProfileImgVO pfvo2 = pfdao.selectProfileImg(pfvo);
 		String profile_name="";
 		if(pfvo2 != null) {
@@ -122,8 +129,37 @@ public class MainController {
 		model.addAttribute("pilist", pilist);
 		model.addAttribute("followerCnt", followerCnt);
 		model.addAttribute("followCnt", followCnt);
+		model.addAttribute("followState", followState);
 		
 		return "index";
+	}
+	
+	@RequestMapping(value ="/follow-action")
+	@ResponseBody
+	public boolean followAction(FollowVO folvo) {
+		boolean result = fservice.requestFollow(folvo);
+		
+		return result;
+	}
+	
+	@RequestMapping("/write-action")
+	@ResponseBody
+	public String writeAction(MultipartHttpServletRequest multiPart,
+			HttpSession session, Model model, HttpServletRequest req) {
+		
+		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
+		
+		String content = multiPart.getParameter("content");
+		
+		PostVO pvo = new PostVO();
+		
+		pvo.setContent(content);
+		
+		boolean result = pservice.writePostImg(pvo, fileList, req);
+		
+		return "redirect:main";
+
+
 	}
 	
 
@@ -136,6 +172,8 @@ public class MainController {
 		
 		return pivo;
 	}
+	
+	
 	
 //좋아요
 //	@ResponseBody
@@ -202,27 +240,5 @@ public class MainController {
 		return result;
 	}
 	
-	@RequestMapping("/write-action")
-	@ResponseBody
-	public String writeAction(MultipartHttpServletRequest multiPart,
-			HttpSession session, Model model, HttpServletRequest req) {
-		
-		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
-		
-		String id = (String)session.getAttribute("session_id");
-		String content = multiPart.getParameter("content");
-		
-		
-		PostVO pvo = new PostVO();
-		pvo.setId(id);
-		pvo.setContent(content);
-		
-		boolean result = pservice.writePostImg(pvo, fileList, req);
-		
-		return "redirect:main";
-
-
-
-	}
 	
 }

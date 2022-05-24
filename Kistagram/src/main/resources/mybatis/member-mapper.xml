@@ -6,7 +6,7 @@
 <mapper namespace="member">
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO member 
-		VALUES(#{id}, #{name}, #{pw}, #{phone}, null)
+		VALUES(#{id}, #{name}, #{pw}, #{phone}, 0, null)
 	
 	</insert>
 
