@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.kitri.comment.dao.CommentDAO;
 import kr.co.kitri.comment.vo.CommentVO;
+import kr.co.kitri.post.vo.PostVO;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -15,20 +16,22 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public boolean writeComment(CommentVO cvo) {
-		int result = cdao.insertComment(cvo);
-		boolean flag = false;
 		
-		if(result==1) {
-			flag=true;
+			int result = cdao.insertComment(cvo);
+			boolean flag = false;
+			
+			if(result==1) {
+				flag=true;
+			}
+			
+			return flag;
 		}
-		
-		return flag;
-	}
+	
 
 	@Override
-	public List<CommentVO> getCommenst(int post_no) {
+	public List<CommentVO> getComments(int post_no) {
 		
-		return cdao.selectCommenst(post_no);
+		return cdao.selectComments(post_no);
 	}
 
 	@Override

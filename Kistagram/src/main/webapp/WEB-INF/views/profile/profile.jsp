@@ -110,7 +110,7 @@ function readURL(input) {
 
 </head>
 <body>
-<%@include file="../include/navigation.jsp"%>
+<%@include file="../include/navigation2.jsp"%>
 <div class="center-pro">
 <div id="wrapper1">
   <div class="main-content-pro">

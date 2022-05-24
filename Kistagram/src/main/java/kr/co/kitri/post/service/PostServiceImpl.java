@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.kitri.img.service.ImgService;
 import kr.co.kitri.img.vo.ImgVO;
 import kr.co.kitri.post.dao.PostDAO;
+import kr.co.kitri.post.vo.PostImgMemberProfileVO;
 import kr.co.kitri.post.vo.PostImgVO;
 import kr.co.kitri.post.vo.PostVO;
 
@@ -34,10 +38,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostVO getPost(int post_no) {
+	public List<PostImgMemberProfileVO> getPost(int post_no) {
 		
 		return pdao.selectPost(post_no);
 	}
+	
 
 	@Override
 	public boolean writePost(PostVO pvo) {
@@ -65,17 +70,19 @@ public class PostServiceImpl implements PostService {
 
 
 	@Override
-	public List<PostImgVO> getPostImgs() {
+	public List<PostImgVO> getPostImgs(String id) {
 		
-		return pdao.selectPostJoinImgs();
+		return pdao.selectPostJoinImgs(id);
 	}
 	
 	
 	@Override
 	@Transactional(rollbackFor=Exception.class)
-	public boolean writePostImg(PostVO pvo, List<MultipartFile> fileList) {
+	public boolean writePostImg(PostVO pvo, List<MultipartFile> fileList, HttpServletRequest req) {
 		
-		String upLoadPath = "C:\\Users\\kitri\\git\\Kistagram\\Kistagram\\src\\main\\webapp\\resources\\uploadfolder";
+//		String upLoadPath = "C:\\Users\\kitri\\git\\Kistagram\\Kistagram\\src\\main\\webapp\\resources\\uploadfolder";
+		String upLoadPath = req.getSession().getServletContext().getRealPath("resources/uploadfolder");
+
 		
 		//upload경로
 		File folder = new File(upLoadPath+File.separator+pvo.getId());
@@ -153,6 +160,8 @@ public class PostServiceImpl implements PostService {
 		
 		return result;
 	}
+
+	
 
 
 }

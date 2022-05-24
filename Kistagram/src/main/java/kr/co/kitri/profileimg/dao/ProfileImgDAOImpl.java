@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.kitri.member.vo.MemberVO;
+
 import kr.co.kitri.profileimg.vo.ProfileImgVO;
 
 
@@ -26,6 +27,7 @@ public class ProfileImgDAOImpl implements ProfileImgDAO {
 	SqlSession sqlSession;
 	
 	@Override
+
 	public int insertImgFile(ProfileImgVO pfvo) {
 		return sqlSession.insert("profile.insertProfileFile", pfvo);
 	}

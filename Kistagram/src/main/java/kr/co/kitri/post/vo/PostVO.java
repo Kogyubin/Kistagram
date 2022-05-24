@@ -10,7 +10,7 @@ public class PostVO {
 	private String id;
 	private String content;
 	private Date regdate;
-	private int likes;
+	private int like_cnt;
 	private String del_flag;
 
 }

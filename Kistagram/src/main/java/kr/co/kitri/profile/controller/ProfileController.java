@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +27,7 @@ import kr.co.kitri.profileimg.vo.ProfileImgVO;
 
 
 
+
 @Controller
 public class ProfileController {
 
@@ -43,7 +45,6 @@ public class ProfileController {
 	 /**
      * 프로필 수정 화면.
      */
-	
 	
 	@RequestMapping(value = "/profile" )
 	public String profile(Locale locale, HttpSession session, Model model) {
@@ -78,16 +79,17 @@ public class ProfileController {
 
 		return "profile/profile-up";
 	}
+
 	
 	@RequestMapping(value = "/profileimg-up")
-	public String profileimgup(MultipartHttpServletRequest multiPart, HttpSession session, Model model) {
+	public String profileimgup(MultipartHttpServletRequest multiPart, HttpSession session, Model model, HttpServletRequest req) {
 		
 		MemberVO mvo = new MemberVO();
 		String session_id = (String)session.getAttribute("session_id");
 		mvo.setId(session_id);
 		List<MultipartFile> fileList =  multiPart.getFiles("imgup");
 		
-		boolean flag = pfsvc.insertProfileImg(session_id, fileList, model);
+		boolean flag = pfsvc.insertProfileImg(session_id, fileList, model, req);
 		
 		
 		if(flag) {
@@ -97,7 +99,6 @@ public class ProfileController {
 
 		return "profile/profileimg-up";
 	}
-	
 	
 
 }

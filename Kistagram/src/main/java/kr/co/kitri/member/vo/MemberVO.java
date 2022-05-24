@@ -10,5 +10,7 @@ public class MemberVO {
 	private String phone;
 	private String introduce;
 	private int profile_no;
+	
+	
 
 }

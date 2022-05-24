@@ -11,7 +11,7 @@
 	
 	</resultMap>
 	
-	
+
 	<insert id="insertProfileFile" parameterType="profile">
 		INSERT INTO profile
 		VALUES (profile_no_seq.nextval, #{profile_name}, #{profile_size}, #{profile_path}, #{id}, #{ori_profile_name})
@@ -32,10 +32,6 @@
        			ori_profile_name=#{ori_profile_name}
     	WHERE id=#{id}
 	</update>
-
-
-
-
 
 
 </mapper>	

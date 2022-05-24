@@ -4,7 +4,11 @@ package kr.co.kitri.main;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+<<<<<<< HEAD
 import java.util.Iterator;
+=======
+import java.util.HashMap;
+>>>>>>> 4dcf55aacb203b32e45394f0ca3c8ba9fd93fbb6
 import java.util.List;
 import java.util.Locale;
 
@@ -18,17 +22,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
+import kr.co.kitri.follow.service.FollowService;
+import kr.co.kitri.follow.vo.FollowVO;
 import kr.co.kitri.img.service.ImgService;
+import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
 import kr.co.kitri.post.service.PostService;
+import kr.co.kitri.post.vo.PostImgMemberProfileVO;
 import kr.co.kitri.post.vo.PostImgVO;
 import kr.co.kitri.post.vo.PostVO;
 import kr.co.kitri.profileimg.dao.ProfileImgDAO;
@@ -57,6 +68,12 @@ public class MainController {
 	@Autowired
 	private ProfileImgDAO pfdao;
 	
+	@Autowired
+	private CommentService cservice;
+	
+	@Autowired 
+	private FollowService fservice;
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -64,75 +81,135 @@ public class MainController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Locale locale, HttpSession session, Model model) {
+	public String main(Locale locale, HttpSession session, Model model, String id) {
 		MemberVO mvo = new MemberVO();
 		
 		String session_id = (String)session.getAttribute("session_id");
 		if (session_id == null) {
 			return "redirect:/sign-in";
 		}
-		List<PostImgVO> pilist = pservice.getPostImgs();
+		//메인화면 이미지 리스트
+		List<PostImgVO> pilist = pservice.getPostImgs(session_id);
 		
 		mvo.setId(session_id);
 		mvo = mdao.selectUser(mvo);
 		String member_md = mvo.getId();
 		String member_itd = mvo.getIntroduce();
 		
+		//팔로우 유무
+//		PostVO pvo = new PostVO();
+//		pvo.setId(id);
+//		String followId = pvo.getId();
+		
+//		
+//		HashMap<String, String> folmap = new HashMap<String, String>();
+//		folmap.put("id", "member_md");
+//		folmap.put("id2", "followId");
+		
+		int followerCnt = fservice.getFollowerCount(member_md);
+		int followCnt = fservice.getFollowCount(member_md);
+		
 		System.out.println(session_id);
 		
 		
 		ProfileImgVO pfvo = new ProfileImgVO();
-		
 		pfvo.setId(session_id);
 		ProfileImgVO pfvo2 = pfdao.selectProfileImg(pfvo);
-		
-		String profile_name = pfvo2.getProfile_name();
-	
-		
-		
-		
+		String profile_name="";
+		if(pfvo2 != null) {
+			profile_name = pfvo2.getProfile_name();
+		}
 		model.addAttribute("profile_name", profile_name);
 		model.addAttribute("id", member_md);
 		model.addAttribute("introduce", member_itd);
 		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
-		
-		
-		
-		
+		model.addAttribute("followerCnt", followerCnt);
+		model.addAttribute("followCnt", followCnt);
 		
 		return "index";
 	}
+	
 
 	@RequestMapping("/detail")
 	@ResponseBody
-	public PostVO detail(int post_no) {
+	public List<PostImgMemberProfileVO> detail(int post_no, Model model) {
 		
-		PostVO pvo = pservice.getPost(post_no);
-	
-		return pvo;
+		List<PostImgMemberProfileVO> pivo = pservice.getPost(post_no);
+		model.addAttribute("pivo", pivo);
+		
+		return pivo;
 	}
 	
+//좋아요
 //	@ResponseBody
-//	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
-//	public String addComment(Locale locale, HttpSession session, Model model, CommentVO cvo) {
-//		
-//		int result=0;
-//		 try {
-//		    	result = cservice.writeComment(cvo);
-//		    } catch (Exception e) {
-//		    	e.printStackTrace();
-//		        result = -1;
-//		    }
-//		
-//		return result;
-//	}
+//	  @RequestMapping(value="/like-action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
+//	  public String likeAction(int post_no, HttpSession session){
+//	    //System.out.println("--> like() created");
+//		String session_id = (String)session.getAttribute("session_id");
+//	    JSONPObject obj = new JSONPObject();
+//	    
+//	    ArrayList<String> msgs = new ArrayList<String>();
+//	    HashMap <String, Object> hashMap = new HashMap<String, Object>();
+//	    hashMap.put("post_no", post_no);
+//	    hashMap.put("session_id", session_id);
+//	    LikesVO likesvo = likesProc.read(hashMap);
+//	    
+//	    PostVO pvo = postProc.read(post_no);
+//	    int like_cnt = pvo.getLike_cnt();     //게시판의 좋아요 카운트
+//	    int like_check = 0;
+//	    like_check = likesvo.getLike_check();   //좋아요 체크 값
+//	    
+//	    if(likesProc.countbyLike(hashMap)==0){
+//	      likesProc.create(hashMap);
+//	    }
+//	      
+//	    if(like_check == 0) {
+//	      msgs.add("좋아요!");
+//	      likesProc.like_check(hashMap);
+//	      like_check++;
+//	      like_cnt++;
+//	      postProc.like_cnt_up(post_no);   //좋아요 갯수 증가
+//	    } else {
+//	      msgs.add("좋아요 취소");
+//	      likesProc.like_check_cancel(hashMap);
+//	      like_check--;
+//	      like_cnt--;
+//	      postProc.like_cnt_down(post_no);   //좋아요 갯수 감소
+//	    }
+//	    obj.put("post_no", likesvo.getPost_no());
+//	    obj.put("like_check", like_check);
+//	    obj.put("like_cnt", like_cnt);
+//	    obj.put("msg", msgs);
+//	    
+//	    return obj.toJSONString();
+//	  }
 
+	
+	@RequestMapping(value ="/commentList", method = RequestMethod.GET)
+	@ResponseBody
+	public List<CommentVO> commentList(int post_no, Model model) {
+		
+		List<CommentVO> clist = cservice.getComments(post_no);
+				
+		model.addAttribute("clist", clist);
+		
+		return clist;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/write-comment-action")
+	public boolean writeCommentAction(Locale locale, HttpSession session, Model model, CommentVO cvo) {
+		
+		boolean result = cservice.writeComment(cvo);
+		
+		return result;
+	}
 	
 	@RequestMapping("/write-action")
 	@ResponseBody
 	public String writeAction(MultipartHttpServletRequest multiPart,
-			HttpSession session, Model model) {
+			HttpSession session, Model model, HttpServletRequest req) {
 		
 		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
 		
@@ -144,9 +221,10 @@ public class MainController {
 		pvo.setId(id);
 		pvo.setContent(content);
 		
-		boolean result = pservice.writePostImg(pvo, fileList);
+		boolean result = pservice.writePostImg(pvo, fileList, req);
 		
 		return "redirect:main";
+
 
 
 	}
