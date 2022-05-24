@@ -2,10 +2,13 @@ package kr.co.kitri.main;
 
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -147,5 +150,47 @@ public class MainController {
 
 
 	}
+	
+	//사용자가 입력한 단어의 연관 제시어 검색하여 리스트 반환
+	
+	public List<String> search(String userKeyword) {
+			
+			MemberVO mvo = new MemberVO();
+			String[] keywords = msvc.selectSearchMember(mvo);
+			
+		
+				if(userKeyword==null||userKeyword.equals("")){
+					   return null;
+					   //return Collections.EMPTY_LIST; 내장변수
+				}
+					  //userKeyword = userKeyword.toUpperCase();//대문자검사
+					  List<String> lists = new ArrayList<String>();
+					  for(int i=0;i<keywords.length;i++){
+					   if(keywords[i].startsWith(userKeyword)){
+					    lists.add(keywords[i]);
+					   }
+					   
+					  					  
+					  }
+					  		return lists;
+	}
+	
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public List<String> search1(HttpServletRequest request){
+		
+			String userKeyword = request.getParameter("userKeyword");
+			
+			List<String> keywordList = search(userKeyword);
+			
+			return keywordList;
+		
+	
+	}
+	
+		
+		 		
+				 
+
 	
 }

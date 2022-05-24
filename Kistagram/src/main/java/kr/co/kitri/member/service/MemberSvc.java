@@ -12,6 +12,6 @@ public interface MemberSvc {
 	public boolean signUp(MemberVO mvo);
 	public MemberVO selectUser(MemberVO mvo);
 	public boolean updateUser(MemberVO mvo);
-	
+	public String[] selectSearchMember(MemberVO mvo);
 
 }

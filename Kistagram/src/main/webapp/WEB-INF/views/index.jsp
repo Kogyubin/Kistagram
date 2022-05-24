@@ -3,8 +3,12 @@
 
 
 <%@include file="./include/header.jsp" %>
+<%
+ request.setCharacterEncoding("UTF-8");
+ String cp = request.getContextPath();
+%>
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 	<head>
@@ -13,6 +17,7 @@
 	  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 	  <meta content="" name="keywords">
 	  <meta content="" name="description">
+
 	  <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 	  
 	  
@@ -233,7 +238,7 @@ function fn_Detail(post_no) {
 
  
  </script>
-
+<script type="text/javascript" src="resources/js/httpRequest.js"></script>
 	<script type="text/javascript">
 		function enterSearch() {
 		    if(event.keyCode == 13){
@@ -244,11 +249,97 @@ function fn_Detail(post_no) {
 		    var x = document.getElementById("text").value;
 		    window.location.href = "http://cybertramp.net/search/"+x;
 		}
+		
+		 function sendKeyword(){
+								
+			  var userKeyword = document.myForm.userKeyword.value;
+			  if(userKeyword==""){
+			   hide();//검색창이 비워져있으면 숨김
+			   return;
+			  }
+			  var params = "userKeyword="+userKeyword;
+			  console.log("params : "+params)
+			  sendRequest('${path}/search', params, displaySuggest, "POST");
+		}
+
+
+			 function displaySuggest(){
+			  if(httpRequest.readyState==4){
+			   if(httpRequest.status==200){//서버응답 정상처리인 경우
+			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
+			    //alert(resultText);
+			    //5|abc,ajax,abc마트
+			    var resultArray = resultText.split("|"); //{5, {abc,ajax,abc} } 로 나눔
+			    var count = parseInt(resultArray[0]);//5
+			    var keywordList = null;
+			    if(count>0){
+			     keywordList = resultArray[1].split(",");
+			     var html = "";
+			     for(var i=0;i<keywordList.length;i++){			    	 
+			      html += "<a href=\"javascript:select('" +
+			      keywordList[i] + "');\">" +
+			      keywordList[i] + "</a><br/>";
+			      //<a href="javascript:select('ajax');">ajax</a><br/>
+			     }
+			     var suggestListDiv = document.getElementById("suggestListDiv");
+			     suggestListDiv.innerHTML = html;
+			     show(); 
+			    }else{
+			     //count==0
+			     hide();
+			    } 
+			   }else{
+			    //status!=200
+			    hide();
+			   }
+			  }else{
+			   //readyState!=4
+			   hide();
+			  }
+			 }//function..end
+
+
+			 //사용자가 제시어중에서 클릭한 키워드
+			 function select(selectKeyword){
+			  //클릭한 제시어를 inputbox에 넣어줌
+			  document.myForm.userKeyword.value = selectKeyword;
+			  hide();//다른 제시어 감춤
+			 }
+			 function show(){
+			  var suggestDiv = document.getElementById("suggestDiv");
+			  suggestDiv.style.display = "block";
+			 }
+			 function hide(){
+			  var suggestDiv = document.getElementById("suggestDiv");
+			  suggestDiv.style.display = "none";
+			 }
+			 //처음 DOM이 로드되었을때 보이지 않도록
+			 window.onload = function(){
+			  hide();
+			 }
+		
+		
+		
+		
 	</script>
 
 </head>
 
 	<body>
+	
+	<body>
+<h1>제시어</h1>
+<hr/>
+<br/>
+<form action="" name="myForm">
+<input type="text" name="userKeyword" onkeyup="sendKeyword();"/>
+<div id="suggestDiv" class="suggest">
+ <div id="suggestListDiv"></div>
+</div>
+</form>
+</body>
+	
+	
 	
 	  <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
 	    <div class="container py-2 py-md-5">
@@ -285,10 +376,14 @@ function fn_Detail(post_no) {
 	    <div class="container">
 	      <a class="navbar-brand" href="${path }/main">Kistagram.</a>
 	
+			<form action="" name="myForm">
 		<span class='green_window'>
-			<input id=text type="text" class='input_text' name="search" onkeydown="enterSearch()"/></span>
-			<input type="button" class='sch_smit' value="검색" onclick="myFunction()"/>
-	
+				<input id=text type="text" class='input_text' name="userKeyword" onkeyup="sendKeyword();"/></span>
+					<div id="suggestDiv" class="suggest">
+	 				<div id="suggestListDiv"></div>
+	 				</div>
+				<input type="button" class='sch_smit' value="검색" onclick="myFunction()"/>
+			</form>
 	    </div>
 	  </nav>
 	

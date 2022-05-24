@@ -39,6 +39,12 @@
 	 	WHERE id=#{id}
 	</update>
 	
+	<select id="selectSearchMember" parameterType="member" resultType="string">
+		SELECT id, name
+		FROM member
+
+	</select>
+	
 	
 	 
 </mapper>
