@@ -1,14 +1,7 @@
 package kr.co.kitri.main;
 
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-<<<<<<< HEAD
-import java.util.Iterator;
-=======
-import java.util.HashMap;
->>>>>>> 4dcf55aacb203b32e45394f0ca3c8ba9fd93fbb6
 import java.util.List;
 import java.util.Locale;
 
@@ -22,19 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.follow.service.FollowService;
-import kr.co.kitri.follow.vo.FollowVO;
 import kr.co.kitri.img.service.ImgService;
-import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;

@@ -2,59 +2,11 @@
 	pageEncoding="UTF-8"%>
 
 
-<<<<<<< HEAD
-<%@include file="./include/header.jsp" %>
-<%
- request.setCharacterEncoding("UTF-8");
- String cp = request.getContextPath();
-%>
-=======
 <%@include file="./include/header.jsp"%>
->>>>>>> 4dcf55aacb203b32e45394f0ca3c8ba9fd93fbb6
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 
 <html>
-<<<<<<< HEAD
-	<head>
-	  <title>Kistagram</title>
-	  <meta charset="utf-8">
-	  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-	  <meta content="" name="keywords">
-	  <meta content="" name="description">
-
-	  <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-	  
-	  
-	
-
-	 
-	
-	  <!-- Google Fonts -->
-	  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap"
-	    rel="stylesheet">
-	
-	  <!-- Bootstrap CSS File -->
-	  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	
-	  <!-- Vendor CSS Files -->
-	  <link href="resources/vendor/icofont/icofont.min.css" rel="stylesheet">
-	  <link href="resources/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
-	  <link href="resources/vendor/aos/aos.css" rel="stylesheet">
-	  <link href="resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-	
-	  <!-- Template Main CSS File -->
-	  <link href="resources/css/style.css" rel="stylesheet">
-	
-	  <!-- =======================================================
-	    Template Name: MyPortfolio
-	    Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-	    Author: BootstrapMade.com
-	    Author URL: https://bootstrapmade.com/
-	  ======================================================= -->
-
-=======
->>>>>>> 4dcf55aacb203b32e45394f0ca3c8ba9fd93fbb6
 
 <head>
 <title>Kistagram</title>
@@ -62,7 +14,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-
+<script type="text/javascript" src="resources/js/httpRequest.js"></script>
 <script>
 
 //파일 업로드
@@ -299,27 +251,7 @@ function fn_Detail(post_no) {
 	
 }
 
-<<<<<<< HEAD
- 
- </script>
-<script type="text/javascript" src="resources/js/httpRequest.js"></script>
-	<script type="text/javascript">
-=======
-// $(document).ready(function(){
-	
-// 	$('.bxSlider').bxSlider({});
-	
-	
-// });
 
-
-
-</script>
- 
- 
-
-<script type="text/javascript">
->>>>>>> 4dcf55aacb203b32e45394f0ca3c8ba9fd93fbb6
 		function enterSearch() {
 		    if(event.keyCode == 13){
 		        myFunction();  // 실행할 이벤트
@@ -330,7 +262,6 @@ function fn_Detail(post_no) {
 		    window.location.href = "http://cybertramp.net/search/"+x;
 		}
 		
-<<<<<<< HEAD
 		 function sendKeyword(){
 								
 			  var userKeyword = document.myForm.userKeyword.value;
@@ -403,87 +334,15 @@ function fn_Detail(post_no) {
 		
 		
 	</script>
-
 </head>
+<body>
 
-	<body>
-	
-	<body>
-<h1>제시어</h1>
-<hr/>
-<br/>
 <form action="" name="myForm">
 <input type="text" name="userKeyword" onkeyup="sendKeyword();"/>
 <div id="suggestDiv" class="suggest">
  <div id="suggestListDiv"></div>
 </div>
 </form>
-</body>
-	
-	
-	
-	  <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
-	    <div class="container py-2 py-md-5">
-	      <div class="row align-items-start">
-	        <div class="col-md-2">
-	          <ul class="custom-menu">
-	            <li class="active"><a href="index.html">Home</a></li>
-	            <li><a href="resources/about.html">About Me</a></li>
-	            <li><a href="resources/services.html">Services</a></li>
-	            <li><a href="resources/works.html">Works</a></li>
-	            <li><a href="resources/contact.html">Contact</a></li>
-	          </ul>
-	        </div>
-	        <div class="col-md-6 d-none d-md-block  mr-auto">
-	          <div class="tweet d-flex">
-	            <span class="icofont-twitter text-white mt-2 mr-3"></span>
-	            <div>
-	              <p><em>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut
-	                  officiis explicabo inventore. <br> <a href="#">t.co/v82jsk</a></em></p>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col-md-4 d-none d-md-block">
-	          <h3>Hire Me</h3>
-	          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
-	            explicabo inventore. <br> <a href="#">myemail@gmail.com</a></p>
-	        </div>
-	      </div>
-	
-	    </div>
-	  </div>
-	
-	  <nav class="navbar navbar-light custom-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="${path }/main">Kistagram.</a>
-	
-			<form action="" name="myForm">
-		<span class='green_window'>
-				<input id=text type="text" class='input_text' name="userKeyword" onkeyup="sendKeyword();"/></span>
-					<div id="suggestDiv" class="suggest">
-	 				<div id="suggestListDiv"></div>
-	 				</div>
-				<input type="button" class='sch_smit' value="검색" onclick="myFunction()"/>
-			</form>
-	    </div>
-	  </nav>
-	
-	  <main id="main">
-		
-=======
-
-// 	$(document).ready(function() {
-// 	        $('#test').val('원하는 값');
-// 	    });
-
-</script>
-
-
-
-</head>
-
-<body>
->>>>>>> 4dcf55aacb203b32e45394f0ca3c8ba9fd93fbb6
 
 	<%@include file="include/navigation2.jsp"%>
 <!-- 	<nav class="navbar-light custom-navbar"> -->
