@@ -79,7 +79,7 @@ $(document).ready(function(){
 $(document).ready(function() {
 	
 	slider = $('.slider').bxSlider(); 
-// 	bxSlider = $('.bxSlider').bxSlider(); 
+
  
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
@@ -123,8 +123,8 @@ $(document).ready(function() {
 			
 		var reader = new FileReader();
 		reader.onload = function(e){
-// 				$(".bxSlider").html();
 				var img_html = "<img src=\""+e.target.result +"\" />";
+// 				var img_html = $(".imgs_wrap img").attr("src","\""+e.target.result +"\" /");
 				$(".bxSlider").append(img_html);
 				bxSlider.reloadSlider();
 			}
