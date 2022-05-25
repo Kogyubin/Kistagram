@@ -379,13 +379,6 @@ function fn_Detail(post_no) {
 </head>
 <body>
 
-<form action="" name="myForm">
-<input type="text" name="userKeyword" onkeyup="sendKeyword();"/>
-<div id="suggestDiv" class="suggest">
- <div id="suggestListDiv"></div>
-</div>
-</form>
-
 	<%@include file="include/navigation2.jsp"%>
 <!-- 	<nav class="navbar-light custom-navbar"> -->
 <!-- 		<div class="margin-b-30 container"> -->
