@@ -380,27 +380,8 @@ function fn_Detail(post_no) {
 <body>
 
 	<%@include file="include/navigation2.jsp"%>
-<!-- 	<nav class="navbar-light custom-navbar"> -->
-<!-- 		<div class="margin-b-30 container"> -->
-<%-- 			<a class="navbar-brand" href="${path }/main">Kistagram.</a>  --%>
-			
-<!-- 			<div style="float:right;"> -->
-<!-- 			<span class='green_window'>  -->
-<!-- 				<input id=text type="text" class='input_text green_window' name="search" onkeydown="enterSearch()" /> -->
-<!-- 			</span>  -->
-<!-- 			<input type="button" class='sch_smit' value="검색" onclick="myFunction()" /> -->
-<!-- 			</div> -->
-<!-- 			<div id="filters" class="filters"> -->
-<%-- 				<a href="${path }/profile">Profile</a>  --%>
-<!-- 				<a id="writeBtn" data-toggle="modal" class="write">Write</a>  -->
-<!-- 				<a href="#"	data-filter=".branding">Follow</a>  -->
-<%-- 				<a href="${path }/sign-out"	class="logout">Logout</a> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</nav> -->
 
 	<main id="main">
-
 
 		<div class="site-section site-portfolio">
 
