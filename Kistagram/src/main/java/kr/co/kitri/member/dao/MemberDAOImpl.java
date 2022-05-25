@@ -56,4 +56,10 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 	
+	@Override
+	public int updateProfileNo(MemberVO mvo) {
+		
+		return sqlSession.update("member.updateProfileNo", mvo);
+	}
+	
 }

@@ -260,14 +260,20 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public List<String> search1(HttpServletRequest request){
+	@ResponseBody
+	@RequestMapping(value = "/search")
+	public String search1(HttpServletRequest request){
 		
 			String userKeyword = request.getParameter("userKeyword");
 			
 			List<String> keywordList = search(userKeyword);
 			
-			return keywordList;
+			String result="";
+			for(String s : keywordList) {
+				result = result + "," + s ;
+			}
+			
+			return result;
 		
 	
 	}

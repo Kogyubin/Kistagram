@@ -16,9 +16,11 @@ public interface ProfileImgSvc {
 
 	public boolean insertProfileImg(String id,  List<MultipartFile> fileList, Model model, HttpServletRequest re  );
 
-	public boolean writeProfileImg(ProfileImgVO pfvo);
+	public boolean writeProfileImg(ProfileImgVO pfvo,MemberVO mvo);
 
 	public ProfileImgVO selectProfileImg(ProfileImgVO pfvo);
+
+
 
 	
 }

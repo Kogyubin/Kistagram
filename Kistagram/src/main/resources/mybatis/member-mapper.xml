@@ -40,11 +40,21 @@
 	</update>
 	
 	<select id="selectSearchMember" parameterType="member" resultType="string">
-		SELECT id, name
+		SELECT id
+		FROM member
+		UNION ALL
+		SELECT name
 		FROM member
 
 	</select>
 	
+	<update id="updateProfileNo" parameterType="member">
+		UPDATE member
+		SET profile_no=profile_no_seq.currval
+		WHERE id=#{id}
 	
+	</update>
+	
+
 	 
 </mapper>

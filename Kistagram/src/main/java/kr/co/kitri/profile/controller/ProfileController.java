@@ -72,6 +72,7 @@ public class ProfileController {
 		
 		boolean flag = msvc.updateUser(mvo);
 		
+		
 		if(flag) {
 			model.addAttribute("msg","수정완료");
 		} 

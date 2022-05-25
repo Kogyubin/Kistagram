@@ -14,8 +14,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<script type="text/javascript" src="resources/js/httpRequest.js"></script>
-<script>
+<script type="text/javascript" src="${path }/resources/js/httpRequest.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="UTF-8">
 
 
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
 	$("#follow-request-btn").click(function() {
 		
 		var id = "${session_id}";
-		var following = "${member_md}"
+		var following = "${id}";
 		var follower = "${session_id}";
 		
 		console.log("follow 요청 id:" + id);
@@ -47,7 +47,7 @@ $(document).ready(function() {
                  
                  if(result) {
                  	 msg = "팔로우 성공";
-                 	
+                 	window.location.reload();
                  } else {
                  	msg = "팔로우 실패";
                  }
@@ -294,18 +294,17 @@ function fn_Detail(post_no) {
 }
 
 
-		function enterSearch() {
-		    if(event.keyCode == 13){
-		        myFunction();  // 실행할 이벤트
-		    }
-		}
-		function myFunction() {
-		    var x = document.getElementById("text").value;
-		    window.location.href = "http://cybertramp.net/search/"+x;
-		}
+// 		function enterSearch() {
+// 		    if(event.keyCode == 13){
+// 		        myFunction();  // 실행할 이벤트
+// 		    }
+// 		}
+// 		function myFunction() {
+// 		    var x = document.getElementById("text").value;
+// 		    window.location.href = "http://cybertramp.net/search/"+x;
+// 		}
 		
-		 function sendKeyword(){
-								
+		 function sendKeyword(){			
 			  var userKeyword = document.myForm.userKeyword.value;
 			  if(userKeyword==""){
 			   hide();//검색창이 비워져있으면 숨김
@@ -322,14 +321,16 @@ function fn_Detail(post_no) {
 			   if(httpRequest.status==200){//서버응답 정상처리인 경우
 			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
 			    //alert(resultText);
-			    //5|abc,ajax,abc마트
-			    var resultArray = resultText.split("|"); //{5, {abc,ajax,abc} } 로 나눔
-			    var count = parseInt(resultArray[0]);//5
-			    var keywordList = null;
-			    if(count>0){
-			     keywordList = resultArray[1].split(",");
+
+			    
+			   	var arr = resultText.split(",");
+			    
+			    
+			    var keywordList = arr;
+			 
+			    if(arr.length>0){
 			     var html = "";
-			     for(var i=0;i<keywordList.length;i++){			    	 
+			     for(var i=1;i<keywordList.length;i++){		
 			      html += "<a href=\"javascript:select('" +
 			      keywordList[i] + "');\">" +
 			      keywordList[i] + "</a><br/>";
@@ -357,6 +358,8 @@ function fn_Detail(post_no) {
 			 function select(selectKeyword){
 			  //클릭한 제시어를 inputbox에 넣어줌
 			  document.myForm.userKeyword.value = selectKeyword;
+			  location.href = '${path}/main/'+selectKeyword;
+			  
 			  hide();//다른 제시어 감춤
 			 }
 			 function show(){
@@ -379,28 +382,10 @@ function fn_Detail(post_no) {
 </head>
 <body>
 
+
 	<%@include file="include/navigation2.jsp"%>
-<!-- 	<nav class="navbar-light custom-navbar"> -->
-<!-- 		<div class="margin-b-30 container"> -->
-<%-- 			<a class="navbar-brand" href="${path }/main">Kistagram.</a>  --%>
-			
-<!-- 			<div style="float:right;"> -->
-<!-- 			<span class='green_window'>  -->
-<!-- 				<input id=text type="text" class='input_text green_window' name="search" onkeydown="enterSearch()" /> -->
-<!-- 			</span>  -->
-<!-- 			<input type="button" class='sch_smit' value="검색" onclick="myFunction()" /> -->
-<!-- 			</div> -->
-<!-- 			<div id="filters" class="filters"> -->
-<%-- 				<a href="${path }/profile">Profile</a>  --%>
-<!-- 				<a id="writeBtn" data-toggle="modal" class="write">Write</a>  -->
-<!-- 				<a href="#"	data-filter=".branding">Follow</a>  -->
-<%-- 				<a href="${path }/sign-out"	class="logout">Logout</a> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</nav> -->
 
 	<main id="main">
-
 
 		<div class="site-section site-portfolio">
 
