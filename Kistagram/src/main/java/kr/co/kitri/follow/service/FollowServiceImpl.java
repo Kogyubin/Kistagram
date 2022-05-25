@@ -1,5 +1,6 @@
 package kr.co.kitri.follow.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,14 @@ public class FollowServiceImpl implements FollowService {
 	public int getFollowCount(String id) {
 		
 		return fdao.selectFollowCount(id);
+	}
+
+	@Override
+	public int getFollowState(HashMap<String, String> folmap) {
+		
+		int result = fdao.selectFollowState(folmap);
+		
+		return result;
 	}
 
 }

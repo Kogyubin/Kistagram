@@ -14,11 +14,52 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<script type="text/javascript" src="resources/js/httpRequest.js"></script>
-<script>
+<script type="text/javascript" src="${path }/resources/js/httpRequest.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="UTF-8">
 
+
+
+//팔로우 요청
+$(document).ready(function() {
+	
+	$("#follow-request-btn").click(function() {
+		
+		var id = "${session_id}";
+		var following = "${id}";
+		var follower = "${session_id}";
+		
+		console.log("follow 요청 id:" + id);
+		console.log("follow 상대 id:" + following);
+		
+		 $.ajax({
+         	url : "${path}/follow-action",
+             type : "POST",
+             data : {
+             	id : id,
+             	following : following,
+             	follower : id
+            	
+              },
+             success : function(result){
+            	 
+            	 
+             	var msg;
+                 
+                 if(result) {
+                 	 msg = "팔로우 성공";
+                 	window.location.reload();
+                 } else {
+                 	msg = "팔로우 실패";
+                 }
+                 
+                 alert(msg);
+             }
+		});
+			
+	});
+});	
+	
 //파일 업로드
-
 	var bxSlider;
 	
 $(document).ready(function(){ 
@@ -39,6 +80,7 @@ $(document).ready(function(){
 		  $(".bxSlider").html("");
 	  });
 }); 
+
 
  	var action = '';
 	var url = '';
@@ -177,9 +219,9 @@ function postDetail(post_no){
 			$(".slider").html();
 			$("#detail_post_no").val(result[0].post_no);
 			
-			if(result[0].profile_name != "") {
-				$("#detail_id img").attr("src","${path}/resources/profileimg-uploadfolder\\"
-						+ result[0].id + "\\" + result[0].profile_name);
+			if(result[0].profile_name != null) {
+				$("#detail_id img").attr("src","${path}/resources/profileimg-uploadfolder/"
+						+ result[0].id + "/" + result[0].profile_name);
 			}
 			
 			$("#detail_id span").text(result[0].id);
@@ -279,7 +321,7 @@ function fn_Detail(post_no) {
 			   if(httpRequest.status==200){//서버응답 정상처리인 경우
 			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
 			    //alert(resultText);
-			    //5|abc,ajax,abc마트
+
 			    
 			   	var arr = resultText.split(",");
 			    
@@ -316,6 +358,8 @@ function fn_Detail(post_no) {
 			 function select(selectKeyword){
 			  //클릭한 제시어를 inputbox에 넣어줌
 			  document.myForm.userKeyword.value = selectKeyword;
+			  location.href = '${path}/main/'+selectKeyword;
+			  
 			  hide();//다른 제시어 감춤
 			 }
 			 function show(){
@@ -340,27 +384,8 @@ function fn_Detail(post_no) {
 
 
 	<%@include file="include/navigation2.jsp"%>
-<!-- 	<nav class="navbar-light custom-navbar"> -->
-<!-- 		<div class="margin-b-30 container"> -->
-<%-- 			<a class="navbar-brand" href="${path }/main">Kistagram.</a>  --%>
-			
-<!-- 			<div style="float:right;"> -->
-<!-- 			<span class='green_window'>  -->
-<!-- 				<input id=text type="text" class='input_text green_window' name="search" onkeydown="enterSearch()" /> -->
-<!-- 			</span>  -->
-<!-- 			<input type="button" class='sch_smit' value="검색" onclick="myFunction()" /> -->
-<!-- 			</div> -->
-<!-- 			<div id="filters" class="filters"> -->
-<%-- 				<a href="${path }/profile">Profile</a>  --%>
-<!-- 				<a id="writeBtn" data-toggle="modal" class="write">Write</a>  -->
-<!-- 				<a href="#"	data-filter=".branding">Follow</a>  -->
-<%-- 				<a href="${path }/sign-out"	class="logout">Logout</a> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</nav> -->
 
 	<main id="main">
-
 
 		<div class="site-section site-portfolio">
 
@@ -370,7 +395,7 @@ function fn_Detail(post_no) {
 
 						<div class="box">
 							<img class="profile"
-								src="${path }\resources\profileimg-uploadfolder/${id }/${profile_name}"
+								src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}"
 								alt="Image">
 						</div>
 
@@ -381,9 +406,30 @@ function fn_Detail(post_no) {
 					
 								<span class="mb-0 mg-20 dis-ib">팔로워 ${followerCnt }</span>
 								<span class="mb-0 mg-20 dis-ib">팔로우 ${followCnt }</span>
-								<span>
-									<input type="button" class="follow-button" value="follow">
-								</span>
+								
+								<c:choose> 
+									<c:when test="${followState eq 0 }">
+										<c:choose> 
+											<c:when test="${id eq session_id }">
+												<span></span>
+											</c:when>
+											<c:otherwise>
+													<span>
+														<input type="button" id="follow-request-btn" value="팔로우">
+													</span>
+											</c:otherwise>
+										</c:choose>	
+									</c:when>
+									<c:when test="${followState eq 1 }">
+										<span>
+											<button type="button" id="already-follow-btn">
+												<div>
+													<img id="already-follow-icon" src="${path }/resources/img/already-follow-icon.png">
+												</div>
+											</button>
+										</span>
+									</c:when>
+								</c:choose>
 						</div>
 					</div>
 					
@@ -433,14 +479,14 @@ function fn_Detail(post_no) {
 	<!-- Vendor JS Files -->
 	<!-- 	<script src="resources/vendor/jquery/jquery.min.js"></script> -->
 	<!-- 	<script src="resources/vendor/jquery/jquery-migrate.min.js"></script> -->
-	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/vendor/easing/easing.min.js"></script>
+	<script src="${path }/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${path }/resources/vendor/easing/easing.min.js"></script>
 	<!-- 	<script src="resources/vendor/php-email-form/validate.js"></script> -->
-	<script src="resources/vendor/isotope/isotope.pkgd.min.js"></script>
-	<script src="resources/vendor/aos/aos.js"></script>
-	<script src="resources/vendor/owlcarousel/owl.carousel.min.js"></script>
+	<script src="${path }/resources/vendor/isotope/isotope.pkgd.min.js"></script>
+	<script src="${path }/resources/vendor/aos/aos.js"></script>
+	<script src="${path }/resources/vendor/owlcarousel/owl.carousel.min.js"></script>
 	<!-- Template Main JS File -->
-	<script src="resources/js/main.js"></script>
+	<script src="${path }/resources/js/main.js"></script>
 
 </body>
 

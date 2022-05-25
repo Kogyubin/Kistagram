@@ -10,5 +10,7 @@ public class PostImgMemberProfileVO {
 	private String content;
 	private String img_name;
 	private String profile_name;
+	private String profile_path;
+	private String pid;
 	
 }

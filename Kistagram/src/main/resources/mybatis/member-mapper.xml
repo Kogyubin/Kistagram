@@ -40,7 +40,10 @@
 	</update>
 	
 	<select id="selectSearchMember" parameterType="member" resultType="string">
-		SELECT id, name
+		SELECT id
+		FROM member
+		UNION ALL
+		SELECT name
 		FROM member
 
 	</select>

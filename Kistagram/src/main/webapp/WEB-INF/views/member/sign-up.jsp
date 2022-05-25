@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Overpass+Mono" rel="stylesheet">
-<link href="resources/css/sign-up.css" rel="stylesheet">
-<script type="text/javascript" src="resources/js/sign-up.js"></script>
+<link href="${path }/resources/css/sign-up.css" rel="stylesheet">
+<script type="text/javascript" src="${path }/resources/js/sign-up.js"></script>
 
 </head>
 <body>
@@ -16,7 +16,7 @@
 <div id="wrapper1">
   <div class="main-content">
     <div class="header">
-      <img src="resources/img/kistagram.PNG" />
+      <img src="${path }/resources/img/kistagram.PNG" />
     </div>
     <div class="l-part">
     	<form class="form-signup" action="" method="post" name="form-signup">
