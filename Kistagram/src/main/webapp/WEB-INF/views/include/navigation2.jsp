@@ -21,14 +21,18 @@
 <nav class="navbar-light custom-navbar">
 	<div class="margin-b-30 container">
 		<a class="navbar-brand" href="${path }/main">Kistagram.</a>
-
-		<div style="float: right;">
-			<span class='green_window'> <input id=text type="text"
-				class='input_text green_window' name="search"
-				onkeydown="enterSearch()" />
-			</span> <input type="button" class='sch_smit' value="검색"
-				onclick="myFunction()" />
-		</div>
+		
+		<form action="" class="searchform" name="myForm">
+		
+			<span class='green_window'> 
+				<input id=text type="text"	placeholder="검색" class='input_text green_window' name="userKeyword"	onkeyup="sendKeyword();" />
+			</span> 
+			<div id="suggest0">
+			<div id="suggestDiv" class="suggest">
+				<div id="suggestListDiv"></div>
+			</div>
+			</div>
+		</form>
 		<div id="filters" class="filters">
 			<a href="${path }/profile">Profile</a> <a id="writeBtn"
 				data-toggle="modal" class="write">Write</a> <a href="#"

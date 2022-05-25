@@ -252,18 +252,17 @@ function fn_Detail(post_no) {
 }
 
 
-		function enterSearch() {
-		    if(event.keyCode == 13){
-		        myFunction();  // 실행할 이벤트
-		    }
-		}
-		function myFunction() {
-		    var x = document.getElementById("text").value;
-		    window.location.href = "http://cybertramp.net/search/"+x;
-		}
+// 		function enterSearch() {
+// 		    if(event.keyCode == 13){
+// 		        myFunction();  // 실행할 이벤트
+// 		    }
+// 		}
+// 		function myFunction() {
+// 		    var x = document.getElementById("text").value;
+// 		    window.location.href = "http://cybertramp.net/search/"+x;
+// 		}
 		
-		 function sendKeyword(){
-								
+		 function sendKeyword(){			
 			  var userKeyword = document.myForm.userKeyword.value;
 			  if(userKeyword==""){
 			   hide();//검색창이 비워져있으면 숨김
@@ -281,13 +280,15 @@ function fn_Detail(post_no) {
 			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
 			    //alert(resultText);
 			    //5|abc,ajax,abc마트
-			    var resultArray = resultText.split("|"); //{5, {abc,ajax,abc} } 로 나눔
-			    var count = parseInt(resultArray[0]);//5
-			    var keywordList = null;
-			    if(count>0){
-			     keywordList = resultArray[1].split(",");
+			    
+			   	var arr = resultText.split(",");
+			    
+			    
+			    var keywordList = arr;
+			 
+			    if(arr.length>0){
 			     var html = "";
-			     for(var i=0;i<keywordList.length;i++){			    	 
+			     for(var i=1;i<keywordList.length;i++){		
 			      html += "<a href=\"javascript:select('" +
 			      keywordList[i] + "');\">" +
 			      keywordList[i] + "</a><br/>";
@@ -337,12 +338,6 @@ function fn_Detail(post_no) {
 </head>
 <body>
 
-<form action="" name="myForm">
-<input type="text" name="userKeyword" onkeyup="sendKeyword();"/>
-<div id="suggestDiv" class="suggest">
- <div id="suggestListDiv"></div>
-</div>
-</form>
 
 	<%@include file="include/navigation2.jsp"%>
 <!-- 	<nav class="navbar-light custom-navbar"> -->

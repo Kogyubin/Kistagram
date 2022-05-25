@@ -6,7 +6,7 @@
 <mapper namespace="member">
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO member 
-		VALUES(#{id}, #{name}, #{pw}, #{phone}, null)
+		VALUES(#{id}, #{name}, #{pw}, #{phone}, 0, null)
 	
 	</insert>
 
@@ -45,6 +45,13 @@
 
 	</select>
 	
+	<update id="updateProfileNo" parameterType="member">
+		UPDATE member
+		SET profile_no=profile_no_seq.currval
+		WHERE id=#{id}
 	
+	</update>
+	
+
 	 
 </mapper>

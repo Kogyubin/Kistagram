@@ -74,7 +74,12 @@ function readURL(input) {
 			var form = $('.form-profileimg')[0];
 			var formData = new FormData(form);
 			
-			
+			if($('#myFile').val()=='') {
+				alert("프로필 사진을 선택해주세요.");
+				
+				return ;
+			} 
+						
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -88,16 +93,7 @@ function readURL(input) {
 					console.log("success")
 					alert("프로필 사진이 변경되었습니다.");
 				}
-// 			success:function(rs){
-// 				if(rs.result==1) {
-// 					alert('프로필 사진이 변경 되었습니다.');
-// 				}else{
-// 					alert('프로필사진을 선택해주세요.');
-// 				}
-// 			},
-// 			error: function(jqXHR, textStatus, errorThrown) {
-// 	            alert("프로필 사진을 선택해주세요.");
-// 	        }
+
 			});
 		});
 	});	
@@ -120,13 +116,13 @@ function readURL(input) {
     <div class="l-part">
     	
 			<form class="form-profileimg" id="uploadForm" method="post" enctype="multipart/form-data">
-	    	<div class="profile0">
-		    	<div class="profile1">
-			    		<img alt="프로필 사진 추가" id="View"  class= "profile2" 
-			    		src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
-			    	
-				</div>	 
-			</div> 
+		    	<div class="profile0">
+			    	<div class="profile1">
+				    		<img alt="프로필 사진 추가" id="View"  class= "profile2" 
+				    		src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+				    	
+					</div>	 
+				</div> 
 					<input type="file" id="myFile" name="imgup" >
 					<div id="label-filebtn">
 					<label id="label-btn" for="myFile">프로필 사진 바꾸기</label>
