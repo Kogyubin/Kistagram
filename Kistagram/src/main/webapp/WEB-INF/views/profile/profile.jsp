@@ -111,12 +111,9 @@ function readURL(input) {
 </head>
 <body>
 <%@include file="../include/navigation2.jsp"%>
-<div class="center-pro">
+<div id="main" class="center-pro">
 <div id="wrapper1">
   <div class="main-content-pro">
-    <div class="header">
-
-    </div>
     <div class="l-part">
     	
 			<form class="form-profileimg" id="uploadForm" method="post" enctype="multipart/form-data">
@@ -157,5 +154,6 @@ function readURL(input) {
   
 </div>
 </div>
+<%@include file="../include/footer.jsp" %>
 </body>
 </html>
