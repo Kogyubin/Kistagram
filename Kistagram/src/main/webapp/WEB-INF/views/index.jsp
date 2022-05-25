@@ -294,15 +294,15 @@ function fn_Detail(post_no) {
 }
 
 
-// 		function enterSearch() {
-// 		    if(event.keyCode == 13){
-// 		        myFunction();  // 실행할 이벤트
-// 		    }
-// 		}
-// 		function myFunction() {
-// 		    var x = document.getElementById("text").value;
-// 		    window.location.href = "http://cybertramp.net/search/"+x;
-// 		}
+		function enterSearch() {
+		    if(event.keyCode == 13){
+		        myFunction();  // 실행할 이벤트
+		    }
+		}
+		function myFunction() {
+		    var x = document.getElementById("text").value;
+		    window.location.href = "http://cybertramp.net/search/"+x;
+		}
 		
 		 function sendKeyword(){			
 			  var userKeyword = document.myForm.userKeyword.value;
@@ -320,29 +320,34 @@ function fn_Detail(post_no) {
 			  if(httpRequest.readyState==4){
 			   if(httpRequest.status==200){//서버응답 정상처리인 경우
 			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
-			    //alert(resultText);
-
+			    var text = JSON.parse(resultText);
 			    
-			   	var arr = resultText.split(",");
+			    console.log(text);
+			    
+// 			   	var arr = resultText.split(",");
 			    
 			    
-			    var keywordList = arr;
+// 			    var keywordList = arr;
 			 
-			    if(arr.length>0){
-			     var html = "";
-			     for(var i=1;i<keywordList.length;i++){		
+// 			    if(arr.length>0){
+ 			     var html = "";
+			     for(var i=0;i<text.length;i++){		
 			      html += "<a href=\"javascript:select('" +
-			      keywordList[i] + "');\">" +
-			      keywordList[i] + "</a><br/>";
+			      text[i].id + "');\">" +
+			      text[i].id + "</a><br/>"
+			      html += "<img id='search-img' src='${path}/resources/profileimg-uploadfolder/" +text[i].id +"/" + text[i].profile_name + "'><br/>";
+			     
+			      console.log(text[i].profile_name);
+			      //"<img src='/resources/profileimg-uploadfolder/" +text[i].id +"/" + text[i].profile_name + "'><br/>"
 			      //<a href="javascript:select('ajax');">ajax</a><br/>
 			     }
-			     var suggestListDiv = document.getElementById("suggestListDiv");
-			     suggestListDiv.innerHTML = html;
-			     show(); 
-			    }else{
-			     //count==0
-			     hide();
-			    } 
+ 			     var suggestListDiv = document.getElementById("suggestListDiv");
+		    	 suggestListDiv.innerHTML = html;
+ 			     show(); 
+// 			    }else{
+// 			     //count==0
+// 			     hide();
+// 			    } 
 			   }else{
 			    //status!=200
 			    hide();
@@ -375,7 +380,28 @@ function fn_Detail(post_no) {
 			  hide();
 			 }
 		
+	
+// function sendKeyword(profile_no) {
+	
+// 	var userKeyword = document.myForm.userKeyword.value;
+	
+// 		if userKeyword(==""){
+// 			hide();
+// 			return;
+// 		}
+	
 		
+// 	$.ajax({
+// 		url : "${path}/search",
+// 		type : "post",
+// 		data : {
+// 			profile_no : profile_no
+// 		},
+// 		success : function(result){
+// 			}
+// 		}
+
+// 	}			 
 		
 		
 	</script>

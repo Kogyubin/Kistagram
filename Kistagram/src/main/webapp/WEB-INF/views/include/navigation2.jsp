@@ -26,7 +26,7 @@
 		<form action="" class="searchform" name="myForm">
 		
 			<span class='green_window'> 
-				<input id=text type="text"	placeholder="검색" class='input_text green_window' name="userKeyword"	 onkeyup="sendKeyword();" />
+				<input id="userKeyword" type="text"	placeholder="검색" class='input_text green_window' name="userKeyword"	 onkeyup="sendKeyword();" />
 			</span> 
 			<div id="suggest0">
 			<div id="suggestDiv" class="suggest">
