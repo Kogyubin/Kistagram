@@ -61,9 +61,12 @@ public class SignController {
 
 		if(flag) {//로그인 성공
 			session.setAttribute("session_id", id);
-
+			
 		}
+		String session_id = (String)session.getAttribute("session_id");
+		
 		model.addAttribute("flag", flag);
+		model.addAttribute("session_id", session_id);
 		
 		return "member/sign-in-ok";
 

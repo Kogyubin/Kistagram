@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 		INSERT INTO follow
 		(id, following, follower)
-		VALUES (#{id}, #{following}, #{id})
+		VALUES (#{id}, #{following}, #{follower})
 	</insert>
 	
 	<!-- 나의 팔로워 수 조회 -->
@@ -35,7 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 		SELECT COUNT(*) 
 		FROM follow 
-		WHERE id = #{id}
+		WHERE following = #{id}
+		
+		
 	
     </select>
     <!-- 내가 팔로우 하는 수 조회 -->
@@ -43,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		SELECT COUNT(*) 
 		FROM follow
-		WHERE following = #{id}
+		WHERE id = #{id}
 			
     </select>
     

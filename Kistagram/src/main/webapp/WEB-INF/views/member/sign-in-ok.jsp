@@ -11,9 +11,11 @@
 	<script>
 		let flag = ${flag};
 		let path = "";
+		
+	
 		if(flag){//로그인 성공
 			alert("로그인 성공");
-			path="${path}/main";
+			path="${path}/main/${session_id}";
 			
 		}else{//로그인 실패
 			alert("로그인 실패");

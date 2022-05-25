@@ -16,7 +16,7 @@ public class FollowDAOImpl implements FollowDAO {
 	@Override
 	public int insertFollow(FollowVO folvo) {
 		
-		return sqlSession.insert("follow", folvo);
+		return sqlSession.insert("follow.insertFollow", folvo);
 	}
 
 	@Override

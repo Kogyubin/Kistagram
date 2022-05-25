@@ -25,7 +25,7 @@ $(document).ready(function() {
 	$("#follow-request-btn").click(function() {
 		
 		var id = "${session_id}";
-		var following = "${member_md}"
+		var following = "${id}";
 		var follower = "${session_id}";
 		
 		console.log("follow 요청 id:" + id);
@@ -47,7 +47,7 @@ $(document).ready(function() {
                  
                  if(result) {
                  	 msg = "팔로우 성공";
-                 	
+                 	window.location.reload();
                  } else {
                  	msg = "팔로우 실패";
                  }
