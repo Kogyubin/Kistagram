@@ -198,6 +198,13 @@ $(document).ready(function() {
 		});
 		
 	});
+	
+	
+	$(".input_text").on("blur", function(e){
+		console.log(e);
+// 		hide();
+	});
+	
 		
 });
 
@@ -375,7 +382,7 @@ function fn_Detail(post_no) {
 			  hide();
 			 }
 		
-		
+
 		
 		
 	</script>
@@ -384,7 +391,7 @@ function fn_Detail(post_no) {
 
 
 	<%@include file="include/navigation2.jsp"%>
-
+	
 	<main id="main">
 
 		<div class="site-section site-portfolio">

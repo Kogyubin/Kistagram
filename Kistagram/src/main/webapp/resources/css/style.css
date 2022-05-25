@@ -601,23 +601,17 @@ h6,
 }
 
 .green_window {
-    display: flex;
-    z-index: 3;
+    display: inline-block;
     height: 44px;
     background: #fff;
     border: 1px solid #dfe1e5;
-    box-shadow: none;
     border-radius: 24px;
-    margin: 0 auto;
-    width: 638px;
-    width: auto;
+    width: 320px;
     max-width: 584px;
+    box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
 }
 .input_text {
-    width: 280px; height: 21px;
-    margin: 6px 0 0 9px;
-    border: 0;
-    line-height: 21px;
+	padding-left:20px;
     font-weight: bold;
     font-size: 16px;
     outline: none;
