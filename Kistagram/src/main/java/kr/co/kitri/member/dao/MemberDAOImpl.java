@@ -1,5 +1,7 @@
 package kr.co.kitri.member.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,4 +48,12 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return sqlSession.selectOne("member.selectUser", mvo);
 	}
+	
+	@Override
+	public List<String> selectSearchMember(MemberVO mvo) {
+		
+		return sqlSession.selectList("member.selectSearchMember", mvo);
+		
+	}
+	
 }

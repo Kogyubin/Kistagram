@@ -122,10 +122,10 @@
 				
 					<div>
 						<div id="detail_id">
-						      <img id="post_profile_img" src='${path}/resources/img/profile.png'>
+						      <img id="detail_profile_img" src='${path}/resources/img/profile.png'>
 						      <span></span>
 					    </div>
-						<div id="content">
+						<div id="detail_content">
 						</div>
 					</div>  
 					
@@ -144,7 +144,6 @@
 						<div class="container">
 							<form id="comment-list-form" name="comment-list-form" method="post">
 								<div id="commentList">
-								
 									
 								</div>
 							</form>

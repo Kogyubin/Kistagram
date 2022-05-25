@@ -1,13 +1,12 @@
 package kr.co.kitri.main;
 
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,19 +14,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
+import kr.co.kitri.follow.service.FollowService;
+import kr.co.kitri.follow.vo.FollowVO;
 import kr.co.kitri.img.service.ImgService;
-import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
@@ -64,14 +62,19 @@ public class MainController {
 	@Autowired
 	private CommentService cservice;
 	
+	@Autowired 
+	private FollowService fservice;
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(Locale locale, HttpSession session, Model model) {
+	
+	@RequestMapping(value = "/main/{urlId}", method = RequestMethod.GET)
+	public String main(@PathVariable String urlId, Locale locale, HttpSession session, Model model) {
+		
 		MemberVO mvo = new MemberVO();
 		
 		String session_id = (String)session.getAttribute("session_id");
@@ -79,18 +82,35 @@ public class MainController {
 			return "redirect:/sign-in";
 		}
 		
-		List<PostImgVO> pilist = pservice.getPostImgs(session_id);
+		System.out.println(session_id);
+		//메인화면 이미지 리스트
+		List<PostImgVO> pilist = pservice.getPostImgs(urlId);
 		
-		mvo.setId(session_id);
+		mvo.setId(urlId);
 		mvo = mdao.selectUser(mvo);
 		String member_md = mvo.getId();
 		String member_itd = mvo.getIntroduce();
 		
-		System.out.println(session_id);
+		//팔로우 유무
+		
+		HashMap<String, String> folmap = new HashMap<String, String>();
+		
+		folmap.put("id", session_id);
+		folmap.put("id2", member_md);
+		
+		System.out.println(folmap);
+		
+		int followState = fservice.getFollowState(folmap);
+		
+		//팔로우, 팔로워 수
+		int followerCnt = fservice.getFollowerCount(member_md);
+		int followCnt = fservice.getFollowCount(member_md);
+		
+		
 		
 		
 		ProfileImgVO pfvo = new ProfileImgVO();
-		pfvo.setId(session_id);
+		pfvo.setId(urlId);
 		ProfileImgVO pfvo2 = pfdao.selectProfileImg(pfvo);
 		String profile_name="";
 		if(pfvo2 != null) {
@@ -101,10 +121,41 @@ public class MainController {
 		model.addAttribute("introduce", member_itd);
 		model.addAttribute("session_id", session_id);
 		model.addAttribute("pilist", pilist);
-		
+		model.addAttribute("followerCnt", followerCnt);
+		model.addAttribute("followCnt", followCnt);
+		model.addAttribute("followState", followState);
 		
 		return "index";
 	}
+	
+	@RequestMapping(value ="/follow-action")
+	@ResponseBody
+	public boolean followAction(FollowVO folvo) {
+		boolean result = fservice.requestFollow(folvo);
+		
+		return result;
+	}
+	
+	@RequestMapping("/write-action")
+	@ResponseBody
+	public String writeAction(MultipartHttpServletRequest multiPart,
+			HttpSession session, Model model, HttpServletRequest req) {
+		
+		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
+		
+		String content = multiPart.getParameter("content");
+		
+		PostVO pvo = new PostVO();
+		
+		pvo.setContent(content);
+		
+		boolean result = pservice.writePostImg(pvo, fileList, req);
+		
+		return "redirect:main";
+
+
+	}
+	
 
 	@RequestMapping("/detail")
 	@ResponseBody
@@ -115,6 +166,8 @@ public class MainController {
 		
 		return pivo;
 	}
+	
+	
 	
 //좋아요
 //	@ResponseBody
@@ -181,27 +234,47 @@ public class MainController {
 		return result;
 	}
 	
-	@RequestMapping("/write-action")
-	@ResponseBody
-	public String writeAction(MultipartHttpServletRequest multiPart,
-			HttpSession session, Model model) {
+	
+	//사용자가 입력한 단어의 연관 제시어 검색하여 리스트 반환
+	
+	public List<String> search(String userKeyword) {
+			
+			MemberVO mvo = new MemberVO();
+			String[] keywords = msvc.selectSearchMember(mvo);
+			
 		
-		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
-		
-		String id = (String)session.getAttribute("session_id");
-		String content = multiPart.getParameter("content");
-		
-		
-		PostVO pvo = new PostVO();
-		pvo.setId(id);
-		pvo.setContent(content);
-		
-		boolean result = pservice.writePostImg(pvo, fileList);
-		
-		return "redirect:main";
-
-
-
+				if(userKeyword==null||userKeyword.equals("")){
+					   return null;
+					   //return Collections.EMPTY_LIST; 내장변수
+				}
+					  //userKeyword = userKeyword.toUpperCase();//대문자검사
+					  List<String> lists = new ArrayList<String>();
+					  for(int i=0;i<keywords.length;i++){
+					   if(keywords[i].startsWith(userKeyword)){
+					    lists.add(keywords[i]);
+					   }
+					   
+					  					  
+					  }
+					  		return lists;
 	}
+	
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public List<String> search1(HttpServletRequest request){
+		
+			String userKeyword = request.getParameter("userKeyword");
+			
+			List<String> keywordList = search(userKeyword);
+			
+			return keywordList;
+		
+	
+	}
+	
+		
+		 		
+				 
+
 	
 }

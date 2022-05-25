@@ -4,7 +4,7 @@
 
 <%@include file="./include/header.jsp"%>
 
-<!DOCTYPE html>
+<!DOCTYPE>
 
 <html>
 
@@ -14,29 +14,84 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-
+<script type="text/javascript" src="resources/js/httpRequest.js"></script>
 <script>
 
+
+
+//팔로우 요청
+$(document).ready(function() {
+	
+	$("#follow-request-btn").click(function() {
+		
+		var id = "${session_id}";
+		var following = "${member_md}"
+		var follower = "${session_id}";
+		
+		console.log("follow 요청 id:" + id);
+		console.log("follow 상대 id:" + following);
+		
+		 $.ajax({
+         	url : "${path}/follow-action",
+             type : "POST",
+             data : {
+             	id : id,
+             	following : following,
+             	follower : id
+            	
+              },
+             success : function(result){
+            	 
+            	 
+             	var msg;
+                 
+                 if(result) {
+                 	 msg = "팔로우 성공";
+                 	
+                 } else {
+                 	msg = "팔로우 실패";
+                 }
+                 
+                 alert(msg);
+             }
+		});
+			
+	});
+});	
+	
 //파일 업로드
+	var bxSlider;
+	
 $(document).ready(function(){ 
+	
+	 bxSlider = $('.bxSlider').bxSlider(); 
 	
 	  var fileTarget = $('#file'); 
 	  fileTarget.on('change', function(){ // 값이 변경되면
 	      var cur=$(".filebox input[type='file']").val();
-	    $(".upload-name").val(cur);
+		    $(".bxSlider").html();
+		    $(".upload-name").val(cur);
+	   
 	  }); 
+	  
+	  $("#myLargeModal").on('hidden.bs.modal', function (e){
+
+		  $(this).find('form')[0].reset();
+		  $(".bxSlider").html("");
+	  });
 }); 
 
- 
- 
+
  	var action = '';
 	var url = '';
 	var type = '';
 	var slider;
+
 	
 $(document).ready(function() {
+	
 	slider = $('.slider').bxSlider(); 
-// 	write-slider = $('.write-slider').bxSlider(); 
+
  
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
@@ -44,63 +99,54 @@ $(document).ready(function() {
 		action = 'create';
 		type = 'post',
 		
+		
 		$("#modal-title").text("Write");
-		$("#id").val("${session_id}");
-		$("#id").attr("readonly",true);
-		$("#content").val("");
+		
+		if("${profile_name}" != "") {
+			$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder\\"
+						+ "${session_id}" + "\\" + "${profile_name}");
+			}
+		
+		$("#post_id span").text("${session_id}");
+		$("#post-content").val("");
 		
 		
 		$("#myLargeModal").modal();
 		
-		slider.reloadSlider();
+
 
 	});
 	
+//다중파일 이미지 미리보기
+	var sel_files = [];
 	
-	//이미지 미리보기
-	 $('#file').on('change', function() {
-        
-        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-        
-        //배열에 추출한 확장자가 존재하는지 체크
-        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            resetFormElement($(this)); //폼 초기화
-            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-        } else {
-            file = $('#file').prop("files")[0];
-            blobURL = window.URL.createObjectURL(file);
-            $('#image_preview img').attr('src', blobURL);
-            $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
-            $(this).slideUp(); //파일 양식 감춤
-        }
-    });
+	$('#file').on("change", handleImgsFilesSelect);
 
-    /**
-    onclick event handler for the delete button.
-    It removes the image, clears and unhides the file input field.
-    */
-    $('#image_preview a').bind('click', function() {
-        resetFormElement($('#file')); //전달한 양식 초기화
-        $('#file').slideDown(); //파일 양식 보여줌
-        $(this).parent().slideUp(); //미리 보기 영역 감춤
-        return false; //기본 이벤트 막음
-    });
-        
+	function handleImgsFilesSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")) {
+				alert("이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)");
+				return;
+			}
+			sel_files.push(f);
+			
+		var reader = new FileReader();
+		reader.onload = function(e){
+				var img_html = "<img src=\""+e.target.result +"\" />";
+// 				var img_html = $(".imgs_wrap img").attr("src","\""+e.target.result +"\" /");
+				$(".bxSlider").append(img_html);
+				bxSlider.reloadSlider();
+			}
+			reader.readAsDataURL(f);
+			
 
-    /** 
-    * 폼요소 초기화 
-    * Reset form element
-    * 
-    * @param e jQuery object
-    */
-    function resetFormElement(e) {
-        e.wrap('<form>').closest('form').get(0).reset(); 
-        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
-        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
-        //DOM에서 제공하는 초기화 메서드 reset()을 호출
-        e.unwrap(); //감싼 <form> 태그를 제거
-    }
-
+		});
+	}
+	
+	
 	//Modal의 submit 버튼 클릭
 
 	$("#modalSubmit").click(function() {
@@ -133,7 +179,7 @@ $(document).ready(function() {
 				if (action == 'create') {
 					if (result) {
 						alert("등록에 성공하였습니다.");
-// 						 $("#wrtie-form").val("");
+
 					} else {
 						alert("오류가 발생하였습니다. 다시 등록해주세요");
 					}
@@ -145,8 +191,8 @@ $(document).ready(function() {
 					}
 				}
 				
-				
 				$("#myLargeModal").modal('toggle');
+				window.location.reload();
 			}
 			
 		});
@@ -154,12 +200,12 @@ $(document).ready(function() {
 	});
 		
 });
+
 	
 	
 function postDetail(post_no){
 	
-	
-	
+	console.log("post_no : "+post_no);
 	$.ajax({
 		url : "${path}/detail",
 		type : "post",
@@ -171,15 +217,16 @@ function postDetail(post_no){
 			console.log(result);
 			
 			$(".slider").html();
-			$("#post_no").val(result[0].post_no);
+			$("#detail_post_no").val(result[0].post_no);
 			
 			if(result[0].profile_name != null) {
-				$("#post_profile_img").attr("src","${path}/resources/profileimg-uploadfolder\\"
-						+ result[0].id + "\\" + result[0].profile_name);
+				$("#detail_id img").attr("src","${path}/resources/profileimg-uploadfolder/"
+						+ result[0].id + "/" + result[0].profile_name);
 			}
+			
 			$("#detail_id span").text(result[0].id);
-			$("#content").text(result[0].content);
-			$("#content").attr("readonly", true);
+			$("#detail_content").text(result[0].content);
+			
 			
 			
 			let imgHTML="";
@@ -244,13 +291,9 @@ function fn_Detail(post_no) {
 	commentList(post_no);
 	
 	
-	
 }
 
- 
- </script>
 
-<script type="text/javascript">
 		function enterSearch() {
 		    if(event.keyCode == 13){
 		        myFunction();  // 실행할 이벤트
@@ -260,10 +303,80 @@ function fn_Detail(post_no) {
 		    var x = document.getElementById("text").value;
 		    window.location.href = "http://cybertramp.net/search/"+x;
 		}
+		
+		 function sendKeyword(){
+								
+			  var userKeyword = document.myForm.userKeyword.value;
+			  if(userKeyword==""){
+			   hide();//검색창이 비워져있으면 숨김
+			   return;
+			  }
+			  var params = "userKeyword="+userKeyword;
+			  console.log("params : "+params)
+			  sendRequest('${path}/search', params, displaySuggest, "POST");
+		}
+
+
+			 function displaySuggest(){
+			  if(httpRequest.readyState==4){
+			   if(httpRequest.status==200){//서버응답 정상처리인 경우
+			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
+			    //alert(resultText);
+			    //5|abc,ajax,abc마트
+			    var resultArray = resultText.split("|"); //{5, {abc,ajax,abc} } 로 나눔
+			    var count = parseInt(resultArray[0]);//5
+			    var keywordList = null;
+			    if(count>0){
+			     keywordList = resultArray[1].split(",");
+			     var html = "";
+			     for(var i=0;i<keywordList.length;i++){			    	 
+			      html += "<a href=\"javascript:select('" +
+			      keywordList[i] + "');\">" +
+			      keywordList[i] + "</a><br/>";
+			      //<a href="javascript:select('ajax');">ajax</a><br/>
+			     }
+			     var suggestListDiv = document.getElementById("suggestListDiv");
+			     suggestListDiv.innerHTML = html;
+			     show(); 
+			    }else{
+			     //count==0
+			     hide();
+			    } 
+			   }else{
+			    //status!=200
+			    hide();
+			   }
+			  }else{
+			   //readyState!=4
+			   hide();
+			  }
+			 }//function..end
+
+
+			 //사용자가 제시어중에서 클릭한 키워드
+			 function select(selectKeyword){
+			  //클릭한 제시어를 inputbox에 넣어줌
+			  document.myForm.userKeyword.value = selectKeyword;
+			  hide();//다른 제시어 감춤
+			 }
+			 function show(){
+			  var suggestDiv = document.getElementById("suggestDiv");
+			  suggestDiv.style.display = "block";
+			 }
+			 function hide(){
+			  var suggestDiv = document.getElementById("suggestDiv");
+			  suggestDiv.style.display = "none";
+			 }
+			 //처음 DOM이 로드되었을때 보이지 않도록
+			 window.onload = function(){
+			  hide();
+			 }
+		
+		
+		
+		
 	</script>
-
 </head>
-
 <body>
 
 	<%@include file="include/navigation2.jsp"%>
@@ -297,16 +410,41 @@ function fn_Detail(post_no) {
 
 						<div class="box">
 							<img class="profile"
-								src="${path }\resources\profileimg-uploadfolder/${id }/${profile_name}"
+								src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}"
 								alt="Image">
 						</div>
 
 						<div class="state">
+
 								<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly ><br>
 								<p>${introduce }</p>
 					
-								<span class="mb-0 mg-20 dis-ib">팔로워 6514</span>
-								<span class="mb-0 mg-20 dis-ib">팔로우 0</span>
+								<span class="mb-0 mg-20 dis-ib">팔로워 ${followerCnt }</span>
+								<span class="mb-0 mg-20 dis-ib">팔로우 ${followCnt }</span>
+								
+								<c:choose> 
+									<c:when test="${followState eq 0 }">
+										<c:choose> 
+											<c:when test="${id eq session_id }">
+												<span></span>
+											</c:when>
+											<c:otherwise>
+													<span>
+														<input type="button" id="follow-request-btn" value="팔로우">
+													</span>
+											</c:otherwise>
+										</c:choose>	
+									</c:when>
+									<c:when test="${followState eq 1 }">
+										<span>
+											<button type="button" id="already-follow-btn">
+												<div>
+													<img id="already-follow-icon" src="${path }/resources/img/already-follow-icon.png">
+												</div>
+											</button>
+										</span>
+									</c:when>
+								</c:choose>
 						</div>
 					</div>
 					
@@ -356,14 +494,15 @@ function fn_Detail(post_no) {
 	<!-- Vendor JS Files -->
 	<!-- 	<script src="resources/vendor/jquery/jquery.min.js"></script> -->
 	<!-- 	<script src="resources/vendor/jquery/jquery-migrate.min.js"></script> -->
-	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/vendor/easing/easing.min.js"></script>
+	<script src="${path }/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${path }/resources/vendor/easing/easing.min.js"></script>
 	<!-- 	<script src="resources/vendor/php-email-form/validate.js"></script> -->
-	<script src="resources/vendor/isotope/isotope.pkgd.min.js"></script>
-	<script src="resources/vendor/aos/aos.js"></script>
-	<script src="resources/vendor/owlcarousel/owl.carousel.min.js"></script>
+	<script src="${path }/resources/vendor/isotope/isotope.pkgd.min.js"></script>
+	<script src="${path }/resources/vendor/aos/aos.js"></script>
+	<script src="${path }/resources/vendor/owlcarousel/owl.carousel.min.js"></script>
 	<!-- Template Main JS File -->
-	<script src="resources/js/main.js"></script>
+	<script src="${path }/resources/js/main.js"></script>
 
 </body>
+
 </html>

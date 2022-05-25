@@ -2,6 +2,8 @@ package kr.co.kitri.post.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.kitri.post.vo.PostImgMemberProfileVO;
@@ -16,6 +18,6 @@ public interface PostService {
 	public boolean updatePost(PostVO pvo);
 	public boolean deletePost(int post_no);
 	public List<PostImgVO> getPostImgs(String id);
-	public boolean writePostImg(PostVO pvo, List<MultipartFile> fileList);
+	public boolean writePostImg(PostVO pvo, List<MultipartFile> fileList, HttpServletRequest req);
 
 }

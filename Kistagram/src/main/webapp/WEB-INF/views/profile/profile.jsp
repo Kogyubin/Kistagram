@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Overpass+Mono" rel="stylesheet">
-<script type="text/javascript" src="resources/js/profile.js"></script>
+<script type="text/javascript" src="${path }/resources/js/profile.js"></script>
 
 <script> 
 

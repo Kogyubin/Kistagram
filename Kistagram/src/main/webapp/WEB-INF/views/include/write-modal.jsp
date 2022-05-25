@@ -20,29 +20,33 @@
 			<div class="modal-content">
 			
 				<div class="modal-header">
-				<h5 class="modal-title" id="historyModalLabel">새 게시물 만들기</h5>
+				<h6 class="modal-title" id="historyModalLabel">새 게시물 만들기</h6>
 					<button type="button" id="closeX" class="close"
 						data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body" id="myModalBody">
 						<form action="write-action" id="write-form" method="post" enctype="multipart/form-data">
-						      <div style="float:right;">
-									<img src='${path}/resources/img/profile.png' id='post_profile_img'>&nbsp;${session_id }
+						      <div id="post_id" style="float:right;">
+									<img id="post_profile_img" src='${path}/resources/img/profile.png'>
+									<span></span>
 						      <div>
-						      <textarea rows="8" cols="40" name="content" placeholder="문구입력"></textarea>
+						      <textarea rows="8" cols="40" id= "post-content" name="content" placeholder="문구입력"></textarea>
 						      </div>
 						      </div>
 						      <div class="filebox">
 							       		<label for="file">업로드</label> 
 							        <input type="file" name="uploadfile" id="file" multiple="multiple"/>
 							        	<input class="upload-name" value="파일선택">
-							        	
-							   <div id="image_preview">
-							   		<ul class= write-slider>
-							        	<li ><img src="#" /></li>
-							        </ul>
-						        <a href="#">취소</a>
-						    	</div>
+							 
+								        	
+								    <div class= "imgs_wrap" style="width:390px">
+								    	<div>
+					      					<ul class="bxSlider">
+					      						<li></li>
+					      					</ul>
+					      				</div>
+					     			</div>
+							    
 							 </div>
 
 						</form>

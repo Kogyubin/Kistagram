@@ -1,5 +1,8 @@
 package kr.co.kitri.member.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,7 +91,18 @@ public class MemberSvcImpl implements MemberSvc {
 		
 		return flag;
 		
-
+	}
+	
+	@Override
+	public String[] selectSearchMember(MemberVO mvo) {
+		ArrayList<String> list = (ArrayList<String>) mdao.selectSearchMember(mvo);
+		
+		System.out.println(list);
+		
+		
+		String[] result = list.toArray(new String[list.size()]);
+		
+		return result;
 
 	}
 
