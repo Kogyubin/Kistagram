@@ -1,4 +1,16 @@
 @charset "UTF-8";
-.margin-b-30{
-	margin-bottom: 30px;
+.margin-b-15{
+	margin-bottom: 15px;
+}
+
+.searchForm{
+	display: inline-block;
+	padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+}
+
+.navibar{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: space-between;
 }
