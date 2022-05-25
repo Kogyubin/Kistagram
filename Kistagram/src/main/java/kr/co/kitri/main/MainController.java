@@ -1,9 +1,7 @@
 package kr.co.kitri.main;
 
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -19,19 +17,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.follow.service.FollowService;
 import kr.co.kitri.follow.vo.FollowVO;
 import kr.co.kitri.img.service.ImgService;
-import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
@@ -240,5 +234,47 @@ public class MainController {
 		return result;
 	}
 	
+	
+	//사용자가 입력한 단어의 연관 제시어 검색하여 리스트 반환
+	
+	public List<String> search(String userKeyword) {
+			
+			MemberVO mvo = new MemberVO();
+			String[] keywords = msvc.selectSearchMember(mvo);
+			
+		
+				if(userKeyword==null||userKeyword.equals("")){
+					   return null;
+					   //return Collections.EMPTY_LIST; 내장변수
+				}
+					  //userKeyword = userKeyword.toUpperCase();//대문자검사
+					  List<String> lists = new ArrayList<String>();
+					  for(int i=0;i<keywords.length;i++){
+					   if(keywords[i].startsWith(userKeyword)){
+					    lists.add(keywords[i]);
+					   }
+					   
+					  					  
+					  }
+					  		return lists;
+	}
+	
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public List<String> search1(HttpServletRequest request){
+		
+			String userKeyword = request.getParameter("userKeyword");
+			
+			List<String> keywordList = search(userKeyword);
+			
+			return keywordList;
+		
+	
+	}
+	
+		
+		 		
+				 
+
 	
 }
