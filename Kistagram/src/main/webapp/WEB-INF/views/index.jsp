@@ -14,7 +14,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<script type="text/javascript" src="resources/js/httpRequest.js"></script>
+<script type="text/javascript" src="${path }/resources/js/httpRequest.js"></script>
 <script>
 
 
@@ -96,24 +96,33 @@ $(document).ready(function() {
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
 		
-		action = 'create';
-		type = 'post',
 		
+		action = 'create';
+		type = 'post';
 		
 		$("#modal-title").text("Write");
-		
-		if("${profile_name}" != "") {
-			$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder\\"
-						+ "${session_id}" + "\\" + "${profile_name}");
-			}
-		
-		$("#post_id span").text("${session_id}");
-		$("#post-content").val("");
-		
-		
-		$("#myLargeModal").modal();
-		
+		console.log("modal-title");
 
+		$.ajax({
+			url : "${path}/writeUserInfo",
+			type : "post",
+			data : {
+				post_no : 1
+			},
+			success : function(result) {
+				console.log(result);
+				if(result.profile_name != null) {
+					$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder/"
+								+ result.id + "/" + result.profile_name);
+					}
+				$("#post_id span").text(result.id);
+				$("#post-content").val("");
+				$("#myLargeModal").modal();
+				
+				console.log("modal-title-success");
+			}
+		});
+		
 
 	});
 	
@@ -264,7 +273,11 @@ function commentList(post_no){
 		 	for(let j=0; j<data.length; j++){
 		 		
 		 		listHtml += "<div class='comment-list-array'>";
-		 		listHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[j].id + "\\" + data[j].profile_name+"' id='post_profile_img'>";
+		 		if(data[j].profile_name!=null){
+			 		listHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[j].id + "\\" + data[j].profile_name+"' id='post_profile_img'>";
+		 		} else {
+		 			listHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
+		 		}
 		 		listHtml += "<span class='comment-id-array'> "+ data[j].id + "</span>";
 		 		listHtml += "<span> "+data[j].comment_content+" </span><br>";
 		 		listHtml += "<span class='comment-regdate-array'> "+data[j].comment_regdate+"</span>";

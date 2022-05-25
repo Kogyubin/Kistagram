@@ -136,6 +136,23 @@ public class MainController {
 		return result;
 	}
 	
+	@RequestMapping("/writeUserInfo")
+	@ResponseBody
+	public ProfileImgVO writeUserInfo(HttpSession session, Model model) {
+		
+		System.out.println("wirteuserinfo");
+		String session_id = (String)session.getAttribute("session_id");
+		
+		ProfileImgVO pfvo = new ProfileImgVO();
+		pfvo.setId(session_id);
+		
+		ProfileImgVO pfvo2 = pfsvc.selectProfileImg(pfvo);
+		
+		return pfvo2;
+				
+		
+	}
+	
 	@RequestMapping("/write-action")
 	@ResponseBody
 	public String writeAction(MultipartHttpServletRequest multiPart,
@@ -144,6 +161,7 @@ public class MainController {
 		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
 		
 		String content = multiPart.getParameter("content");
+		
 		
 		PostVO pvo = new PostVO();
 		
