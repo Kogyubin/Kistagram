@@ -20,18 +20,24 @@
 	rel="stylesheet">
 <nav class="navbar-light custom-navbar">
 	<div class="margin-b-15 container navibar">
-		<a class="navbar-brand" href="${path }/main">Kistagram.</a>
+		<a class="navbar-brand" href="${path }/main/${session_id}">Kistagram.</a>
 		
-		<form class="searchForm">
+
+		<form action="" class="searchform" name="myForm">
+		
 			<span class='green_window'> 
-				<input id=text type="text" class='input_text green_window' name="search" onkeydown="enterSearch()" />
+				<input id=text type="text"	placeholder="검색" class='input_text green_window' name="userKeyword"	 onkeyup="sendKeyword();" />
 			</span> 
-<!-- 			<input type="button" class='sch_smit' value="검색" onclick="myFunction()" /> -->
+			<div id="suggest0">
+			<div id="suggestDiv" class="suggest">
+				<div id="suggestListDiv"></div>
+			</div>
+			</div>
+
 		</form>
 		<div id="filters" class="filters">
 			<a href="${path }/profile">Profile</a> <a id="writeBtn"
-				data-toggle="modal" class="write">Write</a> <a href="#"
-				data-filter=".branding">Follow</a> <a href="${path }/sign-out"
+				data-toggle="modal" class="write">Write</a><a href="${path }/sign-out"
 				class="logout">Logout</a>
 		</div>
 	</div>

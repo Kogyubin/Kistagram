@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.kitri.img.vo.ImgVO;
+import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.vo.MemberVO;
 import kr.co.kitri.post.vo.PostVO;
 import kr.co.kitri.profileimg.dao.ProfileImgDAO;
@@ -31,16 +32,20 @@ import kr.co.kitri.profileimg.vo.ProfileImgVO;
 		@Autowired
 		private ProfileImgDAO pfdao;
 		
+		@Autowired
+		private MemberDAO mdao;
 		
 		
 		@Override
-		public boolean writeProfileImg(ProfileImgVO pfvo) {
+		public boolean writeProfileImg(ProfileImgVO pfvo, MemberVO mvo) {
 			
 			ProfileImgVO profile_name = pfdao.selectProfileImg(pfvo);
 			
 			int result=0;
 			if(profile_name==null) {
 				result = pfdao.insertImgFile(pfvo);
+				mdao.updateProfileNo(mvo);
+				
 			} else {
 				result = pfdao.updateProfileImg(pfvo);
 			} 
@@ -103,10 +108,13 @@ import kr.co.kitri.profileimg.vo.ProfileImgVO;
 					pfvo.setOri_profile_name(oriFileName);
 					pfvo.setId(id);
 					
+					MemberVO mvo = new MemberVO();
+					mvo.setId(id);
+					
 //					int i= 1/0;//에러
 						
 					
-						boolean fileFlag = writeProfileImg(pfvo);
+						boolean fileFlag = writeProfileImg(pfvo, mvo);
 						if(fileFlag) {
 							result=true;
 							
@@ -145,11 +153,13 @@ import kr.co.kitri.profileimg.vo.ProfileImgVO;
 		@Override
 		public ProfileImgVO selectProfileImg(ProfileImgVO pfvo) {
 			
-			ProfileImgVO result = selectProfileImg(pfvo);
+			ProfileImgVO result = pfdao.selectProfileImg(pfvo);
 			
 			return result;
 
 		}
+		
+		
 		
 	}
 

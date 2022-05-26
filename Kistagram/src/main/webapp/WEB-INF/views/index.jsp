@@ -14,8 +14,9 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<script type="text/javascript" src="${path }/resources/js/httpRequest.js"></script>
-<script>
+<script type="text/javascript" src="${path }/resources/js/httpRequest.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="UTF-8">
+
 
 
 
@@ -58,6 +59,85 @@ $(document).ready(function() {
 			
 	});
 });	
+
+//팔로워 리스트
+function fn_followerList(id) {
+	
+	$.ajax({
+		url : "${path}/followerList",
+		type : "post",
+		data : {
+			id : id
+		},
+		success : function(data){
+			
+			console.log(data);
+			
+			let followerHtml = "";
+			
+				for(let i=0; i<data.length; i++){
+					
+					followerHtml += "<div class='follower-list-array'>";
+					if(data[i].profile_name!=null){
+						
+				 		followerHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[i].id + "\\" + data[i].profile_name+"'>";
+			 		} else {
+			 			followerHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
+			 		}
+					followerHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					followerHtml +=  "<div id='follower_name'>" + data[i].name +"</div>";
+					followerHtml +=  "</div>";
+
+						
+					
+				}
+			
+				$("#followerList").html(followerHtml);
+				$("#mySmallModal").modal();
+			}
+		
+		});
+	
+}
+
+//팔로우 리스트
+function fn_followList(id) {
+	
+	$.ajax({
+		url : "${path}/followList",
+		type : "post",
+		data : {
+			id : id
+		},
+		success : function(data){
+			
+			console.log(data);
+			
+			let followHtml = "";
+			
+				for(let i=0; i<data.length; i++){
+					
+					followHtml += "<div class='follow-list-array'>";
+					if(data[i].profile_name!=null){
+						
+				 		followHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[i].id + "\\" + data[i].profile_name+"'>";
+			 		} else {
+			 			followHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
+			 		}
+					followHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					followHtml +=  "<div id='follow_name'>" + data[i].name +"</div>";
+					followHtml +=  "</div>";
+						
+					
+				}
+			
+				$("#followList").html(followHtml);
+				$("#mySmallModal2").modal();
+			}
+		
+		});
+	
+}
 	
 //파일 업로드
 	var bxSlider;
@@ -106,23 +186,20 @@ $(document).ready(function() {
 		$.ajax({
 			url : "${path}/writeUserInfo",
 			type : "post",
-			data : {
-				post_no : 1
-			},
+			
 			success : function(result) {
 				console.log(result);
 				if(result.profile_name != null) {
 					$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder/"
-								+ result.id + "/" + result.profile_name);
+								+ "${session_id}" + "/" + result.profile_name);
 					}
-				$("#post_id span").text(result.id);
+				$("#post_id span").text("${session_id}");
 				$("#post-content").val("");
 				$("#myLargeModal").modal();
 				
 				console.log("modal-title-success");
 			}
 		});
-		
 
 	});
 	
@@ -142,8 +219,8 @@ $(document).ready(function() {
 			}
 			sel_files.push(f);
 			
-		var reader = new FileReader();
-		reader.onload = function(e){
+			var reader = new FileReader();
+			reader.onload = function(e){
 				var img_html = "<img src=\""+e.target.result +"\" />";
 // 				var img_html = $(".imgs_wrap img").attr("src","\""+e.target.result +"\" /");
 				$(".bxSlider").append(img_html);
@@ -258,9 +335,10 @@ function postDetail(post_no){
 }	
 	
 function commentList(post_no){
+	
 	$.ajax({
 		url : "${path}/commentList",
-		type : 'get',
+		type : 'GET',
 		data: {post_no : post_no
 		},
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
@@ -285,11 +363,37 @@ function commentList(post_no){
 		 		
             }
                 
-            console.log(listHtml);
             $("#commentList").html(listHtml);
             
         }
     });
+}
+
+function likeState(post_no){
+	console.log("like-state");
+	var id = "${session_id}";
+	
+	$.ajax({
+		url: "${path}/like-state",
+		type: 'POST',
+		data: {
+			id: id,
+	    	post_no: post_no
+		},
+		success : function(result) {
+			
+			console.log(result);
+			
+			$("#like-check").val(result);
+			
+			if(result == 1) {
+				$('.post_like_section #like_img').attr("src", "${path}/resources/img/like.png" );
+			}else {
+				$('.post_like_section #like_img').attr("src", "${path}/resources/img/dislike.png" );
+			}
+		}
+		
+	});
 }
 	
 	
@@ -302,23 +406,22 @@ function fn_Detail(post_no) {
 	
 	postDetail(post_no);
 	commentList(post_no);
-	
+	likeState(post_no);
 	
 }
 
 
-		function enterSearch() {
-		    if(event.keyCode == 13){
-		        myFunction();  // 실행할 이벤트
-		    }
-		}
-		function myFunction() {
-		    var x = document.getElementById("text").value;
-		    window.location.href = "http://cybertramp.net/search/"+x;
-		}
+// 		function enterSearch() {
+// 		    if(event.keyCode == 13){
+// 		        myFunction();  // 실행할 이벤트
+// 		    }
+// 		}
+// 		function myFunction() {
+// 		    var x = document.getElementById("text").value;
+// 		    window.location.href = "http://cybertramp.net/search/"+x;
+// 		}
 		
-		 function sendKeyword(){
-								
+		 function sendKeyword(){			
 			  var userKeyword = document.myForm.userKeyword.value;
 			  if(userKeyword==""){
 			   hide();//검색창이 비워져있으면 숨김
@@ -335,14 +438,16 @@ function fn_Detail(post_no) {
 			   if(httpRequest.status==200){//서버응답 정상처리인 경우
 			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
 			    //alert(resultText);
-			    //5|abc,ajax,abc마트
-			    var resultArray = resultText.split("|"); //{5, {abc,ajax,abc} } 로 나눔
-			    var count = parseInt(resultArray[0]);//5
-			    var keywordList = null;
-			    if(count>0){
-			     keywordList = resultArray[1].split(",");
+
+			    
+			   	var arr = resultText.split(",");
+			    
+			    
+			    var keywordList = arr;
+			 
+			    if(arr.length>0){
 			     var html = "";
-			     for(var i=0;i<keywordList.length;i++){			    	 
+			     for(var i=1;i<keywordList.length;i++){		
 			      html += "<a href=\"javascript:select('" +
 			      keywordList[i] + "');\">" +
 			      keywordList[i] + "</a><br/>";
@@ -370,6 +475,8 @@ function fn_Detail(post_no) {
 			 function select(selectKeyword){
 			  //클릭한 제시어를 inputbox에 넣어줌
 			  document.myForm.userKeyword.value = selectKeyword;
+			  location.href = '${path}/main/'+selectKeyword;
+			  
 			  hide();//다른 제시어 감춤
 			 }
 			 function show(){
@@ -392,6 +499,7 @@ function fn_Detail(post_no) {
 </head>
 <body>
 
+
 	<%@include file="include/navigation2.jsp"%>
 
 	<main id="main">
@@ -412,9 +520,10 @@ function fn_Detail(post_no) {
 
 								<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly ><br>
 								<p>${introduce }</p>
-					
-								<span class="mb-0 mg-20 dis-ib">팔로워 ${followerCnt }</span>
-								<span class="mb-0 mg-20 dis-ib">팔로우 ${followCnt }</span>
+								
+								
+								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followerList('${id }')">팔로워 ${followerCnt }</a></span>
+								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followList('${id }')">팔로우 ${followCnt }</a></span>
 								
 								<c:choose> 
 									<c:when test="${followState eq 0 }">
@@ -459,8 +568,10 @@ function fn_Detail(post_no) {
 				</div>
 			</div>
 		</div>
-
-
+		<!-- 팔로워 리스트 -->
+		<%@include file="./include/followerList-modal.jsp"%>
+		<!-- 팔로우 리스트 -->
+		<%@include file="./include/followList-modal.jsp"%>
 		<!-- 게시글 상세 -->
 		<%@include file="./include/detail-modal.jsp"%>
 		<!-- 게시글 작성 -->

@@ -29,7 +29,7 @@ function sendRequest(url, params, callback, method) {
     httpRequest.open(httpMethod, httpUrl, true);
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     httpRequest.onreadystatechange = callback;
-
+	
     httpRequest.send(httpMethod == 'POST' ? httpParams : null);
 }
 //
