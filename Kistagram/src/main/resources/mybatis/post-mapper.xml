@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertPost" parameterType="post">
 	
 		INSERT INTO post
-		(post_no, regdate, id, content, like_cnt, del_flag)
-		VALUES (post_post_no_seq.nextval, sysdate, #{id}, #{content}, 0, 'N')
+		(post_no, regdate, id, content, del_flag)
+		VALUES (post_post_no_seq.nextval, sysdate, #{id}, #{content}, 'N')
 	</insert>
 	
 	<select id="selectPostJoinImgs" resultType="postimg">
@@ -27,10 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectPost" parameterType="int" resultType="postimgmemberprofile">
-<!-- 		SELECT * -->
-<!-- 		FROM post p, img i -->
-<!-- 		WHERE p.post_no=#{post_no} -->
-<!-- 		AND p.post_no = i.post_no -->
 			SELECT p.id, p.post_no, p.content, i.img_name, pf.profile_name, pf.profile_path
 			FROM post p, img i, member m, profile pf
 			WHERE p.post_no=i.post_no

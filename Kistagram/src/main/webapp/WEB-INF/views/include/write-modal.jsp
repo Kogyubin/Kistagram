@@ -42,7 +42,7 @@
 								    <div class= "imgs_wrap" style="width:390px">
 								    	<div>
 					      					<ul class="bxSlider">
-					      						<li></li>
+					      						<li><img src="${path}/resources/img/photo-icon.png" ></li>
 					      					</ul>
 					      				</div>
 					     			</div>

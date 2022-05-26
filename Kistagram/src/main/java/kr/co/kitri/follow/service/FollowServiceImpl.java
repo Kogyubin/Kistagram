@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.kitri.follow.dao.FollowDAO;
+import kr.co.kitri.follow.vo.FollowMemberProfileVO;
 import kr.co.kitri.follow.vo.FollowVO;
 
 @Service
@@ -29,15 +30,15 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public List<FollowVO> getFollow(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FollowMemberProfileVO> getFollow(String id) {
+		
+		return fdao.selectFollowing(id);
 	}
 
 	@Override
-	public List<FollowVO> getFollower(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FollowMemberProfileVO> getFollower(String id) {
+		
+		return fdao.selectFollower(id);
 	}
 
 	@Override

@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap" rel="stylesheet">
 <nav class="navbar-light custom-navbar">
 	<div class="margin-b-15 container navibar">
-		<a class="navbar-brand" href="${path }/main">Kistagram.</a>
+		<a class="navbar-brand" href="${path }/main/${session_id}">Kistagram.</a>
 		
 
 		<form action="" class="searchform" name="myForm">
@@ -33,8 +33,7 @@
 		</form>
 		<div id="filters" class="filters">
 			<a href="${path }/profile">Profile</a> <a id="writeBtn"
-				data-toggle="modal" class="write">Write</a> <a href="#"
-				data-filter=".branding">Follow</a> <a href="${path }/sign-out"
+				data-toggle="modal" class="write">Write</a><a href="${path }/sign-out"
 				class="logout">Logout</a>
 		</div>
 	</div>

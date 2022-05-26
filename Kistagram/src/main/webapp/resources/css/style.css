@@ -713,18 +713,46 @@ h6,
 }
 
 
+
 #post_profile_img, #detail_profile_img, #search-img{
+
 	width: 30px;
 	height:30px;
 	border-radius:50%;
 	
 }
 
+#historyModalLabelFollower, #historyModalLabelFollowing{
+	margin-left: 95px;
+	font-weight: bold;
+}
+
+#followerList, #followList{
+	width:500px;
+	height: 300px;
+}
+
+.follower-list-array img, .follow-list-array img{
+	width: 30px;
+	height:30px;
+	border-radius:50%;
+	margin-right: 15px;
+}
+
+#follower_name, #follow_name{
+	margin-left: 45px;
+	font-size: 14px;
+	color: gray;
+	margin-bottom: 5px;
+}
+
 .img-list {
 list-style: none;
 padding: 0;
 margin:0;
+
 }
+
 .img-list li {
 border: 5px solid transparent;
 box-sizing: border-box;
@@ -860,6 +888,14 @@ vertical-align: middle;
 	height: 20px;
 }
 
+
+.state span a, .follower-list-array span a, .follow-list-array span a {
+  text-decoration: none;
+  color: black;
+}
+
+
 #main{
 	min-height: 100%;
 }
+

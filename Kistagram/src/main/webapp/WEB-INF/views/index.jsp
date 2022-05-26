@@ -18,6 +18,7 @@
 
 
 
+
 //팔로우 요청
 $(document).ready(function() {
 	
@@ -57,6 +58,85 @@ $(document).ready(function() {
 			
 	});
 });	
+
+//팔로워 리스트
+function fn_followerList(id) {
+	
+	$.ajax({
+		url : "${path}/followerList",
+		type : "post",
+		data : {
+			id : id
+		},
+		success : function(data){
+			
+			console.log(data);
+			
+			let followerHtml = "";
+			
+				for(let i=0; i<data.length; i++){
+					
+					followerHtml += "<div class='follower-list-array'>";
+					if(data[i].profile_name!=null){
+						
+				 		followerHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[i].id + "\\" + data[i].profile_name+"'>";
+			 		} else {
+			 			followerHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
+			 		}
+					followerHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					followerHtml +=  "<div id='follower_name'>" + data[i].name +"</div>";
+					followerHtml +=  "</div>";
+
+						
+					
+				}
+			
+				$("#followerList").html(followerHtml);
+				$("#mySmallModal").modal();
+			}
+		
+		});
+	
+}
+
+//팔로우 리스트
+function fn_followList(id) {
+	
+	$.ajax({
+		url : "${path}/followList",
+		type : "post",
+		data : {
+			id : id
+		},
+		success : function(data){
+			
+			console.log(data);
+			
+			let followHtml = "";
+			
+				for(let i=0; i<data.length; i++){
+					
+					followHtml += "<div class='follow-list-array'>";
+					if(data[i].profile_name!=null){
+						
+				 		followHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[i].id + "\\" + data[i].profile_name+"'>";
+			 		} else {
+			 			followHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
+			 		}
+					followHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					followHtml +=  "<div id='follow_name'>" + data[i].name +"</div>";
+					followHtml +=  "</div>";
+						
+					
+				}
+			
+				$("#followList").html(followHtml);
+				$("#mySmallModal2").modal();
+			}
+		
+		});
+	
+}
 	
 //파일 업로드
 	var bxSlider;
@@ -95,24 +175,30 @@ $(document).ready(function() {
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
 		
-		action = 'create';
-		type = 'post',
 		
+		action = 'create';
+		type = 'post';
 		
 		$("#modal-title").text("Write");
-		
-		if("${profile_name}" != "") {
-			$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder\\"
-						+ "${session_id}" + "\\" + "${profile_name}");
-			}
-		
-		$("#post_id span").text("${session_id}");
-		$("#post-content").val("");
-		
-		
-		$("#myLargeModal").modal();
-		
+		console.log("modal-title");
 
+		$.ajax({
+			url : "${path}/writeUserInfo",
+			type : "post",
+			
+			success : function(result) {
+				console.log(result);
+				if(result.profile_name != null) {
+					$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder/"
+								+ "${session_id}" + "/" + result.profile_name);
+					}
+				$("#post_id span").text("${session_id}");
+				$("#post-content").val("");
+				$("#myLargeModal").modal();
+				
+				console.log("modal-title-success");
+			}
+		});
 
 	});
 	
@@ -132,8 +218,8 @@ $(document).ready(function() {
 			}
 			sel_files.push(f);
 			
-		var reader = new FileReader();
-		reader.onload = function(e){
+			var reader = new FileReader();
+			reader.onload = function(e){
 				var img_html = "<img src=\""+e.target.result +"\" />";
 // 				var img_html = $(".imgs_wrap img").attr("src","\""+e.target.result +"\" /");
 				$(".bxSlider").append(img_html);
@@ -255,9 +341,10 @@ function postDetail(post_no){
 }	
 	
 function commentList(post_no){
+	
 	$.ajax({
 		url : "${path}/commentList",
-		type : 'get',
+		type : 'GET',
 		data: {post_no : post_no
 		},
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
@@ -270,7 +357,11 @@ function commentList(post_no){
 		 	for(let j=0; j<data.length; j++){
 		 		
 		 		listHtml += "<div class='comment-list-array'>";
-		 		listHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[j].id + "\\" + data[j].profile_name+"' id='post_profile_img'>";
+		 		if(data[j].profile_name!=null){
+			 		listHtml += "<img src='${path}/resources/profileimg-uploadfolder\\"+ data[j].id + "\\" + data[j].profile_name+"' id='post_profile_img'>";
+		 		} else {
+		 			listHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
+		 		}
 		 		listHtml += "<span class='comment-id-array'> "+ data[j].id + "</span>";
 		 		listHtml += "<span> "+data[j].comment_content+" </span><br>";
 		 		listHtml += "<span class='comment-regdate-array'> "+data[j].comment_regdate+"</span>";
@@ -278,11 +369,37 @@ function commentList(post_no){
 		 		
             }
                 
-            console.log(listHtml);
             $("#commentList").html(listHtml);
             
         }
     });
+}
+
+function likeState(post_no){
+	console.log("like-state");
+	var id = "${session_id}";
+	
+	$.ajax({
+		url: "${path}/like-state",
+		type: 'POST',
+		data: {
+			id: id,
+	    	post_no: post_no
+		},
+		success : function(result) {
+			
+			console.log(result);
+			
+			$("#like-check").val(result);
+			
+			if(result == 1) {
+				$('.post_like_section #like_img').attr("src", "${path}/resources/img/like.png" );
+			}else {
+				$('.post_like_section #like_img').attr("src", "${path}/resources/img/dislike.png" );
+			}
+		}
+		
+	});
 }
 	
 	
@@ -295,7 +412,7 @@ function fn_Detail(post_no) {
 	
 	postDetail(post_no);
 	commentList(post_no);
-	
+	likeState(post_no);
 	
 }
 
@@ -349,9 +466,10 @@ function fn_Detail(post_no) {
 
 								<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly ><br>
 								<p>${introduce }</p>
-					
-								<span class="mb-0 mg-20 dis-ib">팔로워 ${followerCnt }</span>
-								<span class="mb-0 mg-20 dis-ib">팔로우 ${followCnt }</span>
+								
+								
+								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followerList('${id }')">팔로워 ${followerCnt }</a></span>
+								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followList('${id }')">팔로우 ${followCnt }</a></span>
 								
 								<c:choose> 
 									<c:when test="${followState eq 0 }">
@@ -396,8 +514,10 @@ function fn_Detail(post_no) {
 				</div>
 			</div>
 		</div>
-
-
+		<!-- 팔로워 리스트 -->
+		<%@include file="./include/followerList-modal.jsp"%>
+		<!-- 팔로우 리스트 -->
+		<%@include file="./include/followList-modal.jsp"%>
 		<!-- 게시글 상세 -->
 		<%@include file="./include/detail-modal.jsp"%>
 		<!-- 게시글 작성 -->

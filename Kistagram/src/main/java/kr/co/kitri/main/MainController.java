@@ -25,8 +25,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.follow.service.FollowService;
+import kr.co.kitri.follow.vo.FollowMemberProfileVO;
 import kr.co.kitri.follow.vo.FollowVO;
 import kr.co.kitri.img.service.ImgService;
+import kr.co.kitri.likes.service.LikesService;
+import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
@@ -67,6 +70,8 @@ public class MainController {
 	@Autowired 
 	private FollowService fservice;
 	
+	@Autowired
+	private LikesService lservice;
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -138,6 +143,43 @@ public class MainController {
 		return result;
 	}
 	
+	@RequestMapping(value ="/followerList")
+	@ResponseBody
+	public List<FollowMemberProfileVO> followerList(String id) {
+		
+		List<FollowMemberProfileVO> follist = fservice.getFollower(id);
+		
+		return follist;
+	}
+	
+	@RequestMapping(value ="/followList")
+	@ResponseBody
+	public List<FollowMemberProfileVO> followList(String id) {
+		
+		List<FollowMemberProfileVO> follist2 = fservice.getFollow(id);
+		
+		return follist2;
+	}
+	
+	//게시글 작성 프로필이미지 불러오기
+	
+	@RequestMapping("/writeUserInfo")
+	@ResponseBody
+	public ProfileImgVO writeUserInfo(HttpSession session, Model model) {
+		
+		System.out.println("writeUserInfo");
+		String session_id = (String)session.getAttribute("session_id");
+		
+		ProfileImgVO pfvo = new ProfileImgVO();
+		pfvo.setId(session_id);
+		
+		ProfileImgVO pfvo2 = pfsvc.selectProfileImage(pfvo);
+		
+		return pfvo2;
+				
+		
+	}
+	
 	@RequestMapping("/write-action")
 	@ResponseBody
 	public String writeAction(MultipartHttpServletRequest multiPart,
@@ -146,6 +188,7 @@ public class MainController {
 		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
 		
 		String content = multiPart.getParameter("content");
+		
 		
 		PostVO pvo = new PostVO();
 		
@@ -169,52 +212,37 @@ public class MainController {
 		return pivo;
 	}
 	
+//빈하트인지 꽉찬하트인지
+	@ResponseBody
+	  @RequestMapping(value="/like-state")
+	public int likeState(LikesVO lvo){
+		
+		int result = lservice.getLike(lvo);
+		
+		return result;
+	}
 	
-	
-//좋아요
-//	@ResponseBody
-//	  @RequestMapping(value="/like-action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
-//	  public String likeAction(int post_no, HttpSession session){
-//	    //System.out.println("--> like() created");
-//		String session_id = (String)session.getAttribute("session_id");
-//	    JSONPObject obj = new JSONPObject();
-//	    
-//	    ArrayList<String> msgs = new ArrayList<String>();
-//	    HashMap <String, Object> hashMap = new HashMap<String, Object>();
-//	    hashMap.put("post_no", post_no);
-//	    hashMap.put("session_id", session_id);
-//	    LikesVO likesvo = likesProc.read(hashMap);
-//	    
-//	    PostVO pvo = postProc.read(post_no);
-//	    int like_cnt = pvo.getLike_cnt();     //게시판의 좋아요 카운트
-//	    int like_check = 0;
-//	    like_check = likesvo.getLike_check();   //좋아요 체크 값
-//	    
-//	    if(likesProc.countbyLike(hashMap)==0){
-//	      likesProc.create(hashMap);
-//	    }
-//	      
-//	    if(like_check == 0) {
-//	      msgs.add("좋아요!");
-//	      likesProc.like_check(hashMap);
-//	      like_check++;
-//	      like_cnt++;
-//	      postProc.like_cnt_up(post_no);   //좋아요 갯수 증가
-//	    } else {
-//	      msgs.add("좋아요 취소");
-//	      likesProc.like_check_cancel(hashMap);
-//	      like_check--;
-//	      like_cnt--;
-//	      postProc.like_cnt_down(post_no);   //좋아요 갯수 감소
-//	    }
-//	    obj.put("post_no", likesvo.getPost_no());
-//	    obj.put("like_check", like_check);
-//	    obj.put("like_cnt", like_cnt);
-//	    obj.put("msg", msgs);
-//	    
-//	    return obj.toJSONString();
-//	  }
+//좋아요 추가
+	@ResponseBody
+	  @RequestMapping(value="/like-action")
+	  public boolean likeAction(LikesVO lvo){
+	   
+		boolean result = lservice.checkLike(lvo);
+		
+		return result;
+		
+	  }
 
+//좋아요 삭제
+	@ResponseBody
+	  @RequestMapping(value="delete-like")
+	  public int deleteLike(LikesVO lvo, HttpSession session) {
+		
+		int result = lservice.uncheckLike(lvo);
+		
+		return result;
+	}
+	
 	
 	@RequestMapping(value ="/commentList", method = RequestMethod.GET)
 	@ResponseBody
