@@ -151,9 +151,9 @@ import kr.co.kitri.profileimg.vo.ProfileImgVO;
 		}
 		
 		@Override
-		public ProfileImgVO selectProfileImg(ProfileImgVO pfvo) {
+		public ProfileImgVO selectProfileImage(ProfileImgVO pfvo) {
 			
-			ProfileImgVO result = selectProfileImg(pfvo);
+			ProfileImgVO result = pfdao.selectProfileImg(pfvo);
 			
 			return result;
 

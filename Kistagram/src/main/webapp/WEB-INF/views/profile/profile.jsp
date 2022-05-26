@@ -107,21 +107,29 @@ function readURL(input) {
 </head>
 <body>
 <%@include file="../include/navigation2.jsp"%>
-<div class="center-pro">
+<div id="main" class="center-pro">
 <div id="wrapper1">
   <div class="main-content-pro">
-    <div class="header">
-
-    </div>
     <div class="l-part">
     	
 			<form class="form-profileimg" id="uploadForm" method="post" enctype="multipart/form-data">
 		    	<div class="profile0">
-			    	<div class="profile1">
-				    		<img alt="프로필 사진 추가" id="View"  class= "profile2" 
-				    		src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
-				    	
-					</div>	 
+		    		<c:choose>
+		    			<c:when test="${!empty profile_name }">
+		    				<div class="profile1">
+			    				<img class="profile2" id="View" 
+											src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name }"
+											alt="Image">
+							</div>	 			
+		    			</c:when>
+		    			<c:otherwise>
+					    	<div class="profile1">
+						    		<img alt="프로필 사진 추가" id="View"  class= "profile2" 
+						    		src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+						    	
+							</div>	 
+						</c:otherwise>
+					</c:choose>
 				</div> 
 					<input type="file" id="myFile" name="imgup" >
 					<div id="label-filebtn">
@@ -153,5 +161,6 @@ function readURL(input) {
   
 </div>
 </div>
+<%@include file="../include/footer.jsp" %>
 </body>
 </html>

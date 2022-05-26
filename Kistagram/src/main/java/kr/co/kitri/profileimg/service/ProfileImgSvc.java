@@ -18,7 +18,9 @@ public interface ProfileImgSvc {
 
 	public boolean writeProfileImg(ProfileImgVO pfvo,MemberVO mvo);
 
-	public ProfileImgVO selectProfileImg(ProfileImgVO pfvo);
+	public ProfileImgVO selectProfileImage(ProfileImgVO pfvo);
+
+
 
 
 
