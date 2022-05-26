@@ -200,12 +200,13 @@ $(document).ready(function() {
 	});
 	
 	
-	$(".input_text").on("blur", function(e){
-		console.log(e);
-// 		hide();
+	$(".input_text").on("blur", function(){
+		$("body").on("click", function(e){
+			if(e.target.parentNode.id != "suggestListDiv"){
+				hide();
+			}
+		});
 	});
-	
-		
 });
 
 	
