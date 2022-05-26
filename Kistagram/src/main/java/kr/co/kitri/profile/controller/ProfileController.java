@@ -57,10 +57,32 @@ public class ProfileController {
 		String member_ph = mvo.getPhone();
 		String member_itd = mvo.getIntroduce();
 		
+		ProfileImgVO pfvo = new ProfileImgVO();
+		
+		pfvo.setId(session_id);
+		
+		
+
+		System.out.println("pfvo : "+pfvo);
+		
+
+		pfvo = pfsvc.selectProfileImage(pfvo);
+		
+		if (pfvo!=null) {
+			String pf_name = pfvo.getProfile_name();
+			model.addAttribute("profile_name", pf_name);
+			
+		} else if (pfvo==null) {
+			model.addAttribute("profile_name", null);
+
+		}
+		
+		
 		model.addAttribute("id", member_md);
 		model.addAttribute("name", member_mn);
 		model.addAttribute("phone", member_ph);
 		model.addAttribute("introduce", member_itd);
+		
 	
 
 		return "profile/profile";

@@ -14,7 +14,6 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<script type="text/javascript" src="${path }/resources/js/httpRequest.js" charset="UTF-8"></script>
 <script type="text/javascript" charset="UTF-8">
 
 
@@ -284,6 +283,13 @@ $(document).ready(function() {
 		});
 		
 	});
+	
+	
+	$(".input_text").on("blur", function(e){
+		console.log(e);
+// 		hide();
+	});
+	
 		
 });
 
@@ -411,88 +417,19 @@ function fn_Detail(post_no) {
 }
 
 
-// 		function enterSearch() {
-// 		    if(event.keyCode == 13){
-// 		        myFunction();  // 실행할 이벤트
-// 		    }
-// 		}
-// 		function myFunction() {
-// 		    var x = document.getElementById("text").value;
-// 		    window.location.href = "http://cybertramp.net/search/"+x;
-// 		}
-		
-		 function sendKeyword(){			
-			  var userKeyword = document.myForm.userKeyword.value;
-			  if(userKeyword==""){
-			   hide();//검색창이 비워져있으면 숨김
-			   return;
-			  }
-			  var params = "userKeyword="+userKeyword;
-			  console.log("params : "+params)
-			  sendRequest('${path}/search', params, displaySuggest, "POST");
+		function enterSearch() {
+		    if(event.keyCode == 13){
+		        myFunction();  // 실행할 이벤트
+		    }
 		}
-
-
-			 function displaySuggest(){
-			  if(httpRequest.readyState==4){
-			   if(httpRequest.status==200){//서버응답 정상처리인 경우
-			    var resultText = httpRequest.responseText;//resposne로 넘어온 텍스트 할당
-			    //alert(resultText);
-
-			    
-			   	var arr = resultText.split(",");
-			    
-			    
-			    var keywordList = arr;
-			 
-			    if(arr.length>0){
-			     var html = "";
-			     for(var i=1;i<keywordList.length;i++){		
-			      html += "<a href=\"javascript:select('" +
-			      keywordList[i] + "');\">" +
-			      keywordList[i] + "</a><br/>";
-			      //<a href="javascript:select('ajax');">ajax</a><br/>
-			     }
-			     var suggestListDiv = document.getElementById("suggestListDiv");
-			     suggestListDiv.innerHTML = html;
-			     show(); 
-			    }else{
-			     //count==0
-			     hide();
-			    } 
-			   }else{
-			    //status!=200
-			    hide();
-			   }
-			  }else{
-			   //readyState!=4
-			   hide();
-			  }
-			 }//function..end
-
-
-			 //사용자가 제시어중에서 클릭한 키워드
-			 function select(selectKeyword){
-			  //클릭한 제시어를 inputbox에 넣어줌
-			  document.myForm.userKeyword.value = selectKeyword;
-			  location.href = '${path}/main/'+selectKeyword;
-			  
-			  hide();//다른 제시어 감춤
-			 }
-			 function show(){
-			  var suggestDiv = document.getElementById("suggestDiv");
-			  suggestDiv.style.display = "block";
-			 }
-			 function hide(){
-			  var suggestDiv = document.getElementById("suggestDiv");
-			  suggestDiv.style.display = "none";
-			 }
-			 //처음 DOM이 로드되었을때 보이지 않도록
-			 window.onload = function(){
-			  hide();
-			 }
+		function myFunction() {
+		    var x = document.getElementById("text").value;
+		    window.location.href = "http://cybertramp.net/search/"+x;
+		}
 		
 		
+		
+
 		
 		
 	</script>
@@ -501,7 +438,7 @@ function fn_Detail(post_no) {
 
 
 	<%@include file="include/navigation2.jsp"%>
-
+	
 	<main id="main">
 
 		<div class="site-section site-portfolio">
@@ -511,9 +448,18 @@ function fn_Detail(post_no) {
 					<div class="col-md-12 mb-4 mb-lg-0" data-aos="fade-up">
 
 						<div class="box">
-							<img class="profile"
-								src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}"
-								alt="Image">
+							<c:choose>
+								<c:when test="${ empty profile_name}">
+									<img class="profile"
+										src="${path }/resources/img/profile.png"
+										alt="Image">
+								</c:when>	
+								<c:otherwise>	
+									<img class="profile"
+										src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}"
+										alt="Image">
+								</c:otherwise>	
+							</c:choose>	
 						</div>
 
 						<div class="state">
@@ -577,24 +523,7 @@ function fn_Detail(post_no) {
 		<!-- 게시글 작성 -->
 		<%@include file="./include/write-modal.jsp"%>
 	</main>
-	<footer class="footer" role="contentinfo">
-		<div class="container">
-<!-- 			<div class="row"> -->
-				<div class="col-sm-6">
-					<p class="mb-1">&copy; 2022 Kistagram from Meta</p>
-					<div class="credits">
-						<!--
-	              All the links in the footer should remain intact.
-	              You can delete the links only if you purchased the pro version.
-	              Licensing information: https://bootstrapmade.com/license/
-	              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=MyPortfolio
-	            -->
-					</div>
-				</div>
-
-			</div>
-<!-- 		</div> -->
-	</footer>
+	<%@include file="./include/footer.jsp" %>
 
 	<!-- Vendor JS Files -->
 	<!-- 	<script src="resources/vendor/jquery/jquery.min.js"></script> -->

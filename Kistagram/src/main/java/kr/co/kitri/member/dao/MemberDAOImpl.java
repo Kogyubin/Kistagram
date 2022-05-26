@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.kitri.member.vo.MemberVO;
+import kr.co.kitri.search.vo.SearchVO;
 
 
 @Repository
@@ -50,8 +51,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public List<String> selectSearchMember(MemberVO mvo) {
 		
+	public List<String> selectSearchMember(MemberVO mvo) {
 		return sqlSession.selectList("member.selectSearchMember", mvo);
 		
 	}
@@ -62,4 +63,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.update("member.updateProfileNo", mvo);
 	}
 	
+	@Override
+	
+	public List<SearchVO> selectSearchProfile(SearchVO svo) {
+		
+		return sqlSession.selectList("search.selectSearchProfile", svo);
+		
+	}
 }

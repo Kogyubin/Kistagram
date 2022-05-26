@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="search">
+	
+
+	<select id="selectSearchProfile" parameterType="search" resultType="search">
+		SELECT m.id, m.name, m.profile_no, p.profile_name
+		FROM member m, profile p
+		WHERE m.profile_no = p.profile_no
+
+	</select>
+
+	 
+</mapper>

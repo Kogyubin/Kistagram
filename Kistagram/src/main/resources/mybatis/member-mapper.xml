@@ -55,6 +55,12 @@
 	
 	</update>
 	
+	<select id="selectSearchProfile" parameterType="member" resultType="member">
+		SELECT m.id, m.name, m.profile_no, p.profile_name
+		FROM member m, profile p
+		WHERE m.profile_no = p.profile_no
+
+	</select>
 
 	 
 </mapper>

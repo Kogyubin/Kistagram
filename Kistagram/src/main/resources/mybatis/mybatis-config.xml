@@ -16,6 +16,8 @@
  	<typeAlias alias="likes" type="kr.co.kitri.likes.vo.LikesVO" />
  	<typeAlias alias="follow" type="kr.co.kitri.follow.vo.FollowVO" />
  	<typeAlias alias="followmemberprofile" type="kr.co.kitri.follow.vo.FollowMemberProfileVO" />
+ 	<typeAlias alias="search" type="kr.co.kitri.search.vo.SearchVO" />
+
  	</typeAliases>	 
 </configuration>
  

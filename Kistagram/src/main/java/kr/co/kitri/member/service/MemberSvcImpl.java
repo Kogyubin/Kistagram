@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.dao.MemberDAOImpl;
 import kr.co.kitri.member.vo.MemberVO;
+import kr.co.kitri.search.vo.SearchVO;
 
 @Service
 public class MemberSvcImpl implements MemberSvc {
@@ -106,6 +107,15 @@ public class MemberSvcImpl implements MemberSvc {
 
 	}
 
+	@Override
+	public List<SearchVO> SearchProfile(SearchVO svo) {
+				
+		List<SearchVO> result = mdao.selectSearchProfile(svo);
+				
+		return result;
+		
+		}
+	
 }
 
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -39,6 +40,7 @@ import kr.co.kitri.post.vo.PostVO;
 import kr.co.kitri.profileimg.dao.ProfileImgDAO;
 import kr.co.kitri.profileimg.service.ProfileImgSvc;
 import kr.co.kitri.profileimg.vo.ProfileImgVO;
+import kr.co.kitri.search.vo.SearchVO;
 
 /**
  * Handles requests for the application home page.
@@ -171,7 +173,7 @@ public class MainController {
 		ProfileImgVO pfvo = new ProfileImgVO();
 		pfvo.setId(session_id);
 		
-		ProfileImgVO pfvo2 = pfsvc.selectProfileImg(pfvo);
+		ProfileImgVO pfvo2 = pfsvc.selectProfileImage(pfvo);
 		
 		return pfvo2;
 				
@@ -265,46 +267,91 @@ public class MainController {
 	
 	//사용자가 입력한 단어의 연관 제시어 검색하여 리스트 반환
 	
-	public List<String> search(String userKeyword) {
-			
-			MemberVO mvo = new MemberVO();
-			String[] keywords = msvc.selectSearchMember(mvo);
-			
+//	public List<String> search(String userKeyword) {
+//			
+//			MemberVO mvo = new MemberVO();
+//			String[] keywords = msvc.selectSearchMember(mvo);
+//			
+//		
+//				if(userKeyword==null||userKeyword.equals("")){
+//					   return null;
+//					   //return Collections.EMPTY_LIST; 내장변수
+//				}
+//					  //userKeyword = userKeyword.toUpperCase();//대문자검사
+//					  List<String> lists = new ArrayList<String>();
+//					  for(int i=0;i<keywords.length;i++){
+//					   if(keywords[i].startsWith(userKeyword)){
+//					    lists.add(keywords[i]);
+//					   }
+//					   
+//					  					  
+//					  }
+//					  		return lists;
+//	}
+	
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/search", produces="application/text;charset=utf8")
+//	public String search1(HttpServletRequest request, HttpServletResponse res){
+//			String userKeyword = request.getParameter("userKeyword");
+//			
+//			List<String> keywordList = search(userKeyword);
+//			
+//			String result="";
+//			for(String s : keywordList) {
+//				result = result + "," + s ;
+//			}
+//			return result;
+//		
+//	
+//	}
+	
+	
+	public List<SearchVO> search(String userKeyword) {
 		
-				if(userKeyword==null||userKeyword.equals("")){
-					   return null;
-					   //return Collections.EMPTY_LIST; 내장변수
-				}
-					  //userKeyword = userKeyword.toUpperCase();//대문자검사
-					  List<String> lists = new ArrayList<String>();
-					  for(int i=0;i<keywords.length;i++){
-					   if(keywords[i].startsWith(userKeyword)){
-					    lists.add(keywords[i]);
-					   }
-					   
-					  					  
-					  }
-					  		return lists;
-	}
+		
+		SearchVO svo = new SearchVO();
+		List<SearchVO> keywords = msvc.SearchProfile(svo);
+
+	
+			if(userKeyword==null||userKeyword.equals("")){
+				   return null;
+				   //return Collections.EMPTY_LIST; 내장변수
+			}
+				  //userKeyword = userKeyword.toUpperCase();//대문자검사
+				  List<SearchVO> lists = new ArrayList<SearchVO>();
+				  for(int i=0;i<keywords.size();i++){
+				   if(keywords.get(i).getId().startsWith(userKeyword)){
+				    lists.add(keywords.get(i));
+				   }
+				   
+				  					  
+				  }
+				  		return lists;
+}
+	
+	
+	
+	
+	
+	
 	
 	
 	@ResponseBody
 	@RequestMapping(value = "/search")
-	public String search1(HttpServletRequest request){
-		
+	public List<SearchVO> search1(HttpServletRequest request){
 			String userKeyword = request.getParameter("userKeyword");
 			
-			List<String> keywordList = search(userKeyword);
+			List<SearchVO> keywordList = search(userKeyword);
 			
-			String result="";
-			for(String s : keywordList) {
-				result = result + "," + s ;
-			}
+			System.out.println(keywordList);
 			
-			return result;
+
+			return keywordList;
 		
 	
 	}
+	
 	
 		
 		 		
