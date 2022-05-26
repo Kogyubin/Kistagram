@@ -19,14 +19,14 @@
 		
 
 		<form action="" class="searchform" name="myForm">
-		
 <!-- 			<span class='green_window1'>  -->
 				<div><img class="search-icon" src="${path }/resources/img/search-icon.png">
-				<input id="userKeyword" type="text"	placeholder="검색" class='input_text green_window' name="userKeyword"	 onkeyup="sendKeyword();" />
+				<input id="userKeyword" type="search" autocomplete="off" placeholder="검색" class='input_text green_window' name="userKeyword" onkeyup="sendKeyword();" />
 				</div>
 <!-- 			</span>  -->
 			<div id="suggest1">
 				<div id="suggestDiv" class="suggest">
+				<div id="test12"></div>
 					<div id="suggestListDiv"></div>
 				</div>
 			</div>		
@@ -39,3 +39,4 @@
 		</div>
 	</div>
 </nav>
+			

@@ -50,10 +50,12 @@ function sendKeyword(){
 	      } else {
 	    	  html += "<img id='search-img' src='${path}/resources/profileimg-uploadfolder/" +text[i].id +"/" + text[i].profile_name + "'>"
 	      }
+	    	  html += "<div id='search-id-name'>";
 	      html += "<a id='search-id' href=\"javascript:select('" +
 	      text[i].id + "');\">" +
 	      text[i].id + "</a>"
 	      html += "<div id='search-name'>"+text[i].name+"</div>";
+	      html += "</div>";
 	      html += "</div>";
 		    	  
 		    	  
