@@ -43,17 +43,20 @@ function sendKeyword(){
 //	    if(arr.length>0){
 	     var html = "";
 	     for(var i=0;i<text.length;i++){		
-	      html += "<a href=\"javascript:select('" +
+	      		
+	    	  html += "<div id='search-box'>";
+	      if(text[i].profile_name==null){
+	    	  html += "<img src='${path}/resources/img/profile.png' id='search-img'>";
+	      } else {
+	    	  html += "<img id='search-img' src='${path}/resources/profileimg-uploadfolder/" +text[i].id +"/" + text[i].profile_name + "'>"
+	      }
+	      html += "<a id='search-id' href=\"javascript:select('" +
 	      text[i].id + "');\">" +
-	      text[i].id + "</a><br/>"
-	      html += "<img id='search-img' src='${path}/resources/profileimg-uploadfolder/" +text[i].id +"/" + text[i].profile_name + "'><br/>"
-	      html += "<input id='search-name' readonly value="+text[i].name+">";
-	      
-		      if(text[i].profile_name==null){
-		    	  html += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
-
-		      }
-	     
+	      text[i].id + "</a>"
+	      html += "<div id='search-name'>"+text[i].name+"</div>";
+	      html += "</div>";
+		    	  
+		    	  
 	     		 console.log(text[i].profile_name);
 	      //"<img src='/resources/profileimg-uploadfolder/" +text[i].id +"/" + text[i].profile_name + "'><br/>"
 	      //<a href="javascript:select('ajax');">ajax</a><br/>

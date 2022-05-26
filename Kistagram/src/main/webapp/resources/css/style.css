@@ -609,9 +609,10 @@ h6,
     width: 320px;
     max-width: 584px;
     box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
+
 }
 .input_text {
-	padding-left:20px;
+	padding-left:40px;
     font-weight: bold;
     font-size: 16px;
     outline: none;
@@ -714,7 +715,7 @@ h6,
 
 
 
-#post_profile_img, #detail_profile_img, #search-img{
+#detail_profile_img {
 
 	width: 30px;
 	height:30px;
@@ -898,4 +899,5 @@ vertical-align: middle;
 #main{
 	min-height: 100%;
 }
+
 
