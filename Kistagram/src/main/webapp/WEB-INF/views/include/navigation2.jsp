@@ -30,10 +30,10 @@
 			</div>		
 		</form>
 		<div id="filters" class="filters">
-			<a href="${path }/profile">Profile</a> <a id="writeBtn"
-				data-toggle="modal" class="write">Write</a> <a href="#"
-				data-filter=".branding">Follow</a> <a href="${path }/sign-out"
-				class="logout">Logout</a>
+			<a href="${path }/profile">Profile</a> 
+			<a href="#" id="writeBtn" data-toggle="modal" class="write">Write</a> 
+			<a href="#"	data-filter=".branding">Follow</a> 
+			<a href="${path }/sign-out"	class="logout">Logout</a>
 		</div>
 	</div>
 </nav>
