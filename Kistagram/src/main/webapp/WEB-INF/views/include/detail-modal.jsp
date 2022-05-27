@@ -158,17 +158,16 @@
 							      <img id="detail_profile_img" src='${path}/resources/img/profile.png'>
 							      <span></span>
 					</div>
-				
-
-
-					<c:choose>
-						<c:when test="${session_id eq id }">
-							<a href='javascript: fn_deletePost();'> 
-							<img id="detail_bin_img" src='${path}/resources/img/bin.png'>
-							</a>
-						</c:when>
-					</c:choose>
-					<button type="button" id="closeX" class="close"	data-dismiss="modal" aria-hidden="true">&times;</button>
+					<div class= "delete-close-btn">
+						<c:choose>
+							<c:when test="${session_id eq id }">
+								<a href='javascript: fn_deletePost();'> 
+								<img id="detail_bin_img" src='${path}/resources/img/bin.png'>
+								</a>
+							</c:when>
+						</c:choose>
+						<button type="button" id="closeX" class="close"	data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
 				</div>
 
 				<div class="modal-body" id="detail-myModalBody">
@@ -187,29 +186,29 @@
 				     	</div>
 				     	
 				     	<div class= "post-comment-section">
-				     	<div class = "post-content-class">
-							<div id="detail_id">
-							      <img id="detail_profile_img" src='${path}/resources/img/profile.png'>
-							      <span></span>
-							      <span id="detail_content"></span>
-						    </div>
-							<div id="detail_regdate">
-							</div>
-						 </div>
-				     	<!-- 댓글 리스트 -->
-							<div class="comment-container">
-								<form id="comment-list-form" name="comment-list-form" method="post">
-									<div id="commentList">
-										
-									</div>
-								</form>
+					     	<div class = "post-content-class">
+								<div id="detail_id">
+								      <img id="detail_profile_img" src='${path}/resources/img/profile.png'>
+								      <span></span>
+								      <span id="detail_content"></span>
+							    </div>
+								<div id="detail_regdate">
+								</div>
+							 </div>
+					     	<!-- 댓글 리스트 -->
+								<div class="comment-container">
+<!-- 									<form id="comment-list-form" name="comment-list-form" method="post"> -->
+										<div id="commentList">
+											
+										</div>
+<!-- 									</form> -->
 						    </div>
 						</div>  
 				<!-- modal header 종료 -->
 				</div><!-- modal body 종료 -->
 				 <div class="modal-footer">
 							<!--댓글 작성  -->
-	<!-- 						<div class="input_comment_div"> -->
+	
 								<input type="hidden" id="detail_post_no">
 					     		<input class="w-100 form-control" id="comment_content" type="text" placeholder="댓글입력"><br>
 						     	<button class="write_comment_btn" type="button" id="commentBtn">전송</button>

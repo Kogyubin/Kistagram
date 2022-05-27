@@ -21,15 +21,15 @@
 
 			<div class="modal-header">
 				<h6 class="modal-title" id="historyModalLabel">새 게시물 만들기</h6>
-				<button type="button" id="closeX" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" id="write-closeX" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body" id="myModalBody">
 				<form action="write-action" id="write-form" method="post" enctype="multipart/form-data">
-					<div id="post_id" style="float: right;">
+					<div id="post_id" style="float:right;">
 						<img id="post_profile_img" src='${path}/resources/img/profile.png'>
 						<span></span>
 						<div>
-							<textarea rows="8" cols="40" id="post-content" name="content"
+							<textarea rows="16" cols="40" id="post-content" name="content"
 								placeholder="문구입력"></textarea>
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 						<div class="imgs_wrap" style="width: 390px">
 							<div>
 								<ul class="bxSlider">
-									<li><img src="${path}/resources/img/photo-icon.png"></li>
+									<li><img id="photo-icon" src="${path}/resources/img/photo-icon.png"></li>
 								</ul>
 							</div>
 						</div>

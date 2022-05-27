@@ -29,7 +29,7 @@
 						data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				
-				<div class="modal-body" id="myModalBody">
+				<div class="modal-body" id="followerList-myModalBody">
 				
 						
 						<div id="followerList">

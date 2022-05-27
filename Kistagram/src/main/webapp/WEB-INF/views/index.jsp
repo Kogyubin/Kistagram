@@ -122,7 +122,6 @@ function fn_followList(id) {
 			 		} else {
 			 			followHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
 			 		}
-// 					followHtml += "<input type='hidden' id='following-id'>"
 					followHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
 					if(id == "${session_id}"){
 						followHtml += "<span><input type='button' value='팔로잉' onclick='fn_delFollowBtn(\""+data[i].id+"\");'></sapn>"
@@ -134,7 +133,6 @@ function fn_followList(id) {
 				}
 			
 				$("#followList").html(followHtml);
-// 				$("#following-id").val(data[i].id);
 				$("#mySmallModal2").modal();
 			}
 		
@@ -173,12 +171,22 @@ $(document).ready(function(){
 	  
 	  $("#myLargeModal").on('hidden.bs.modal', function (e){
 		  
-		  $(this).find('form')[0].reset();
-		  $(".bxSlider").html("<li><img src='${path}/resources/img/photo-icon.png'></li>");
-
+// 		  var msg = confirm("게시글 등록을 취소하시겠습니까?");
+			
+// 			if(msg){
+		  
+			  $(this).find('form')[0].reset();
+			  $(".bxSlider").html("<li><img id='photo-icon' src='${path}/resources/img/photo-icon.png'></li>");
+// 			} 
 	  });
 
-
+// 	$("#write-closeX").click(function(){
+// 		var msg = confirm("게시글 등록을 취소하시겠습니까?");
+// 		if(msg){
+// 		$("#myLargeModal").modal('hide');
+// 		}
+// 	});
+	
  
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
@@ -470,7 +478,7 @@ function fn_Detail(post_no) {
 							<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly><br>
 							<p>${introduce }</p>
 
-
+<%-- 							<span class="mb-0 mg-20 dis-ib">게시물 ${postCnt }</span>  --%>
 							<span class="mb-0 mg-20 dis-ib">
 								<a href="javascript:fn_followerList('${id }')">팔로워	${followerCnt }</a>
 							</span> 

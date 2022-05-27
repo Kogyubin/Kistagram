@@ -32,6 +32,7 @@
 
 		</form>
 		<div id="filters" class="filters">
+			<a href="${path }/main/${session_id }">Home</a>
 			<a href="${path }/profile">Profile</a> 
 			<a href="#" id="writeBtn" data-toggle="modal" class="write">Write</a> 
 			<a href="${path }/sign-out"	class="logout">Logout</a>
