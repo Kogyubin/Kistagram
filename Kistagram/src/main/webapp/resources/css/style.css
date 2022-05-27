@@ -719,6 +719,10 @@ h6,
 	height:27px;
 }
 
+#detail-myModalBody{
+	height: 550px;
+}
+
 .post-content-class{
 /* 	float: right; */
 	margin-left: 10px;
@@ -825,6 +829,7 @@ vertical-align: middle;
 	float: left;
 	margin-right: 17px;
 	margin-top: 10px;
+	height: 600px;
 }
 
 .imgs_wrap img{
@@ -855,6 +860,7 @@ vertical-align: middle;
 
 .comment-id-array, #detail_id span {
 	 font-weight: 500;
+	 margin-right: 10px;
 }
 
 .comment-regdate-array, #detail_regdate{
@@ -922,7 +928,7 @@ vertical-align: middle;
  .comment-list-array span a {
  	text-decoration: none;
   	color: black;
-  	margin-right: 10px;
+/*   	margin-right: 10px; */
  }
 
 

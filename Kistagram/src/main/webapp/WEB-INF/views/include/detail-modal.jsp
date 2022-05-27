@@ -161,7 +161,7 @@ function fn_deletePost(){
 <!-- Detail Modal -->
 	<div class="modal" id="myLargeModal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 
-		 <div class="modal-dialog modal-lg" role="document">
+		 <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
 
 			<!-- Modal content-->
 			
@@ -169,6 +169,11 @@ function fn_deletePost(){
 			
 				<div class="modal-header">
 <!-- 				<h5 class="modal-title" id="historyModalLabel"></h5> -->
+					<div id="detail_id">
+							      <img id="detail_profile_img" src='${path}/resources/img/profile.png'>
+							      <span></span>
+					</div>
+				
 					<c:choose>
 						<c:when test="${session_id eq id }">
 							<a href='javascript: fn_deletePost();'>
@@ -179,7 +184,7 @@ function fn_deletePost(){
 					<button type="button" id="closeX" class="close"
 						data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body" id="myModalBody">
+				<div class="modal-body" id="detail-myModalBody">
 					
 						<div class="detail_img">
 							<div >
@@ -194,13 +199,13 @@ function fn_deletePost(){
 							</div>	
 				     	</div>
 				     	
+				     	<div class= "post-comment-section">
 				     	<div class = "post-content-class">
 							<div id="detail_id">
 							      <img id="detail_profile_img" src='${path}/resources/img/profile.png'>
 							      <span></span>
+							      <span id="detail_content"></span>
 						    </div>
-							<div id="detail_content">
-							</div>
 							<div id="detail_regdate">
 							</div>
 						 </div>
@@ -212,15 +217,17 @@ function fn_deletePost(){
 									</div>
 								</form>
 						    </div>
-						  
+						</div>  
 				<!-- modal header 종료 -->
+				</div><!-- modal body 종료 -->
+				 <div class="modal-footer">
 							<!--댓글 작성  -->
 	<!-- 						<div class="input_comment_div"> -->
 								<input type="hidden" id="detail_post_no">
 					     		<input class="w-100 form-control" id="comment_content" type="text" placeholder="댓글입력"><br>
 						     	<button class="write_comment_btn" type="button" id="commentBtn">전송</button>
-								
-					</div>
+				</div>				
+					
 			</div>
 		</div>
 	</div>
