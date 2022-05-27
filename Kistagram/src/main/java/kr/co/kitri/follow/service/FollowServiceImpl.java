@@ -61,4 +61,18 @@ public class FollowServiceImpl implements FollowService {
 		return result;
 	}
 
+	@Override
+	public boolean cancelFollowing(HashMap<String, String> folmap) {
+		
+		int result = fdao.deleteFollowing(folmap);
+		
+		boolean flag = false;
+		
+		if(result==1) {
+			flag=true;
+		}
+		
+		return flag;
+	}
+
 }

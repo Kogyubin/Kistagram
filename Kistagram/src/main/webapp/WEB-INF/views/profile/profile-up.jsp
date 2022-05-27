@@ -11,7 +11,8 @@
 	<script type="text/javascript">
 		alert("${msg}");
 	
-		window.location.href="${path}/main"
+		window.location.href="${path}/profile"
+		
 	</script>
 </body>
 </html>

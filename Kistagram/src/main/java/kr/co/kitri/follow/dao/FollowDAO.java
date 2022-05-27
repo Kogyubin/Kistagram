@@ -14,6 +14,7 @@ public interface FollowDAO {
 	public int selectFollowState(HashMap<String, String> folmap);
 	public List<FollowMemberProfileVO> selectFollower(String id);
 	public List<FollowMemberProfileVO> selectFollowing(String id);
+	public int deleteFollowing(HashMap<String, String> folmap);
 	
 
 }

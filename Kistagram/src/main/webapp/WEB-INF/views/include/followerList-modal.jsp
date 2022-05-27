@@ -17,7 +17,7 @@
 <!-- FollowerList Modal -->
 	<div class="modal" id="mySmallModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 
-		 <div class="modal-dialog modal-sm" role="document">
+		 <div class="modal-dialog modal-sm modal-dialog-scrollable" role="document">
 
 			<!-- Modal content-->
 			
@@ -30,12 +30,13 @@
 				</div>
 				
 				<div class="modal-body" id="myModalBody">
+				
 						
 						<div id="followerList">
 							
 						</div>  
+						
 				</div>
-				
 			</div>
 		</div>
 	</div>

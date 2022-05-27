@@ -51,4 +51,9 @@ public class FollowDAOImpl implements FollowDAO {
 		return sqlSession.selectList("follow.selectFollowing", id);
 	}
 
+	@Override
+	public int deleteFollowing(HashMap<String, String> folmap) {
+		return sqlSession.delete("follow.deleteFollowing", folmap);
+	}
+
 }

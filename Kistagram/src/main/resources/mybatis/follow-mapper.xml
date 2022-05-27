@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE f.id = m.id
 		AND m.profile_no = pf.profile_no
 		AND f.following = #{id}
+		ORDER BY f.id ASC
 			
     </select>
  <!-- 내가 팔로우 하는 사람 리스트 조회 -->   
@@ -21,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND m.id in (SELECT following
 		            FROM follow
 		            WHERE id = #{id})
+		ORDER BY m.id ASC
 		                        
 	</select>
 	
@@ -55,9 +57,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT COUNT(*)
     	FROM follow
     	WHERE id=#{id}
-    	AND following=#{id2}
+    	AND following = #{id2}
     
     </select>
+    
+    <!-- 팔로우 삭제 -->
+    <delete id="deleteFollowing" parameterType="HashMap">
+    	DELETE FROM follow
+  	 	WHERE id=#{id}
+  	 	AND following = #{id2}
+    </delete>
     
 </mapper>
 	

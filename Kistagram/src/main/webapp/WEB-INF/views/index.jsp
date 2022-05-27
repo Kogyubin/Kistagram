@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
 <%@include file="./include/header.jsp"%>
 
 <!DOCTYPE>
@@ -84,6 +82,7 @@ function fn_followerList(id) {
 			 			followerHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
 			 		}
 					followerHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					
 					followerHtml +=  "<div id='follower_name'>" + data[i].name +"</div>";
 					followerHtml +=  "</div>";
 
@@ -111,7 +110,7 @@ function fn_followList(id) {
 		success : function(data){
 			
 			console.log(data);
-			
+
 			let followHtml = "";
 			
 				for(let i=0; i<data.length; i++){
@@ -123,7 +122,11 @@ function fn_followList(id) {
 			 		} else {
 			 			followHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
 			 		}
+// 					followHtml += "<input type='hidden' id='following-id'>"
 					followHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					if(id == "${session_id}"){
+						followHtml += "<span><input type='button' value='팔로잉' onclick='fn_delFollowBtn(\""+data[i].id+"\");'></sapn>"
+					}
 					followHtml +=  "<div id='follow_name'>" + data[i].name +"</div>";
 					followHtml +=  "</div>";
 						
@@ -131,12 +134,14 @@ function fn_followList(id) {
 				}
 			
 				$("#followList").html(followHtml);
+// 				$("#following-id").val(data[i].id);
 				$("#mySmallModal2").modal();
 			}
 		
 		});
 	
 }
+
 	
 var bxSlider; //write
 var slider;   //detail
@@ -322,6 +327,7 @@ function postDetail(post_no){
 			
 			$("#detail_id span").text(result[0].id);
 			$("#detail_content").text(result[0].content);
+			$("#detail_regdate").text(result[0].regdate);
 			
 			let imgHTML="";
 			for(let i=0; i < result.length ; i++ ){
@@ -362,7 +368,7 @@ function commentList(post_no){
 		 		} else {
 		 			listHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
 		 		}
-		 		listHtml += "<span class='comment-id-array'> "+ data[j].id + "</span>";
+		 		listHtml += "<span class='comment-id-array'><a href='${path}/main/"+data[j].id+"'>" + data[j].id + "</a></span>";
 		 		listHtml += "<span> "+data[j].comment_content+" </span><br>";
 		 		listHtml += "<span class='comment-regdate-array'> "+data[j].comment_regdate+"</span>";
 		 		listHtml += "</div>"
@@ -438,7 +444,7 @@ function fn_Detail(post_no) {
 
 
 	<%@include file="include/navigation2.jsp"%>
-	
+
 	<main id="main">
 
 		<div class="site-section site-portfolio">
@@ -450,66 +456,61 @@ function fn_Detail(post_no) {
 						<div class="box">
 							<c:choose>
 								<c:when test="${ empty profile_name}">
-									<img class="profile"
-										src="${path }/resources/img/profile.png"
-										alt="Image">
-								</c:when>	
-								<c:otherwise>	
-									<img class="profile"
-										src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}"
-										alt="Image">
-								</c:otherwise>	
-							</c:choose>	
+									<img class="profile" src="${path }/resources/img/profile.png" alt="Image">
+								</c:when>
+								<c:otherwise>
+									<img class="profile" src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}" alt="Image">
+								</c:otherwise>
+							</c:choose>
 						</div>
 
 						<div class="state">
 
-								<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly ><br>
-								<p>${introduce }</p>
-								
-								
-								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followerList('${id }')">팔로워 ${followerCnt }</a></span>
-								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followList('${id }')">팔로우 ${followCnt }</a></span>
-								
-								<c:choose> 
-									<c:when test="${followState eq 0 }">
-										<c:choose> 
-											<c:when test="${id eq session_id }">
-												<span></span>
-											</c:when>
-											<c:otherwise>
-													<span>
-														<input type="button" id="follow-request-btn" value="팔로우">
-													</span>
-											</c:otherwise>
-										</c:choose>	
-									</c:when>
-									<c:when test="${followState eq 1 }">
-										<span>
-											<button type="button" id="already-follow-btn">
-												<div>
-													<img id="already-follow-icon" src="${path }/resources/img/already-follow-icon.png">
-												</div>
-											</button>
-										</span>
-									</c:when>
-								</c:choose>
+							<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly><br>
+							<p>${introduce }</p>
+
+
+							<span class="mb-0 mg-20 dis-ib">
+								<a href="javascript:fn_followerList('${id }')">팔로워	${followerCnt }</a>
+							</span> 
+							<span class="mb-0 mg-20 dis-ib">
+								<a href="javascript:fn_followList('${id }')">팔로우 ${followCnt }</a>
+							</span>
+
+							<c:choose>
+								<c:when test="${followState eq 0 }">
+									<c:choose>
+										<c:when test="${id eq session_id }">
+											<span></span>
+										</c:when>
+										<c:otherwise>
+											<span> 
+												<input type="button" id="follow-request-btn" value="팔로우">
+											</span>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:when test="${followState eq 1 }">
+									<span>
+										<button type="button" id="already-follow-btn">
+											<div>
+												<img id="already-follow-icon" src="${path }/resources/img/already-follow-icon.png">
+											</div>
+										</button>
+									</span>
+								</c:when>
+							</c:choose>
 						</div>
 					</div>
-					
 				</div>
-
-
 				<!--         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200"> -->
 
 				<!--           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4"> -->
 				<div class="row mb-5 align-items-center">
 					<c:forEach items="${pilist }" var="pilist">
 						<div class="img-div" onclick="fn_Detail(${pilist.post_no}); return false;">
-							<img src="${path += '/resources/uploadfolder/' += pilist.id += '/' += pilist.img_name}" width="360" height="360" />
+							<img src="${path += '/resources/uploadfolder/' += pilist.id += '/' += pilist.img_name}"	width="360" height="360" />
 						</div>
-
-
 					</c:forEach>
 				</div>
 			</div>
@@ -523,7 +524,7 @@ function fn_Detail(post_no) {
 		<!-- 게시글 작성 -->
 		<%@include file="./include/write-modal.jsp"%>
 	</main>
-	<%@include file="./include/footer.jsp" %>
+	<%@include file="./include/footer.jsp"%>
 
 	<!-- Vendor JS Files -->
 	<!-- 	<script src="resources/vendor/jquery/jquery.min.js"></script> -->
