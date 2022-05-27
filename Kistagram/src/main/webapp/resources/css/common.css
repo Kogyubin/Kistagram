@@ -376,6 +376,20 @@ input:focus {outline: none;} /* outline 테두리 없애기 */
 /*     padding-bottom: 4px; */
 /* } */
 
+#suggestListDiv{
+	max-height: 300px;
+	max-width: 500px;
+	overflow: scroll;
+	-ms-overflow-style: none;
+ }
+ 
+::-webkit-scrollbar {
+  display: none;
+}
+
+	
+
+
 .searchform {
 	
 	display : inline block;
@@ -399,15 +413,64 @@ input:focus {outline: none;} /* outline 테두리 없애기 */
 }
 #suggest1 {
 	position:absolute;
-	margin-top: 5px;
+	margin-top: 10px;
 	background: #fff;
 	width: 320px;
     max-width: 584px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
     z-index: 100;
+    margin-left: 30px;
 }
 
 #search-name {
-	border:0px solid black;
+	color: #8e8e8e;
+    color: rgba(var(--f52,142,142,142),1);
+/* 	position: relative; */
+/* 	right: 25px; */
+/* 	top: 12px; */
+/* 	display: inline-block; */
+}
+
+#search-img {
+	width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius:30px;
+    margin: 10px;
+    float: left;
+    
+}
+
+.search-icon {
+	width: 30px;
+	height: 30px;
+	position: relative;
+	left: 40px;
+	bottom: 2px;
+}
+
+#search-box {
+	margin-bottom: 25px;
+}
+
+#search-id-name {
+	position: relative;
+	top: 10px;
+}
+
+#test12 {
+	background: #fff;
+    background: rgba(var(--d87,255,255,255),1);
+    border: 1px solid #fff;
+    border: 1px solid rgba(var(--f23,255,255,255),1);
+    bottom: -6px;
+    height: 14px;
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 14px;
+    position: relative;
+	left: 150px;
+	bottom: 7px;
 }

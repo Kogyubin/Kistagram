@@ -516,7 +516,7 @@ function fn_Detail(post_no) {
 						<div class="img-div" onclick="fn_Detail(${pilist.post_no}); return false;">
 							<img src="${path += '/resources/uploadfolder/' += pilist.id += '/' += pilist.img_name}" width="360" height="360" />
 						</div>
-
+							
 
 					</c:forEach>
 				</div>

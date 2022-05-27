@@ -609,10 +609,10 @@ h6,
     width: 320px;
     max-width: 584px;
     box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
+
 }
 .input_text {
-	padding-left:20px;
-    font-weight: bold;
+	padding-left:40px;
     font-size: 16px;
     outline: none;
 }
@@ -729,6 +729,7 @@ h6,
 /* 	float: right; */
 	margin-left: 10px;
 }
+
 
 #post_profile_img, #detail_profile_img{
 
@@ -928,4 +929,5 @@ vertical-align: middle;
 #main{
 	min-height: 100%;
 }
+
 
