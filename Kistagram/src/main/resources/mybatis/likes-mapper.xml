@@ -4,21 +4,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="likes">
-	 <update id="likeCheck" parameterType="HashMap">
-	    UPDATE likes
-	    SET like_check = like_check + 1 
-	    WHERE id=#{id} 
-	    AND post_no= #{post_no}
-	  </update>
-  
-	  <update id="likeCheckCancel" parameterType="HashMap">
-	    UPDATE likes
-	    SET like_check = 0
-	    WHERE id=#{id} 
-	    AND post_no= #{post_no}
-	  </update>
-
-
+	<select id="selectLike" parameterType="likes" resultType="int">
+		SELECT COUNT(*)
+		FROM likes
+		WHERE id=#{id}
+  	 	AND post_no=#{post_no}
 	
+	</select>
+	
+	 <insert id="insertLike" parameterType="likes">
+	    INSERT INTO likes
+	    (like_no, post_no, id)
+	    VALUES (seq_likes_like_no.nextval, #{post_no}, #{id})
+	    
+	  </insert>
+  	
+  	 <delete id="deleteLike" parameterType="likes">
+  	 	DELETE FROM likes
+  	 	WHERE id=#{id}
+  	 	AND post_no=#{post_no}
+  	 </delete>
+  	 
 </mapper>
 	

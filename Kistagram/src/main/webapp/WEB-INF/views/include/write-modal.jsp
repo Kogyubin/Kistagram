@@ -11,7 +11,7 @@
 <!-- <link rel="stylesheet" href="resources/assets/css/fontawesome-all.min.css"> -->
 
 <!-- Write Modal -->
-	<div class="modal fade" id="myLargeModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal" id="myLargeModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 
 		 <div class="modal-dialog modal-lg" role="document">
 
@@ -42,7 +42,7 @@
 								    <div class= "imgs_wrap" style="width:390px">
 								    	<div>
 					      					<ul class="bxSlider">
-					      						<li></li>
+					      						<li><img src="${path}/resources/img/photo-icon.png" ></li>
 					      					</ul>
 					      				</div>
 					     			</div>

@@ -15,45 +15,70 @@
 		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 	  	
-		<script>
-// 		alert("aa123");
-		//좋아요
-// 		function fn_like() {
-// 			var frm_read = $('#frm_read');
-// 			  var post_no = $('#post_no', frm_read).val();
-			 
-			  
-// 			  $.ajax({
-// 			    url: "${path}/like-action",
-// 			    type: "GET",
-// 			    cache: false,
-// 			    dataType: "json",
-// 			    data: 'post_no=' +post_no,
-// 			    success: function(data) {
-// 			      var msg = '';
-// 			      var like_img = '';
-// 			      msg += data.msg;
-// 			      alert(msg);
-			      
-// 			      if(data.like_check == 0){
-// 			        like_img = "${path}/resources/img/dislike.png";
-// 			      } else {
-// 			        like_img = "${path}/resources/img/like.png";
-// 			      }      
-// 			      $('#like_img', frm_read).attr('src', like_img);
-// 			      $('#like_cnt').html(data.like_cnt);
-// 			      $('#like_check').html(data.like_check);
-// 			    },
-// 			    error: function(request, status, error){
-// 			      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-// 			    }
-// 			  });
+<script>
+//좋아요 버튼 누르기
+	function fn_like() {
+	
+		var id = "${session_id}";
+		var post_no = $("#detail_post_no").val();
+		var likeCheck = $("#like-check").val();
+		 
+		//빈하트 눌렀을 때
+		if(likeCheck == 0) {
 
+		  $.ajax({
+		    url: "${path}/like-action",
+		    type: "POST",
+		    data: {
+		    	id: id,
+		    	post_no: post_no
+		    	
+		    },
+		    success: function(result) {
+		    	if(result){
+		    		//꽉찬하트로 바꾸기
+					$('.post_like_section #like_img').attr("src", "${path}/resources/img/like.png" );
+					$("#like-check").val(1);
+		    	}
 
-		
-// 		}
-		
+		    },
+		    error: function(){
+		      alert("서버에러");
+		    }
+		  });
+			console.log("꽉찬 하트로 바껴라")
+			
+			
+			
+			//꽉찬 하트 눌렀을 때
+			}else {
 				
+				$.ajax({
+					
+					 url: "${path}/delete-like",
+					 type: "POST",
+					 data :{
+						 id: id,
+					     post_no: post_no
+					 },
+					 success: function(result) {
+						 if(result == 1){
+							//빈 하트로 바꾸기
+								$('.post_like_section #like_img').attr("src", "${path}/resources/img/dislike.png" );	
+								$("#like-check").val(0);   
+						 }
+	
+					  },
+					  error: function(){
+					      alert("서버에러");
+					    }
+				 	});
+						console.log("빈 하트로 바껴라")
+			}
+	}
+	
+
+
 	$(document).ready(function() {	    
 			
 		    //댓글 등록
@@ -131,12 +156,15 @@
 					
 					<div class="detail_img">
 						<div >
-				      		<ul class="slider"></ul>
+				      		<ul class="slider">
+				      			<li><img src="${path}/resources/img/profile.png"></li>
+				      		</ul>
 				     	</div>	
 				     	
 				     	<div class="post_like_section">
+						 	<input type="hidden" id="like-check">
 						 	 <a href='javascript: fn_like();'><img src='${path}/resources/img/dislike.png' id='like_img'></a>&nbsp;
-							 <a href='#'><img src='${path}/resources/img/comment.png' id='comment_icon'></a>	
+							 <span><a href='#'><img src='${path}/resources/img/comment.png' id='comment_icon'></a></span>	
 							
 						</div>	
 			     	</div>
@@ -164,7 +192,6 @@
 			</div>
 		</div>
 	</div>
-	
 
 	</body>
 </html>

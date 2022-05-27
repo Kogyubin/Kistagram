@@ -3,6 +3,7 @@ package kr.co.kitri.member.dao;
 import java.util.List;
 
 import kr.co.kitri.member.vo.MemberVO;
+import kr.co.kitri.search.vo.SearchVO;
 
 public interface MemberDAO {
 
@@ -13,6 +14,8 @@ public interface MemberDAO {
 	public MemberVO selectUser(MemberVO mvo); //login id 정보 불러오기
 	public List<String> selectSearchMember(MemberVO mvo); //검색시 id 정보 불러오기
 	public int updateProfileNo(MemberVO mvo); // 프로필 사진 등록시 member테이블 no값
+	public List<SearchVO> selectSearchProfile(SearchVO mvo);
+
 
 
 }

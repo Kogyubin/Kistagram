@@ -19,7 +19,7 @@
 	</insert>
 	
 	<select id="selectProfileImg" parameterType="profile" resultType="profile">
-		SELECT profile_name
+		SELECT profile_name, id
 		FROM profile
 	 	WHERE id=#{id}
 	</select>	

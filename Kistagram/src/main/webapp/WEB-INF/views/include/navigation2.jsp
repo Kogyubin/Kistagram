@@ -15,24 +15,25 @@
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap" rel="stylesheet">
 <nav class="navbar-light custom-navbar">
 	<div class="margin-b-15 container navibar">
-		<a class="navbar-brand" href="${path }/main">Kistagram.</a>
+		<a class="navbar-brand" href="${path }/main/${session_id}">Kistagram.</a>
 		
 
 		<form action="" class="searchform" name="myForm">
 		
+
 <!-- 			<span class='green_window1'>  -->
-				<input id=text type="text"	placeholder="검색" class='input_text green_window' name="userKeyword"	 onkeyup="sendKeyword();" />
+				<input id="userKeyword" type="text"	placeholder="검색" class='input_text green_window' name="userKeyword"	 onkeyup="sendKeyword();" />
 <!-- 			</span>  -->
 			<div id="suggest1">
 				<div id="suggestDiv" class="suggest">
 					<div id="suggestListDiv"></div>
 				</div>
 			</div>		
+
 		</form>
 		<div id="filters" class="filters">
 			<a href="${path }/profile">Profile</a> 
 			<a href="#" id="writeBtn" data-toggle="modal" class="write">Write</a> 
-			<a href="#"	data-filter=".branding">Follow</a> 
 			<a href="${path }/sign-out"	class="logout">Logout</a>
 		</div>
 	</div>

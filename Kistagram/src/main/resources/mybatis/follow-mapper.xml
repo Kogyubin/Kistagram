@@ -5,21 +5,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="follow">
 <!-- 나의 팔로워 리스트 조회 -->
-	<select id="selectFollower" resultType="follow">
-		SELECT *
-		FROM member
-		WHERE id in (SELECT follower
-		                        FROM follow
-		                        WHERE following = #{id})
+	<select id="selectFollower" resultType="followmemberprofile">
+		SELECT f.id, pf.profile_name, m.name
+		FROM follow f, member m, profile pf
+		WHERE f.id = m.id
+		AND m.profile_no = pf.profile_no
+		AND f.following = #{id}
 			
     </select>
  <!-- 내가 팔로우 하는 사람 리스트 조회 -->   
- 	<select id="selectFollowing" resultType="follow">
-	    SELECT *
-		FROM member
-		WHERE id in (SELECT following
-		                        FROM follow
-		                        WHERE follower = #{id})
+ 	<select id="selectFollowing" resultType="followmemberprofile">
+	    SELECT m.id, m.name, pf.profile_name
+		FROM member m, profile pf
+		WHERE m.profile_no = pf.profile_no
+		AND m.id in (SELECT following
+		            FROM follow
+		            WHERE id = #{id})
 		                        
 	</select>
 	

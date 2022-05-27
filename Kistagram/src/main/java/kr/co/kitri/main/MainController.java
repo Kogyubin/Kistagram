@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -24,8 +25,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.kitri.comment.service.CommentService;
 import kr.co.kitri.comment.vo.CommentVO;
 import kr.co.kitri.follow.service.FollowService;
+import kr.co.kitri.follow.vo.FollowMemberProfileVO;
 import kr.co.kitri.follow.vo.FollowVO;
 import kr.co.kitri.img.service.ImgService;
+import kr.co.kitri.likes.service.LikesService;
+import kr.co.kitri.likes.vo.LikesVO;
 import kr.co.kitri.member.dao.MemberDAO;
 import kr.co.kitri.member.service.MemberSvc;
 import kr.co.kitri.member.vo.MemberVO;
@@ -36,6 +40,7 @@ import kr.co.kitri.post.vo.PostVO;
 import kr.co.kitri.profileimg.dao.ProfileImgDAO;
 import kr.co.kitri.profileimg.service.ProfileImgSvc;
 import kr.co.kitri.profileimg.vo.ProfileImgVO;
+import kr.co.kitri.search.vo.SearchVO;
 
 /**
  * Handles requests for the application home page.
@@ -65,6 +70,8 @@ public class MainController {
 	@Autowired 
 	private FollowService fservice;
 	
+	@Autowired
+	private LikesService lservice;
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -136,6 +143,43 @@ public class MainController {
 		return result;
 	}
 	
+	@RequestMapping(value ="/followerList")
+	@ResponseBody
+	public List<FollowMemberProfileVO> followerList(String id) {
+		
+		List<FollowMemberProfileVO> follist = fservice.getFollower(id);
+		
+		return follist;
+	}
+	
+	@RequestMapping(value ="/followList")
+	@ResponseBody
+	public List<FollowMemberProfileVO> followList(String id) {
+		
+		List<FollowMemberProfileVO> follist2 = fservice.getFollow(id);
+		
+		return follist2;
+	}
+	
+	//게시글 작성 프로필이미지 불러오기
+	
+	@RequestMapping("/writeUserInfo")
+	@ResponseBody
+	public ProfileImgVO writeUserInfo(HttpSession session, Model model) {
+		
+		System.out.println("writeUserInfo");
+		String session_id = (String)session.getAttribute("session_id");
+		
+		ProfileImgVO pfvo = new ProfileImgVO();
+		pfvo.setId(session_id);
+		
+		ProfileImgVO pfvo2 = pfsvc.selectProfileImage(pfvo);
+		
+		return pfvo2;
+				
+		
+	}
+	
 	@RequestMapping("/write-action")
 	@ResponseBody
 	public String writeAction(MultipartHttpServletRequest multiPart,
@@ -144,6 +188,7 @@ public class MainController {
 		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
 		
 		String content = multiPart.getParameter("content");
+		
 		
 		PostVO pvo = new PostVO();
 		
@@ -167,52 +212,37 @@ public class MainController {
 		return pivo;
 	}
 	
+//빈하트인지 꽉찬하트인지
+	@ResponseBody
+	  @RequestMapping(value="/like-state")
+	public int likeState(LikesVO lvo){
+		
+		int result = lservice.getLike(lvo);
+		
+		return result;
+	}
 	
-	
-//좋아요
-//	@ResponseBody
-//	  @RequestMapping(value="/like-action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
-//	  public String likeAction(int post_no, HttpSession session){
-//	    //System.out.println("--> like() created");
-//		String session_id = (String)session.getAttribute("session_id");
-//	    JSONPObject obj = new JSONPObject();
-//	    
-//	    ArrayList<String> msgs = new ArrayList<String>();
-//	    HashMap <String, Object> hashMap = new HashMap<String, Object>();
-//	    hashMap.put("post_no", post_no);
-//	    hashMap.put("session_id", session_id);
-//	    LikesVO likesvo = likesProc.read(hashMap);
-//	    
-//	    PostVO pvo = postProc.read(post_no);
-//	    int like_cnt = pvo.getLike_cnt();     //게시판의 좋아요 카운트
-//	    int like_check = 0;
-//	    like_check = likesvo.getLike_check();   //좋아요 체크 값
-//	    
-//	    if(likesProc.countbyLike(hashMap)==0){
-//	      likesProc.create(hashMap);
-//	    }
-//	      
-//	    if(like_check == 0) {
-//	      msgs.add("좋아요!");
-//	      likesProc.like_check(hashMap);
-//	      like_check++;
-//	      like_cnt++;
-//	      postProc.like_cnt_up(post_no);   //좋아요 갯수 증가
-//	    } else {
-//	      msgs.add("좋아요 취소");
-//	      likesProc.like_check_cancel(hashMap);
-//	      like_check--;
-//	      like_cnt--;
-//	      postProc.like_cnt_down(post_no);   //좋아요 갯수 감소
-//	    }
-//	    obj.put("post_no", likesvo.getPost_no());
-//	    obj.put("like_check", like_check);
-//	    obj.put("like_cnt", like_cnt);
-//	    obj.put("msg", msgs);
-//	    
-//	    return obj.toJSONString();
-//	  }
+//좋아요 추가
+	@ResponseBody
+	  @RequestMapping(value="/like-action")
+	  public boolean likeAction(LikesVO lvo){
+	   
+		boolean result = lservice.checkLike(lvo);
+		
+		return result;
+		
+	  }
 
+//좋아요 삭제
+	@ResponseBody
+	  @RequestMapping(value="delete-like")
+	  public int deleteLike(LikesVO lvo, HttpSession session) {
+		
+		int result = lservice.uncheckLike(lvo);
+		
+		return result;
+	}
+	
 	
 	@RequestMapping(value ="/commentList", method = RequestMethod.GET)
 	@ResponseBody
@@ -237,46 +267,91 @@ public class MainController {
 	
 	//사용자가 입력한 단어의 연관 제시어 검색하여 리스트 반환
 	
-	public List<String> search(String userKeyword) {
-			
-			MemberVO mvo = new MemberVO();
-			String[] keywords = msvc.selectSearchMember(mvo);
-			
+//	public List<String> search(String userKeyword) {
+//			
+//			MemberVO mvo = new MemberVO();
+//			String[] keywords = msvc.selectSearchMember(mvo);
+//			
+//		
+//				if(userKeyword==null||userKeyword.equals("")){
+//					   return null;
+//					   //return Collections.EMPTY_LIST; 내장변수
+//				}
+//					  //userKeyword = userKeyword.toUpperCase();//대문자검사
+//					  List<String> lists = new ArrayList<String>();
+//					  for(int i=0;i<keywords.length;i++){
+//					   if(keywords[i].startsWith(userKeyword)){
+//					    lists.add(keywords[i]);
+//					   }
+//					   
+//					  					  
+//					  }
+//					  		return lists;
+//	}
+	
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/search", produces="application/text;charset=utf8")
+//	public String search1(HttpServletRequest request, HttpServletResponse res){
+//			String userKeyword = request.getParameter("userKeyword");
+//			
+//			List<String> keywordList = search(userKeyword);
+//			
+//			String result="";
+//			for(String s : keywordList) {
+//				result = result + "," + s ;
+//			}
+//			return result;
+//		
+//	
+//	}
+	
+	
+	public List<SearchVO> search(String userKeyword) {
 		
-				if(userKeyword==null||userKeyword.equals("")){
-					   return null;
-					   //return Collections.EMPTY_LIST; 내장변수
-				}
-					  //userKeyword = userKeyword.toUpperCase();//대문자검사
-					  List<String> lists = new ArrayList<String>();
-					  for(int i=0;i<keywords.length;i++){
-					   if(keywords[i].startsWith(userKeyword)){
-					    lists.add(keywords[i]);
-					   }
-					   
-					  					  
-					  }
-					  		return lists;
-	}
+		
+		SearchVO svo = new SearchVO();
+		List<SearchVO> keywords = msvc.SearchProfile(svo);
+
+	
+			if(userKeyword==null||userKeyword.equals("")){
+				   return null;
+				   //return Collections.EMPTY_LIST; 내장변수
+			}
+				  //userKeyword = userKeyword.toUpperCase();//대문자검사
+				  List<SearchVO> lists = new ArrayList<SearchVO>();
+				  for(int i=0;i<keywords.size();i++){
+				   if(keywords.get(i).getId().startsWith(userKeyword)){
+				    lists.add(keywords.get(i));
+				   }
+				   
+				  					  
+				  }
+				  		return lists;
+}
+	
+	
+	
+	
+	
+	
 	
 	
 	@ResponseBody
 	@RequestMapping(value = "/search")
-	public String search1(HttpServletRequest request){
-		
+	public List<SearchVO> search1(HttpServletRequest request){
 			String userKeyword = request.getParameter("userKeyword");
 			
-			List<String> keywordList = search(userKeyword);
+			List<SearchVO> keywordList = search(userKeyword);
 			
-			String result="";
-			for(String s : keywordList) {
-				result = result + "," + s ;
-			}
+			System.out.println(keywordList);
 			
-			return result;
+
+			return keywordList;
 		
 	
 	}
+	
 	
 		
 		 		
