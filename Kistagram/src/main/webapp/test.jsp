@@ -12,14 +12,17 @@
 	
 	  <script>
 	    $(document).ready(function(){
-	      $('.slider').bxSlider();
+	      $('.slider').bxSlider({
+	    	  infiniteLoop: false,
+	    	  pager: false
+	      });
 	    });
 	  </script>
 </head>
 <body>
 	<ul class="slider">
 	    <li><img src="resources/uploadfolder/user/diane_20220510232936753.jpg"></li>
-	    <li><img src="resources/uploadfolder/user/IU_20220513094457011.jpg"></li>
+<!-- 	    <li><img src="resources/uploadfolder/user/IU_20220513094457011.jpg"></li> -->
 	</ul>
 </body>
 </html>

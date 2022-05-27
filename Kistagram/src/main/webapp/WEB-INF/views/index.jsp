@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
 <%@include file="./include/header.jsp"%>
 
 <!DOCTYPE>
@@ -145,41 +143,41 @@ function fn_followList(id) {
 }
 
 	
-//파일 업로드
-	var bxSlider;
+var bxSlider; //write
+var slider;   //detail
+var action = '';
+var url = '';
+var type = '';
+
 	
 $(document).ready(function(){ 
 	
-	 bxSlider = $('.bxSlider').bxSlider(); 
+	bxSlider = $('.bxSlider').bxSlider({
+		infiniteLoop: false,
+		pager: false
+	}); 
 	
-	  var fileTarget = $('#file'); 
-	  fileTarget.on('change', function(){ // 값이 변경되면
-	      var cur=$(".filebox input[type='file']").val();
-		    $(".bxSlider").html();
-		    $(".upload-name").val(cur);
+	
+	slider = $('.slider').bxSlider({
+		infiniteLoop: false,
+		pager: false
+	}); 
+	
+// 	  var fileTarget = $('#file'); 
+// 	  fileTarget.on('change', function(){ // 값이 변경되면
+// 	      var cur=$(".filebox input[type='file']").val();
+// 		    $(".bxSlider").html();
+// 		    $(".upload-name").val(cur);
 	   
-	  }); 
+// 	  }); 
 	  
 	  $("#myLargeModal").on('hidden.bs.modal', function (e){
 		  
+		  $(this).find('form')[0].reset();
+		  $(".bxSlider").html("<li><img src='${path}/resources/img/photo-icon.png'></li>");
 
-			  $(this).find('form')[0].reset();
-			  $(".bxSlider").html("");
-		  
-		 
 	  });
-}); 
 
-
- 	var action = '';
-	var url = '';
-	var type = '';
-	var slider;
-
-	
-$(document).ready(function() {
-	
-	slider = $('.slider').bxSlider(); 
 
  
 	//write 버튼 클릭	
@@ -197,7 +195,7 @@ $(document).ready(function() {
 			type : "post",
 			
 			success : function(result) {
-				console.log(result);
+				//console.log(result);
 				if(result.profile_name != null) {
 					$("#post_id img").attr("src","${path}/resources/profileimg-uploadfolder/"
 								+ "${session_id}" + "/" + result.profile_name);
@@ -206,6 +204,7 @@ $(document).ready(function() {
 				$("#post-content").val("");
 				$("#myLargeModal").modal();
 				
+				bxSlider.reloadSlider();
 				console.log("modal-title-success");
 			}
 		});
@@ -218,6 +217,7 @@ $(document).ready(function() {
 	$('#file').on("change", handleImgsFilesSelect);
 
 	function handleImgsFilesSelect(e){
+		$(".bxSlider").empty();
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		
@@ -295,12 +295,13 @@ $(document).ready(function() {
 	});
 	
 	
-	$(".input_text").on("blur", function(e){
-		console.log(e);
-// 		hide();
+	$(".input_text").on("blur", function(){
+		$("body").on("click", function(e){
+			if(e.target.parentNode.id != "suggestListDiv"){
+				hide();
+			}
+		});
 	});
-	
-		
 });
 
 	
@@ -316,9 +317,8 @@ function postDetail(post_no){
 		},
 		success : function(result) {
 			
-			console.log(result);
-			
-			$(".slider").html();
+// 			console.log(result);
+// 			$(".slider").html();
 			$("#detail_post_no").val(result[0].post_no);
 			
 			if(result[0].profile_name != null) {
@@ -330,8 +330,6 @@ function postDetail(post_no){
 			$("#detail_content").text(result[0].content);
 			$("#detail_regdate").text(result[0].regdate);
 			
-			
-			
 			let imgHTML="";
 			for(let i=0; i < result.length ; i++ ){
 				imgHTML += "<li><img src='${path}/resources/uploadfolder\\" + result[i].id + "\\" + result[i].img_name +"'></li>";
@@ -340,8 +338,6 @@ function postDetail(post_no){
 			$(".slider").html(imgHTML);
 			
 			$("#myLargeModal2").modal();
-			
-			
 			
 			slider.reloadSlider();
 // 			alert("aa");
@@ -449,7 +445,7 @@ function fn_Detail(post_no) {
 
 
 	<%@include file="include/navigation2.jsp"%>
-	
+
 	<main id="main">
 
 		<div class="site-section site-portfolio">
@@ -461,66 +457,61 @@ function fn_Detail(post_no) {
 						<div class="box">
 							<c:choose>
 								<c:when test="${ empty profile_name}">
-									<img class="profile"
-										src="${path }/resources/img/profile.png"
-										alt="Image">
-								</c:when>	
-								<c:otherwise>	
-									<img class="profile"
-										src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}"
-										alt="Image">
-								</c:otherwise>	
-							</c:choose>	
+									<img class="profile" src="${path }/resources/img/profile.png" alt="Image">
+								</c:when>
+								<c:otherwise>
+									<img class="profile" src="${path }/resources/profileimg-uploadfolder/${id }/${profile_name}" alt="Image">
+								</c:otherwise>
+							</c:choose>
 						</div>
 
 						<div class="state">
 
-								<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly ><br>
-								<p>${introduce }</p>
-								
-								
-								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followerList('${id }')">팔로워 ${followerCnt }</a></span>
-								<span class="mb-0 mg-20 dis-ib"><a href="javascript:fn_followList('${id }')">팔로우 ${followCnt }</a></span>
-								
-								<c:choose> 
-									<c:when test="${followState eq 0 }">
-										<c:choose> 
-											<c:when test="${id eq session_id }">
-												<span></span>
-											</c:when>
-											<c:otherwise>
-													<span>
-														<input type="button" id="follow-request-btn" value="팔로우">
-													</span>
-											</c:otherwise>
-										</c:choose>	
-									</c:when>
-									<c:when test="${followState eq 1 }">
-										<span>
-											<button type="button" id="already-follow-btn">
-												<div>
-													<img id="already-follow-icon" src="${path }/resources/img/already-follow-icon.png">
-												</div>
-											</button>
-										</span>
-									</c:when>
-								</c:choose>
+							<input type="text" id="id" name="id" class="mainid" size="10" value="${id }" readonly><br>
+							<p>${introduce }</p>
+
+
+							<span class="mb-0 mg-20 dis-ib">
+								<a href="javascript:fn_followerList('${id }')">팔로워	${followerCnt }</a>
+							</span> 
+							<span class="mb-0 mg-20 dis-ib">
+								<a href="javascript:fn_followList('${id }')">팔로우 ${followCnt }</a>
+							</span>
+
+							<c:choose>
+								<c:when test="${followState eq 0 }">
+									<c:choose>
+										<c:when test="${id eq session_id }">
+											<span></span>
+										</c:when>
+										<c:otherwise>
+											<span> 
+												<input type="button" id="follow-request-btn" value="팔로우">
+											</span>
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:when test="${followState eq 1 }">
+									<span>
+										<button type="button" id="already-follow-btn">
+											<div>
+												<img id="already-follow-icon" src="${path }/resources/img/already-follow-icon.png">
+											</div>
+										</button>
+									</span>
+								</c:when>
+							</c:choose>
 						</div>
 					</div>
-					
 				</div>
-
-
 				<!--         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200"> -->
 
 				<!--           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4"> -->
 				<div class="row mb-5 align-items-center">
 					<c:forEach items="${pilist }" var="pilist">
 						<div class="img-div" onclick="fn_Detail(${pilist.post_no}); return false;">
-							<img src="${path += '/resources/uploadfolder/' += pilist.id += '/' += pilist.img_name}" width="360" height="360" />
+							<img src="${path += '/resources/uploadfolder/' += pilist.id += '/' += pilist.img_name}"	width="360" height="360" />
 						</div>
-							
-
 					</c:forEach>
 				</div>
 			</div>
@@ -534,7 +525,7 @@ function fn_Detail(post_no) {
 		<!-- 게시글 작성 -->
 		<%@include file="./include/write-modal.jsp"%>
 	</main>
-	<%@include file="./include/footer.jsp" %>
+	<%@include file="./include/footer.jsp"%>
 
 	<!-- Vendor JS Files -->
 	<!-- 	<script src="resources/vendor/jquery/jquery.min.js"></script> -->

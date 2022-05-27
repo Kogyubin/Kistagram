@@ -19,11 +19,10 @@
 		
 
 		<form action="" class="searchform" name="myForm">
-<!-- 			<span class='green_window1'>  -->
-				<div><img class="search-icon" src="${path }/resources/img/search-icon.png">
+			<div>
+				<img class="search-icon" src="${path }/resources/img/search-icon.png">
 				<input id="userKeyword" type="search" autocomplete="off" placeholder="검색" class='input_text green_window' name="userKeyword" onkeyup="sendKeyword();" />
-				</div>
-<!-- 			</span>  -->
+			</div>
 			<div id="suggest1">
 				<div id="suggestDiv" class="suggest">
 				<div id="test12"></div>
@@ -33,9 +32,9 @@
 
 		</form>
 		<div id="filters" class="filters">
-			<a href="${path }/profile">Profile</a> <a id="writeBtn"
-				data-toggle="modal" class="write">Write</a><a href="${path }/sign-out"
-				class="logout">Logout</a>
+			<a href="${path }/profile">Profile</a> 
+			<a href="#" id="writeBtn" data-toggle="modal" class="write">Write</a> 
+			<a href="${path }/sign-out"	class="logout">Logout</a>
 		</div>
 	</div>
 </nav>
