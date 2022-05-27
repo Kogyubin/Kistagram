@@ -160,6 +160,21 @@ public class MainController {
 		
 		return follist2;
 	}
+	//팔로우 취소
+	@RequestMapping(value ="/delete-follow")
+	@ResponseBody
+	public boolean deleteFollow(String id, String following) {
+		
+		
+		HashMap<String, String> folmap = new HashMap<String, String>();
+		
+		folmap.put("id", id);
+		folmap.put("id2", following);
+		boolean result = fservice.cancelFollowing(folmap);
+		
+		return result;
+		
+	}
 	
 	//게시글 작성 프로필이미지 불러오기
 	
@@ -185,13 +200,15 @@ public class MainController {
 	public String writeAction(MultipartHttpServletRequest multiPart,
 			HttpSession session, Model model, HttpServletRequest req) {
 		
+
 		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
 		
+		String id = (String)session.getAttribute("session_id");
 		String content = multiPart.getParameter("content");
 		
 		
 		PostVO pvo = new PostVO();
-		
+		pvo.setId(id);
 		pvo.setContent(content);
 		
 		boolean result = pservice.writePostImg(pvo, fileList, req);
@@ -199,6 +216,15 @@ public class MainController {
 		return "redirect:main";
 
 
+	}
+	
+	@ResponseBody
+	  @RequestMapping(value="/delete-post")
+	  public boolean deletePostAction(int post_no){
+		
+		boolean result = pservice.deletePost(post_no);
+		
+		return result;
 	}
 	
 

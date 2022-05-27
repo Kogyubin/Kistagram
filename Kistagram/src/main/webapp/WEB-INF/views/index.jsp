@@ -84,6 +84,7 @@ function fn_followerList(id) {
 			 			followerHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
 			 		}
 					followerHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					
 					followerHtml +=  "<div id='follower_name'>" + data[i].name +"</div>";
 					followerHtml +=  "</div>";
 
@@ -111,7 +112,7 @@ function fn_followList(id) {
 		success : function(data){
 			
 			console.log(data);
-			
+
 			let followHtml = "";
 			
 				for(let i=0; i<data.length; i++){
@@ -123,7 +124,11 @@ function fn_followList(id) {
 			 		} else {
 			 			followHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
 			 		}
+// 					followHtml += "<input type='hidden' id='following-id'>"
 					followHtml += "<span><a href='${path}/main/"+data[i].id+"'>"+data[i].id+"</a></span>";
+					if(id == "${session_id}"){
+						followHtml += "<span><input type='button' value='팔로잉' onclick='fn_delFollowBtn(\""+data[i].id+"\");'></sapn>"
+					}
 					followHtml +=  "<div id='follow_name'>" + data[i].name +"</div>";
 					followHtml +=  "</div>";
 						
@@ -131,12 +136,14 @@ function fn_followList(id) {
 				}
 			
 				$("#followList").html(followHtml);
+// 				$("#following-id").val(data[i].id);
 				$("#mySmallModal2").modal();
 			}
 		
 		});
 	
 }
+
 	
 //파일 업로드
 	var bxSlider;
@@ -318,6 +325,7 @@ function postDetail(post_no){
 			
 			$("#detail_id span").text(result[0].id);
 			$("#detail_content").text(result[0].content);
+			$("#detail_regdate").text(result[0].regdate);
 			
 			
 			
@@ -362,7 +370,7 @@ function commentList(post_no){
 		 		} else {
 		 			listHtml += "<img src='${path}/resources/img/profile.png' id='post_profile_img'>";
 		 		}
-		 		listHtml += "<span class='comment-id-array'> "+ data[j].id + "</span>";
+		 		listHtml += "<span class='comment-id-array'><a href='${path}/main/"+data[j].id+"'>" + data[j].id + "</a></span>";
 		 		listHtml += "<span> "+data[j].comment_content+" </span><br>";
 		 		listHtml += "<span class='comment-regdate-array'> "+data[j].comment_regdate+"</span>";
 		 		listHtml += "</div>"

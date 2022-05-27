@@ -23,11 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND i.img_no IN 
 				       (SELECT MIN(img_no) FROM img
 				       GROUP BY post_no) 
+		AND p.del_flag = 'N'
 		ORDER BY p.post_no DESC
 	</select>
 	
 	<select id="selectPost" parameterType="int" resultType="postimgmemberprofile">
-			SELECT p.id, p.post_no, p.content, i.img_name, pf.profile_name, pf.profile_path
+			SELECT p.id, p.post_no, p.content, p.regdate, i.img_name, pf.profile_name, pf.profile_path
 			FROM post p, img i, member m, profile pf
 			WHERE p.post_no=i.post_no
 			AND p.id = m.id
@@ -35,6 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND p.post_no=#{post_no}
 	</select>
 	
+	<update id="deletePost" parameterType="post">
+	 	UPDATE post
+	 	SET del_flag = 'Y'
+	 	WHERE post_no=#{post_no}
+	 	
+	 </update>
 
 	
 </mapper>

@@ -33,8 +33,7 @@ public class PostDAOImpl implements PostDAO {
 
 	@Override
 	public int deletePost(int post_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("post.deletePost", post_no);
 	}
 
 	@Override

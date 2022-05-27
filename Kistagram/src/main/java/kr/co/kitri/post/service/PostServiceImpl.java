@@ -64,8 +64,15 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public boolean deletePost(int post_no) {
-		// TODO Auto-generated method stub
-		return false;
+		int result =  pdao.deletePost(post_no);
+		
+		boolean flag = false;
+		
+		if(result==1) {
+			flag=true;
+		}
+		
+		return flag;
 	}
 
 

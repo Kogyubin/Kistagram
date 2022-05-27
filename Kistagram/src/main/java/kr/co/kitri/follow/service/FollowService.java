@@ -14,6 +14,6 @@ public interface FollowService {
 	public int getFollowerCount(String id);
 	public int getFollowCount(String id);
 	public int getFollowState(HashMap<String, String> folmap);
-	
+	public boolean cancelFollowing(HashMap<String, String> folmap);
 
 }

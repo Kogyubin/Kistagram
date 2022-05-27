@@ -702,22 +702,46 @@ h6,
   border-radius: 3px;
 }
 
-#like_img{
+#like_img  {
 	width: 25px;
 	height:25px;
 }
+
+#detail_bin_img{
+	width: 23px;
+	height:23px;
+	margin-left: 710px;
+}
+
 
 #comment_icon{
 	width: 27px;
 	height:27px;
 }
 
+.post-content-class{
+/* 	float: right; */
+	margin-left: 10px;
+	margin-top: 10px;
+}
+.comment-container{
+	margin-top:20px;
+/* 	float: right; */
+	margin-left: 10px;
+}
 
-
-#post_profile_img, #detail_profile_img, #search-img{
+#post_profile_img, #detail_profile_img{
 
 	width: 30px;
 	height:30px;
+	border-radius:50%;
+	margin-right: 10px
+	
+}
+
+#search-img{
+	width: 35px;
+	height:35px;
 	border-radius:50%;
 	
 }
@@ -728,13 +752,13 @@ h6,
 }
 
 #followerList, #followList{
-	width:500px;
+	
 	height: 300px;
 }
 
 .follower-list-array img, .follow-list-array img{
-	width: 30px;
-	height:30px;
+	width: 35px;
+	height:35px;
 	border-radius:50%;
 	margin-right: 15px;
 }
@@ -744,6 +768,17 @@ h6,
 	font-size: 14px;
 	color: gray;
 	margin-bottom: 5px;
+}
+
+.follow-list-array span input{
+	width: 60px;
+	height: 30px;
+	border: 1px solid #bcbcbc;
+	border-radius: 3px;
+	float: right;
+	background-color: white;
+	color: black; 
+	font-size: 14px;
 }
 
 .img-list {
@@ -771,7 +806,7 @@ vertical-align: middle;
 	font-family: "Raleway", sans-serif;
 	font-size: 45px;
 	border: none;
-	font-weight: bold;
+	font-weight: 500;
 }
 
 
@@ -813,23 +848,15 @@ vertical-align: middle;
 }
 
 
-/* #image_preview{ */
-	
-/* 	list-style: none; */
-/* 	width : 400px; */
-/* 	float: left; */
-/* 	margin-right: 5px; */
-/* } */
-
 .comment-list-array{
 	 margin-bottom: 12px;
 }
 
-.comment-id-array {
-	 font-weight: bold;
+.comment-id-array, #detail_id span {
+	 font-weight: 500;
 }
 
-.comment-regdate-array{
+.comment-regdate-array, #detail_regdate{
 	 font-size: 14px;
 	 color: gray;
 	
@@ -839,14 +866,11 @@ vertical-align: middle;
 	 margin-bottom: 10px;
 }
 
-#detail_id {
-	 font-weight: bold;
-}
 
 
 #myModalBody textarea, #detail_content{
 	margin-top: 10px;
-	
+	margin-bottom: 5px;
 }
 
 .dis-ib{
@@ -889,10 +913,16 @@ vertical-align: middle;
 }
 
 
-.state span a, .follower-list-array span a, .follow-list-array span a {
+.state span a, .follower-list-array span a, .follow-list-array span a{
   text-decoration: none;
   color: black;
 }
+
+ .comment-list-array span a {
+ 	text-decoration: none;
+  	color: black;
+  	margin-right: 10px;
+ }
 
 
 #main{

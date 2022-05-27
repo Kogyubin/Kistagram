@@ -36,13 +36,14 @@
 						      <div class="filebox">
 							       		<label for="file">업로드</label> 
 							        <input type="file" name="uploadfile" id="file" multiple="multiple"/>
-							        	<input class="upload-name" value="파일선택">
+							        	<input class="upload-name" value="파일선택" readonly>
 							 
 								        	
 								    <div class= "imgs_wrap" style="width:390px">
 								    	<div>
 					      					<ul class="bxSlider">
-					      						<li><img src="${path}/resources/img/photo-icon.png" ></li>
+<%-- 					      						<li><img src="${path}/resources/img/photo-icon.png" ></li> --%>
+					      							<li></li>
 					      					</ul>
 					      				</div>
 					     			</div>
