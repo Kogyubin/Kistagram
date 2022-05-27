@@ -25,6 +25,7 @@
 			</div>
 			<div class="modal-body" id="myModalBody">
 				<form action="write-action" id="write-form" method="post" enctype="multipart/form-data">
+
 					<div id="post_id" style="float:right;">
 						<img id="post_profile_img" src='${path}/resources/img/profile.png'>
 						<span></span>
@@ -33,6 +34,7 @@
 								placeholder="문구입력"></textarea>
 						</div>
 					</div>
+
 					<div class="filebox">
 						<label for="file">업로드</label>
 						<input type="file" name="uploadfile" id="file" multiple="multiple" /> 
@@ -47,7 +49,6 @@
 						</div>
 
 					</div>
-
 				</form>
 			</div>
 			<div class="modal-footer">

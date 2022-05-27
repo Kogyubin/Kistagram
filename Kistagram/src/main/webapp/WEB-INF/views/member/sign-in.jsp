@@ -5,8 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Overpass+Mono" rel="stylesheet">
 <link href="${path }/resources/css/sign-in.css" rel="stylesheet">
+
 <script type="text/javascript" src="${path }/resources/js/sign-in.js"></script>
 
 </head>

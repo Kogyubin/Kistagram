@@ -19,9 +19,9 @@
 		
 
 		<form action="" class="searchform" name="myForm">
-			<div>
+			<div class="green_window">
 				<img class="search-icon" src="${path }/resources/img/search-icon.png">
-				<input id="userKeyword" type="search" autocomplete="off" placeholder="검색" class='input_text green_window' name="userKeyword" onkeyup="sendKeyword();" />
+				<input id="userKeyword" type="search" autocomplete="off" placeholder="검색" class='input_text' name="userKeyword" onkeyup="sendKeyword();" />
 			</div>
 			<div id="suggest1">
 				<div id="suggestDiv" class="suggest">

@@ -180,13 +180,6 @@ $(document).ready(function(){
 // 			} 
 	  });
 
-// 	$("#write-closeX").click(function(){
-// 		var msg = confirm("게시글 등록을 취소하시겠습니까?");
-// 		if(msg){
-// 		$("#myLargeModal").modal('hide');
-// 		}
-// 	});
-	
  
 	//write 버튼 클릭	
 	$("#writeBtn").click(function() {
