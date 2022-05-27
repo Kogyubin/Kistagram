@@ -172,9 +172,10 @@ $(document).ready(function(){
 // 	  }); 
 	  
 	  $("#myLargeModal").on('hidden.bs.modal', function (e){
-
+		  
 		  $(this).find('form')[0].reset();
 		  $(".bxSlider").html("<li><img src='${path}/resources/img/photo-icon.png'></li>");
+
 	  });
 
 
