@@ -5,19 +5,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -73,15 +75,17 @@ public class MainController {
 	@Autowired
 	private LikesService lservice;
 
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	private static final Logger logger = LogManager.getLogger(MainController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	
-	@RequestMapping(value = "/main/{urlId}", method = RequestMethod.GET)
-	public String main(@PathVariable String urlId, Locale locale, HttpSession session, Model model) {
+	@RequestMapping(value = {"/main", "/main/{urlId}"}, method = RequestMethod.GET)
+	public String main(@PathVariable Optional <String> urlId, Locale locale, HttpSession session, Model model) {
 		
+		String reqId = urlId.get();
+	
 		MemberVO mvo = new MemberVO();
 		
 		String session_id = (String)session.getAttribute("session_id");
@@ -89,12 +93,18 @@ public class MainController {
 			return "redirect:/sign-in";
 		}
 		
+		logger.debug("session_id : " + session_id);
+		logger.info("session_id : " + session_id);
+		logger.error("session_id : " + session_id);
+		
+		
 		System.out.println(session_id);
 		//메인화면 이미지 리스트
-		List<PostImgVO> pilist = pservice.getPostImgs(urlId);
+		List<PostImgVO> pilist = pservice.getPostImgs(reqId);
 		
-		mvo.setId(urlId);
+		mvo.setId(reqId);
 		mvo = mdao.selectUser(mvo);
+		if(mvo !=null) {
 		String member_md = mvo.getId();
 		String member_itd = mvo.getIntroduce();
 		
@@ -117,7 +127,7 @@ public class MainController {
 		
 		
 		ProfileImgVO pfvo = new ProfileImgVO();
-		pfvo.setId(urlId);
+		pfvo.setId(reqId);
 		ProfileImgVO pfvo2 = pfdao.selectProfileImg(pfvo);
 		String profile_name="";
 		if(pfvo2 != null) {
@@ -133,19 +143,27 @@ public class MainController {
 		model.addAttribute("followState", followState);
 		
 		return "index";
-	}
+		} else {
+			return "index";
+		}
+	}	
 	
 	@RequestMapping(value ="/follow-action")
 	@ResponseBody
 	public boolean followAction(FollowVO folvo) {
+		
+		if(folvo.getId() != null && folvo.getFollower() != null && folvo.getFollowing() != null) {
 		boolean result = fservice.requestFollow(folvo);
 		
 		return result;
+		}else {
+			return false;
+		}
 	}
 	
 	@RequestMapping(value ="/followerList")
 	@ResponseBody
-	public List<FollowMemberProfileVO> followerList(String id) {
+	public List<FollowMemberProfileVO> followerList(@RequestParam(defaultValue = "") String id) {
 		
 		List<FollowMemberProfileVO> follist = fservice.getFollower(id);
 		
@@ -154,7 +172,7 @@ public class MainController {
 	
 	@RequestMapping(value ="/followList")
 	@ResponseBody
-	public List<FollowMemberProfileVO> followList(String id) {
+	public List<FollowMemberProfileVO> followList(@RequestParam(defaultValue = "") String id) {
 		
 		List<FollowMemberProfileVO> follist2 = fservice.getFollow(id);
 		
@@ -163,7 +181,7 @@ public class MainController {
 	//팔로우 취소
 	@RequestMapping(value ="/delete-follow")
 	@ResponseBody
-	public boolean deleteFollow(String id, String following) {
+	public boolean deleteFollow(@RequestParam(defaultValue = "") String id, @RequestParam(defaultValue = "") String following) {
 		
 		
 		HashMap<String, String> folmap = new HashMap<String, String>();
@@ -182,8 +200,13 @@ public class MainController {
 	@ResponseBody
 	public ProfileImgVO writeUserInfo(HttpSession session, Model model) {
 		
-		System.out.println("writeUserInfo");
 		String session_id = (String)session.getAttribute("session_id");
+		if (session_id == null) {
+			return new ProfileImgVO();
+		}
+		
+		System.out.println("writeUserInfo");
+		
 		
 		ProfileImgVO pfvo = new ProfileImgVO();
 		pfvo.setId(session_id);
@@ -198,29 +221,38 @@ public class MainController {
 	@RequestMapping("/write-action")
 	@ResponseBody
 	public String writeAction(MultipartHttpServletRequest multiPart,
-			HttpSession session, Model model, HttpServletRequest req) {
+			HttpSession session, Model model, HttpServletRequest req){
 		
+	
+			
+			String session_id = (String)session.getAttribute("session_id");
+				if (session_id == null ) {
+					return "redirect:/sign-in";
+				}
 
-		List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
-		
-		String id = (String)session.getAttribute("session_id");
-		String content = multiPart.getParameter("content");
-		
-		
-		PostVO pvo = new PostVO();
-		pvo.setId(id);
-		pvo.setContent(content);
-		
-		boolean result = pservice.writePostImg(pvo, fileList, req);
-		
-		return "redirect:main";
-
+			List<MultipartFile> fileList =  multiPart.getFiles("uploadfile");
+			
+			
+			String content = multiPart.getParameter("content");
+			
+			
+			PostVO pvo = new PostVO();
+			pvo.setId(session_id);
+			pvo.setContent(content);
+			
+			boolean result = pservice.writePostImg(pvo, fileList, req);
+			
+			return "redirect:main";
+			
 
 	}
 	
-	@ResponseBody
+	
 	  @RequestMapping(value="/delete-post")
-	  public boolean deletePostAction(int post_no){
+	  @ResponseBody
+	  public boolean deletePostAction(@RequestParam(defaultValue = "0") int post_no){
+		  
+		 
 		
 		boolean result = pservice.deletePost(post_no);
 		
@@ -230,7 +262,7 @@ public class MainController {
 
 	@RequestMapping("/detail")
 	@ResponseBody
-	public List<PostImgMemberProfileVO> detail(int post_no, Model model) {
+	public List<PostImgMemberProfileVO> detail(@RequestParam(defaultValue = "0") int post_no, Model model) {
 		
 		List<PostImgMemberProfileVO> pivo = pservice.getPost(post_no);
 		model.addAttribute("pivo", pivo);
